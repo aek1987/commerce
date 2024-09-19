@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'simple_app';
+  title = 'My Simple Angular App';
+  message = 'Click the button to see a message';
+  name: string = '';  // This is bound to the input field
+
+  sayHello() {
+    this.message = 'Hello, World!';
+  }
 }

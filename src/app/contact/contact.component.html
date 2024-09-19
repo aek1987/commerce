@@ -1,0 +1,14 @@
+<h2>Gestion des contacts</h2>
+
+<div>
+  <input [(ngModel)]="newContact.name" placeholder="Nom du contact" />
+  <input [(ngModel)]="newContact.email" placeholder="Email du contact" />
+  <button (click)="addContact()">Ajouter Contact</button>
+</div>
+
+<ul>
+  <li *ngFor="let contact of contacts; let i = index">
+    <strong>{{ contact.name }}</strong> ({{ contact.email }})
+    <button (click)="deleteContact(i)">Supprimer</button>
+  </li>
+</ul>
