@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
-import { CartService } from '../cart.service';  // Importer le service du panier
+import { Component, OnInit } from '@angular/core';
+import { CartService } from '../cart.service';
+import { Product } from '../product.model'; // Importer l'interface Product
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent {
-  items = this.cartService.getItems();  // Récupérer les produits du panier
+export class CartComponent implements OnInit {
+  items: Product[] = []; // Déclaration avec l'interface Product
+  total: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
-  // Méthode pour vider le panier
+  ngOnInit() {
+    this.items = this.cartService.getItems();
+    this.calculateTotal();
+  }
+
+  calculateTotal() {
+    this.total = this.cartService.getTotal();
+  }
+
   clearCart() {
     this.items = this.cartService.clearCart();
+    this.calculateTotal();
   }
 }

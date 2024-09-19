@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
+import { Product } from './product.model'; // Importer l'interface Product
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private items: any[] = [];
+  private items: Product[] = []; // Utilisation de l'interface Product
 
-  // Ajouter un produit au panier
-  addProduct(product: any) {
+  constructor() { }
+
+  addProduct(product: Product) {
     this.items.push(product);
+    console.log('Produit ajouté au panier:', product);
+    
   }
 
-  // Récupérer les produits dans le panier
-  getItems() {
+  getItems(): Product[] {
     return this.items;
   }
 
-  // Vider le panier
-  clearCart() {
+  clearCart(): Product[] {
     this.items = [];
     return this.items;
+  }
+
+  getTotal(): number {
+    return this.items.reduce((total, item) => total + item.price, 0);
   }
 }

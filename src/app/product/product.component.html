@@ -1,14 +1,13 @@
-
-
 <div class="container mt-4">
   <h2 class="mb-4">Produits disponibles</h2>
 
   <div class="row">
     <div class="col-md-4" *ngFor="let product of products">
-      <div class="card mb-4">
+      <div class="card mb-4 product-card"> <!-- Ajout de la classe product-card -->
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">Prix : {{ product.price }} €</p>
+          <p class="card-text">{{ product.description }}</p>
           <button class="btn btn-primary" (click)="addToCart(product)">Ajouter au panier</button>
         </div>
       </div>
