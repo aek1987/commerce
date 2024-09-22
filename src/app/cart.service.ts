@@ -6,13 +6,13 @@ import { Product } from './product.model'; // Importer l'interface Product
 })
 export class CartService {
   private items: Product[] = []; // Utilisation de l'interface Product
-
+  total:number=0;
   constructor() { }
 
   addProduct(product: Product) {
     this.items.push(product);
+    this.getTotal();
     console.log('Produit ajouté au panier:', product);
-    
   }
 
   getItems(): Product[] {
@@ -25,6 +25,9 @@ export class CartService {
   }
 
   getTotal(): number {
-    return this.items.reduce((total, item) => total + item.price, 0);
+   
+    this.total = this.items.reduce((total, item) => total + item.price, 0);
+    console.log(`Total price of items in the cart: ${this.total} €`);
+    return this.total;
   }
 }
