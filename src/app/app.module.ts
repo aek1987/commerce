@@ -5,20 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { FormsModule } from '@angular/forms';
-import { TodoComponent } from './todo/todo.component';
-import { ContactComponent } from './contact/contact.component';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { NavbarComponent } from './navbar/navbar.component';  // Import FormsModule
 
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     GreetingComponent,
-    TodoComponent,
-    ContactComponent,
+    LoginComponent,
     ProductComponent,
     CartComponent,
     OrderTrackingComponent,
@@ -28,7 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component';  // Import FormsMod
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

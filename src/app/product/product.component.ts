@@ -37,7 +37,7 @@ export class ProductComponent {
 
   searchProducts() {
     if (this.searchQuery) {
-      this.products = this.products.filter(product =>
+      this.filteredProducts = this.products.filter(product =>
         product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {

@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = false;
+  private apiUrl = 'http://localhost:3000/api/auth';  // Assurez-vous que cette URL est correcte
 
-  login() {
-    this.loggedIn = true;
+  constructor(private http: HttpClient) {}
+
+  login(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, userData).pipe(
+      tap(response => {
+        // Sauvegarder le token reçu après connexion réussie
+        localStorage.setItem('token', response.token);
+      })
+    );
   }
 
   logout() {
-    this.loggedIn = false;
+    localStorage.removeItem('token');
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

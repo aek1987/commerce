@@ -5,7 +5,7 @@
     <button (click)="searchProducts()">Rechercher</button>
   </div>
   <div class="row">
-    <div class="col-md-4" *ngFor="let product of products">
+    <div class="col-md-4" *ngFor="let product of filteredProducts">
       <div class="card mb-4 product-card"> <!-- Ajout de la classe product-card -->
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>

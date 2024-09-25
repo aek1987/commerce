@@ -1,0 +1,9 @@
+.card-header {
+    background-color: #007bff; /* Couleur de fond de l'en-tête */
+    color: white; /* Couleur du texte de l'en-tête */
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa; /* Couleur de fond du pied de la carte */
+  }
+  
