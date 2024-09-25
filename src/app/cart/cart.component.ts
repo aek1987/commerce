@@ -1,26 +1,32 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';
-import { Product } from '../product.model'; // Importer l'interface Product
+import { CartService } from '../service/cart.service';
+import { Product } from '../modeles/product.model'; // Importer l'interface Product
+import { Router } from '@angular/router'; // Importer Router
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit ,OnChanges{
-  items: Product[] = []; // Déclaration avec l'interface Product
-  total0: number = 10;
-  total: number = 10;
-  constructor(private cartService: CartService) { }
+export class CartComponent implements OnInit {
+  items = this.cartService.getItems(); // Obtenir les produits du panier
+  total = this.cartService.getTotal(); // Calculer le total
+   
+ 
+  constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit() {
-    this.items = this.cartService.getItems();
-    this.total = this.cartService.getTotal();
-    this.calculateTotal();
+     // S'abonner aux changements des items
+     this.cartService.items$.subscribe(items => {
+      this.items = items;
+    });
+
+    // S'abonner aux changements du total
+    this.cartService.total$.subscribe(total => {
+      this.total = total;
+    });
   }
-  ngOnChanges() {
-    this.total = this.cartService.getTotal();
-  }
+  
   calculateTotal() {
     this.total = this.cartService.getTotal();
   }
@@ -28,5 +34,18 @@ export class CartComponent implements OnInit ,OnChanges{
   clearCart() {
     this.items = this.cartService.clearCart();
     this.calculateTotal();
+  }
+
+  // Rediriger vers la page de confirmation de commande
+  goToConfirmationPage() {
+    this.router.navigate(['/confirm-order']);
+
+    this.router.navigate(['/confirm-order']).then(success => {
+      if (success) {
+        console.log('Redirection réussie');
+      } else {
+        console.log('Redirection échouée');
+      }
+    });
   }
 }

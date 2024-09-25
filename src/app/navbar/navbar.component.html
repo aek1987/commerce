@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" routerLink="/products">
+        <img src="assets/phone.png" alt="Logo" style="height: 40px; margin-right: 10px;">
+        Mon Commerce
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto"> <!-- Ajout de ms-auto pour aligner à droite -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart">Panier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/orders">Commandes</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Utilisateur
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" routerLink="/login">Se connecter</a></li>
+            <li><a class="dropdown-item" routerLink="/register">S'inscrire</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  

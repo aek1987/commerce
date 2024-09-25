@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <h2 class="mb-4">Votre Panier</h2>
-
+  <h4>Total : {{ total }} DZ</h4>
   <div *ngIf="items.length === 0" class="alert alert-warning">
     Votre panier est vide
   </div>
@@ -13,7 +13,16 @@
   </ul>
 
   <div *ngIf="items.length > 0">
-    <h4>Total : {{ total0 }} €</h4>
+    
+    <!-- Section pour afficher le total -->
+   
     <button class="btn btn-danger" (click)="clearCart()">Vider le Panier</button>
+     <!-- cart.component.html -->
+<!-- cart.component.html -->
+<div *ngIf="items.length > 0">
+  <button class="btn btn-primary" (click)="goToConfirmationPage()">Passer commande</button>
+</div>
+<a routerLink="/confirm-order">Aller à la page de confirmation de commande</a>
+
   </div>
 </div>

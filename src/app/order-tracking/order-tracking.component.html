@@ -1,0 +1,25 @@
+<!-- components/order-tracking/order-tracking.component.html -->
+<div class="container mt-4">
+    <h2>Suivi des commandes</h2>
+  
+    <div *ngIf="orders.length === 0" class="alert alert-warning">
+      Vous n'avez aucune commande en cours.
+    </div>
+  
+    <div *ngIf="orders.length > 0">
+      <ul class="list-group">
+        <li *ngFor="let order of orders" class="list-group-item">
+          <h5>Commande #{{ order.id }}</h5>
+          <p>Status : {{ order.status }}</p>
+          <p>Total : {{ order.totalPrice }} €</p>
+          <p>Date : {{ order.orderDate | date }}</p>
+  
+          <button class="btn btn-danger" *ngIf="order.status === 'En cours'"
+                  (click)="cancelOrder(order.id)">
+            Annuler la commande
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
