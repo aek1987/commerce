@@ -14,16 +14,19 @@ export class LoginComponent {
   };
 
   constructor(private authService: AuthService, private router: Router) {}
-
   onSubmit() {
-    this.authService.login(this.loginData).subscribe(
-      response => {
-        // Si la connexion est réussie, redirigez l'utilisateur vers la page principale
-        this.router.navigate(['/']);
-      },
-      error => {
-        console.error('Erreur de connexion', error);
-      }
-    );
+    this.authService.login(this.loginData)
+      .subscribe(
+        (response: any) => {
+          localStorage.setItem('token', response.token);  // Stocker le token
+          this.router.navigate(['/product']);  // Rediriger après connexion
+          alert('Login succées');
+        },
+        (error) => {
+          console.error('Login failed', error);
+          alert('Login échoué. Veuillez vérifier vos informations.');
+        }
+      );
   }
+ 
 }

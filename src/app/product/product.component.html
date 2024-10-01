@@ -1,25 +1,44 @@
 <div class="container mt-4">
   <h2 class="mb-4">Produits disponibles</h2>
-  <div class="search-bar">
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Rechercher des produits..." />
-    <button (click)="searchProducts()">Rechercher</button>
-  </div>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let product of filteredProducts">
-      <div class="card mb-4 product-card"> <!-- Ajout de la classe product-card -->
-        <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">Prix : {{ product.price }} DZ</p>
-          <p class="card-text">{{ product.description }}</p>
-
-          <img [src]="product.image" alt="{{ product.name }}" class="product-image">
-
-          <button class="btn btn-primary" (click)="addToCart(product)">Ajouter au panier</button>
-        </div>
-       
-      </div>
+  <div class="search-filter-container">
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Rechercher des produits..." class="search-input" />
+      <button (click)="searchProducts()" class="search-btn">Rechercher</button>
     </div>
-   </div>
 
-   <app-cart></app-cart>
+    <!-- Dropdown de sélection des catégories -->
+    <div class="category-filter">
+      <label for="categorySelect">Filter by category:</label>
+      <select id="categorySelect" (change)="filterByCategory($event)" class="category-select">
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+    </div>
+  </div>
+
+
+
+
+
+<div class="row">
+  <div class="col-md-4" *ngFor="let product of filteredProducts">
+    <div class="card mb-4 product-card"> <!-- Ajout de la classe product-card -->
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">Prix : {{ product.price }} DZ</p>
+        <p class="card-text">{{ product.description }}</p>
+
+        <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+
+        <button class="btn btn-primary" (click)="addToCart(product)">
+          
+          <fa-icon [icon]="faCartPlus"></fa-icon>
+          Ajouter au panier</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-cart></app-cart>
 </div>

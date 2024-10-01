@@ -31,11 +31,14 @@ export class OrderConfirmationComponent implements OnInit {
       products: this.items.map(item => ({ productId: item.id, quantity: 1 })),
       totalPrice: this.total,
       status: 'En cours',
-      orderDate: new Date()
+      orderDate: new Date(),
+      customerName: "nekaa",
+      customerEmail: "aek",
+      address: "alger"
     };
     this.orderService.placeOrder(order);
     this.cartService.clearCart(); // Vider le panier après commande
-    this.router.navigate(['/orders']); // Rediriger vers la page de suivi des commandes
+    this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
   }
 
   cancelOrder() {

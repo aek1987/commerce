@@ -1,0 +1,56 @@
+<<div class="container mt-5">
+    <h2>Informations de livraison</h2>
+    <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm">
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          name="name"
+          [(ngModel)]="deliveryInfo.name"
+          required
+          #name="ngModel"
+        />
+        <div *ngIf="name.invalid && name.touched" class="text-danger">
+          Le nom est requis.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="address">Adresse</label>
+        <input
+          type="text"
+          id="address"
+          class="form-control"
+          name="address"
+          [(ngModel)]="deliveryInfo.address"
+          required
+          #address="ngModel"
+        />
+        <div *ngIf="address.invalid && address.touched" class="text-danger">
+          L'adresse est requise.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input
+          type="tel"
+          id="phone"
+          class="form-control"
+          name="phone"
+          [(ngModel)]="deliveryInfo.phone"
+          required
+          #phone="ngModel"
+        />
+        <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+          Le numéro de téléphone est requis.
+        </div>
+      </div>
+    
+      <button type="submit" class="btn btn-success" [disabled]="!deliveryForm.valid">Confirmer la livraison</button>
+      
+    </form>
+  </div>
+  

@@ -13,6 +13,11 @@ import { NavbarComponent } from './navbar/navbar.component';  // Import FormsMod
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 
 @NgModule({
   declarations: [
@@ -23,14 +28,17 @@ import { LoginComponent } from './login/login.component';
     CartComponent,
     OrderTrackingComponent,
     OrderConfirmationComponent,
-    NavbarComponent
+    NavbarComponent,
+    RegisterComponent,
+    DeliveryFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-  ],
+    HttpClientModule,FontAwesomeModule
+ 
+  ], 
   providers: [],
   bootstrap: [AppComponent]
 })

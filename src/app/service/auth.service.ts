@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';  // Assurez-vous que cette URL est correcte
+  private apiUrl = 'https://reqres.in/api/login';  // Assurez-vous que cette URL est correcte
 
   constructor(private http: HttpClient) {}
 
@@ -27,4 +27,16 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+// Enregistre l'utilisateur dans localStorage
+register(user: any): boolean {
+  const existingUser = localStorage.getItem(user.email);
+  if (existingUser) {
+    return false; // L'utilisateur existe déjà
+  }
+  localStorage.setItem(user.email, JSON.stringify(user)); // Enregistre l'utilisateur
+  return true;
+}
+
+
 }
