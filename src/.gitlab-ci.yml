@@ -1,0 +1,28 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build -- --prod --output-path=dist
+  artifacts:
+    paths:
+      - dist/
+
+pages:
+  stage: deploy
+  script:
+    - cp -r dist/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main  # Changez ceci en votre branche principale si nécessaire
