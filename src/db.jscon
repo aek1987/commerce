@@ -1,0 +1,45 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Smartphone X1",
+      "price": 725.43,
+      "description": "Next-gen smartphone with superior camera technology.",
+      "image": "https://via.placeholder.com/150",
+      "category": "Android"
+    },
+    {
+      "id": 2,
+      "name": "Smartphone Y2",
+      "price": 890.32,
+      "description": "High-performance smartphone with the latest features.",
+      "image": "https://via.placeholder.com/150",
+      "category": "iOS"
+    },
+    {
+      "id": 3,
+      "name": "Smartphone Z3",
+      "price": 650.50,
+      "description": "Budget-friendly smartphone with modern features.",
+      "image": "https://via.placeholder.com/150",
+      "category": "Android"
+    },
+    {
+      "id": 4,
+      "name": "Smartphone X2",
+      "price": 800.00,
+      "description": "Smartphone with great battery life and solid performance.",
+      "image": "https://via.placeholder.com/150",
+      "category": "Android"
+    },
+    {
+      "id": 5,
+      "name": "Smartphone Y1",
+      "price": 900.99,
+      "description": "Flagship model with cutting-edge features.",
+      "image": "https://via.placeholder.com/150",
+      "category": "iOS"
+    }
+    // Add more products up to 100 products.
+  ]
+}

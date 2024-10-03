@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CartService } from '../service/cart.service';  // Importer le service du panier
 import { Product } from '../modeles/product.model';
 import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
+import { ProductsService } from '../service/products.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -9,16 +12,8 @@ import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; 
 })
 export class ProductComponent {
   // Liste des produits avec nom, prix et description
-  products = [
-    { id: 1,name: 'Laptop', price: 1000, description: 'Un ordinateur portable puissant avec 16 Go de RAM et 512 Go de SSD.', image: 'assets/laptop.jpg', category: 'Phones' },
-    { id: 2, name: 'Smartphone', price: 700, description: 'Un smartphone moderne avec un écran AMOLED et une caméra 48MP.', image: 'assets/laptop.jpg', category: 'Laptops' },
-    {id: 3, name: 'Headphones', price: 150, description: 'Des écouteurs sans fil avec réduction de bruit active.', image: 'assets/laptop.jpg', category: 'Accessories' },
+  products :Product[]=[]; 
   
-   {
-      id: 4, name: 'iPhone 14', price: 999.00,   description: 'iPhone 14 avec écran de 6.1 pouces, 128 Go',    
-      image: 'https://via.placeholder.com/150/FF0000/FFFFFF?text=iPhone+14', category: 'Phones'
-    },
-  ];
   filteredProducts: Product[] = [];
   searchQuery: string = '';  showAll: boolean = false;   
 
@@ -26,19 +21,63 @@ export class ProductComponent {
   selectedCategory: string = 'All'; // Catégorie sélectionnée
 
   faCartPlus = faCartPlus; // Déclarer l'icône dans la classe du composant
+  notificationMessage: string | null = null;  // Message de notification
+  notifiedProductId: number | null = null;  // ID du produit notifié
   ngOnInit() {
-    this.filteredProducts = this.products; // Initially, show all products
-  }
+    
+    this.productService.getProducts().subscribe((data: Product[]) => {
+      this.products = data;  // Assign the fetched products to the component
+      this.filteredProducts = this.products;
+    });
+     // Initially, show all products
+  
+}
   // Tableau des produits dans le panier
   cart: Product[] = [];
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService)
+    {}
 
   // Méthode pour ajouter un produit au panier
-  addToCart(product: Product) {
+  addToCart(product: Product,event: MouseEvent) {
     console.log('Produit clique:', product);
     
     this.cartService.addProduct(product);
-    
+
+   // Position du toast basée sur la position du bouton
+  
+
+   // Obtenir les coordonnées du bouton cliqué
+  const buttonElement = event.target as HTMLElement;
+  const rect = buttonElement.getBoundingClientRect();
+  const position = {
+    top: rect.top + window.scrollY +50+'px',  // Ajuste la position verticale pour être juste au-dessus du bouton
+    left: rect.left + window.scrollX + 'px'      // Position horizontale du bouton
+  };
+  this.toastr.clear();
+  // Définir la position du toast en fonction de l'emplacement du bouton
+  this.toastr.success('Succès Produit ajouté au panier!', '', {
+    positionClass: 'toast-custom-position',
+    enableHtml: true,
+    tapToDismiss: true,
+    timeOut: 2000,  // Durée d'affichage du toast
+  //  toastClass: `ngx-toastr toast-custom-position`,
+    onActivateTick: true,
+    toastClass: `ngx-toastr toast-success`,
+  });
+// Ajouter un style personnalisé au toast
+// Ajouter un style personnalisé au toast après un court délai
+setTimeout(() => {
+  const toastElement = document.querySelector('.toast-custom-position') as HTMLElement;
+  if (toastElement) {
+    toastElement.style.position = 'absolute';
+    toastElement.style.top = position.top;
+    toastElement.style.left = position.left;
+    toastElement.style.textDecorationColor= 'green'; // Appliquez le vert directement
+    toastElement.style.color = 'green'; // Texte en blanc
+  }
+}, 0); // Le délai de 0 ms permet d'attendre que le toast soit rendu
+
+ console.log('Message de Toastr devrait apparaître ici');
     
   }
    // Méthode pour calculer le total du panier
