@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { CartService } from '../service/cart.service';
 import { Product } from '../modeles/product.model'; // Importer l'interface Product
 import { Router } from '@angular/router'; // Importer Router
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit {
   total = this.cartService.getTotal(); // Calculer le total
    
  
-  constructor(private cartService: CartService, private router: Router) { }
+  constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {
      // S'abonner aux changements des items
@@ -48,4 +49,22 @@ export class CartComponent implements OnInit {
       }
     });
   }
+
+  // Méthode pour retirer un produit du panier
+removeFromCart(itemToRemove: any) {
+  // Chercher l'index de l'élément à retirer
+  const index = this.items.findIndex(item => item.product.id === itemToRemove.product.id);
+
+  // Si l'élément est trouvé, le retirer du tableau
+  if (index > -1) {
+    this.items.splice(index, 1);  // Retirer 1 élément à la position trouvée
+    this.calculateTotal();  // Recalculer le total après suppression
+  }
+
+  // Afficher un message de succès
+  this.toastr.info('Produit retiré du panier', '', {
+    positionClass: 'toast-bottom-right',
+    timeOut: 2000
+  });
+}
 }

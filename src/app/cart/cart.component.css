@@ -1,0 +1,54 @@
+
+  /* Styles généraux pour les boutons */
+  button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 24px; /* Plus de padding pour rendre les boutons plus confortables */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    width: auto;
+    min-width: 150px;
+    max-width: 250px;
+    white-space: nowrap;
+    margin-right: 10px; /* Ajoute un espacement entre les boutons */
+    margin-bottom: 15px; /* Ajoute de l'espace en bas du bouton */
+  }
+  
+  /* Bouton Confirmer la Commande */
+  .btn-success {
+    background-color: #28a745; /* Vert pour le succès */
+    color: white;
+    border: none;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838; /* Une nuance plus sombre au survol */
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* Bouton Annuler */
+  .btn-secondary {
+    background-color: #6c757d; /* Couleur grise pour le bouton annuler */
+    color: white;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268; /* Une nuance plus sombre au survol */
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  /* Ajout de marge entre les boutons */
+  .ms-2 {
+    margin-left: 10px; /* Espacement entre les deux boutons */
+  }
+  
+  /* Mise à jour du padding et des marges */
+  .mt-4 {
+    margin-top: 20px;
+  }
+  

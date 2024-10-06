@@ -1,28 +1,39 @@
 <div class="container mt-4">
   <h2 class="mb-4">Votre Panier</h2>
   <h4>Total : {{ total }} DZ</h4>
+  
+  <!-- Si le panier est vide -->
   <div *ngIf="items.length === 0" class="alert alert-warning">
     Votre panier est vide
   </div>
-
-  <ul class="list-group mb-4" *ngIf="items.length > 0">
-    <li *ngFor="let item of items" class="list-group-item d-flex justify-content-between align-items-center">
-      {{ item.name }}
-      <span class="badge bg-primary rounded-pill">{{ item.price }} DZ</span>
-    </li>
-  </ul>
-
-  <div *ngIf="items.length > 0">
-    
-    <!-- Section pour afficher le total -->
-   
+  
+  <table class="table table-striped cart-grid mt-4">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Produit</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Total</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.price }} DZ</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.price * item.quantity }} DZ</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Retirer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <!-- Boutons pour vider le panier et passer commande -->
+  <div class="mt-4">   
+    <button class="btn btn-primary ms-2" (click)="goToConfirmationPage()">Passer commande</button>
     <button class="btn btn-danger" (click)="clearCart()">Vider le Panier</button>
-     <!-- cart.component.html -->
-<!-- cart.component.html -->
-<div *ngIf="items.length > 0">
-  <button class="btn btn-primary" (click)="goToConfirmationPage()">Passer commande</button>
-</div>
-
-
   </div>
 </div>

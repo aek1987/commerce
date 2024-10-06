@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../service/cart.service';
 import { OrderService } from '../service/order.service';
+import { AlertService } from '../service/alerte-service.service';
 
 
 @Component({
@@ -14,8 +15,10 @@ import { OrderService } from '../service/order.service';
 export class OrderConfirmationComponent implements OnInit {
   items = this.cartService.getItems();
   total = this.cartService.getTotal();
-
-  constructor(private cartService: CartService, private orderService: OrderService, private router: Router) { }
+// Ajoutez cette propriété à votre composant
+alertMessage: string | null = null;
+  constructor(private cartService: CartService, private orderService: OrderService, private router: Router ,  
+    private alertService: AlertService) { }  // Injecter le service d'alerte) { }
 
   ngOnInit(): void {
     
@@ -25,23 +28,30 @@ export class OrderConfirmationComponent implements OnInit {
   }
 
   confirmOrder() {
-    const order = {
-      id:0,
-      userId: 1, // ID utilisateur (obtenu dynamiquement dans un vrai contexte)
-      products: this.items.map(item => ({ productId: item.id, quantity: 1 })),
-      totalPrice: this.total,
-      status: 'En cours',
-      orderDate: new Date(),
-      customerName: "nekaa",
-      customerEmail: "aek",
-      address: "alger"
-    };
-    this.orderService.placeOrder(order);
-    this.cartService.clearCart(); // Vider le panier après commande
-    this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
-  }
+ // Vérifier si le panier est vide
+ if (this.items.length === 0) {
+  this.alertService.warning('Votre panier est vide. Ajoutez des produits avant de passer commande.', 'Alerte');
+  return; // Arrêter l'exécution si le panier est vide
+}
+
+  const order = {
+    id: 0,
+    userId: 1, // ID utilisateur (obtenu dynamiquement dans un vrai contexte)
+    products: this.items.map(item => ({ productId: item.product.id, quantity: item.quantity })), // Utiliser la quantité réelle
+    totalPrice: this.total,
+    status: 'En cours',
+    orderDate: new Date(),
+    customerName: "nekaa",
+    customerEmail: "aek",
+    address: "alger"
+  };
+
+  this.orderService.placeOrder(order); // Envoyer la commande
+  this.cartService.clearCart(); // Vider le panier après commande
+  this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
+}
 
   cancelOrder() {
-    this.router.navigate(['/cart']); // Rediriger vers le panier si annulation
+    this.router.navigate(['/product']); // Rediriger vers le panier si annulation
   }
 }
