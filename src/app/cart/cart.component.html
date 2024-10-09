@@ -1,20 +1,21 @@
 <div class="container mt-4">
-  <h2 class="mb-4">Votre Panier</h2>
-  <h4>Total : {{ total }} DZ</h4>
+  <h2 class="mb-4 text-center">Votre Panier</h2>
+  <h4 class="text-end">Total : <span class="text-success">{{ total }} DZ</span></h4>
   
   <!-- Si le panier est vide -->
-  <div *ngIf="items.length === 0" class="alert alert-warning">
+  <div *ngIf="items.length === 0" class="alert alert-warning text-center">
     Votre panier est vide
   </div>
   
-  <table class="table table-striped cart-grid mt-4">
-    <thead class="thead-dark">
+  <!-- Tableau des articles dans le panier -->
+  <table class="table table-hover table-bordered cart-grid mt-4" *ngIf="items.length > 0">
+    <thead class="table-dark">
       <tr>
         <th scope="col">Produit</th>
-        <th scope="col">Prix</th>
+        <th scope="col">Prix Unitaire</th>
         <th scope="col">Quantité</th>
         <th scope="col">Total</th>
-        <th scope="col">Action</th>
+        <th scope="col" class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -23,17 +24,22 @@
         <td>{{ item.product.price }} DZ</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.product.price * item.quantity }} DZ</td>
-        <td>
-          <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">Retirer</button>
+        <td class="text-center">
+          <button class="btn btn-danger btn-sm" (click)="removeFromCart(item)">
+            <i class="bi bi-trash"></i> Retirer
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
   
-  
   <!-- Boutons pour vider le panier et passer commande -->
-  <div class="mt-4">   
-    <button class="btn btn-primary ms-2" (click)="goToConfirmationPage()">Passer commande</button>
-    <button class="btn btn-danger" (click)="clearCart()">Vider le Panier</button>
+  <div class="mt-4 d-flex justify-content-between align-items-center">
+    <button class="btn btn-danger" (click)="clearCart()">
+      <i class="bi bi-x-circle"></i> Vider le Panier
+    </button>
+    <button class="btn btn-primary" (click)="goToConfirmationPage()">
+      <i class="bi bi-cart-check"></i> Passer commande
+    </button>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AlertService {
   public alertMessage: string | null = null; // Propriété pour stocker le message
-
+  
   constructor(private toastr: ToastrService) {}
 
   success(message: string, title?: string) {

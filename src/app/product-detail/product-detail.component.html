@@ -1,0 +1,11 @@
+<div *ngIf="product">
+  <h2>{{ product.name }}</h2>
+  <img [src]="product.image" alt="{{ product.name }}" class="product-image">
+  <p><strong>Prix : </strong>{{ product.price }} DZ</p>
+  <p><strong>Description : </strong>{{ product.description }}</p>
+  
+</div>
+
+<div *ngIf="!product">
+  <p>Produit introuvable.</p>
+</div>

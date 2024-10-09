@@ -1,0 +1,16 @@
+.list-group-item {
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa; /* Changement de couleur au survol */
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Couleur rouge pour le bouton de suppression */
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Nuance plus sombre au survol */
+}

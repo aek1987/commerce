@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
-import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
+import { faShoppingCart, faReceipt ,faUser } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -10,7 +10,8 @@ import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; 
 })
 export class NavbarComponent {
   isAuthenticated: boolean = false;
-  faShoppingCart = faShoppingCart;
+  faShoppingCart = faShoppingCart;  
+  faReceipt = faReceipt;faUser = faUser;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
@@ -18,9 +19,18 @@ export class NavbarComponent {
   }
 
   goToLogin() {
-    this.router.navigate(['/login']);  // Redirige vers le formulaire de connexion
+    this.router.navigate(['']);  // Redirige vers le formulaire de connexion
   }
 
+  goToManager() {
+   
+   
+   
+   
+   
+   
+    this.router.navigate(['/manager']);  // Redirige vers le formulaire de connexion
+  }
   logout() {
     this.authService.logout();
     this.isAuthenticated = false;

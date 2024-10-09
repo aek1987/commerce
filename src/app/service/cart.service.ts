@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../modeles/product.model'; // Importer l'interface Product
-interface Panier {
-  product: Product;
-  quantity: number;
-}
-
+import { Panier } from '../modeles/Panier.model'; // Importer l'interface Product
 @Injectable({
   providedIn: 'root'
 })

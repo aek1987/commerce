@@ -4,6 +4,7 @@ import { Product } from '../modeles/product.model';
 import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
 import { ProductsService } from '../service/products.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -34,7 +35,7 @@ export class ProductComponent {
 }
   // Tableau des produits dans le panier
   cart: Product[] = [];
-  constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService)
+  constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router)
     {}
 
   // Méthode pour ajouter un produit au panier
@@ -106,5 +107,7 @@ setTimeout(() => {
       this.filteredProducts = this.products.filter(product => product.category === selectedCategory);
     }
   }
-
+  goToProductDetail(product :Product ){
+    this.router.navigate(['/product', product.id]);
+  }
 }

@@ -20,12 +20,17 @@
   </div>
   
   <div class="text-center mt-4">
-    <button class="btn btn-success me-2" (click)="confirmOrder()">Confirmer la commande</button>
-    <button class="btn btn-danger" (click)="cancelOrder()">Annuler</button>
     
+    <button class="btn btn-success me-2" (click)="confirmOrder()">Confirmer la commande</button>
+    
+    <button class="btn btn-danger" (click)="cancelOrder()">Annuler</button>
+    <div *ngIf="alertService.alertMessage" class="alert alert-warning">
+      {{ alertService.alertMessage }}
+    </div>
     <!-- Affichage du message d'alerte sous le bouton de confirmation -->
     <div *ngIf="alertMessage" class="alert alert-warning mt-3">
       {{ alertMessage }}
     </div>
+    
   </div>
 </div>

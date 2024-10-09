@@ -1,56 +1,34 @@
-<<div class="container mt-5">
-    <h2>Informations de livraison</h2>
-    <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm">
-      <div class="form-group">
-        <label for="name">Nom</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          name="name"
-          [(ngModel)]="deliveryInfo.name"
-          required
-          #name="ngModel"
-        />
-        <div *ngIf="name.invalid && name.touched" class="text-danger">
-          Le nom est requis.
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="address">Adresse</label>
-        <input
-          type="text"
-          id="address"
-          class="form-control"
-          name="address"
-          [(ngModel)]="deliveryInfo.address"
-          required
-          #address="ngModel"
-        />
-        <div *ngIf="address.invalid && address.touched" class="text-danger">
-          L'adresse est requise.
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="phone">Téléphone</label>
-        <input
-          type="tel"
-          id="phone"
-          class="form-control"
-          name="phone"
-          [(ngModel)]="deliveryInfo.phone"
-          required
-          #phone="ngModel"
-        />
-        <div *ngIf="phone.invalid && phone.touched" class="text-danger">
-          Le numéro de téléphone est requis.
-        </div>
-      </div>
+<div class="container mt-5">
+  <h2>Informations de livraison</h2>
+  <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm">
+    <!-- Champs de livraison -->
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input type="text" id="name" class="form-control" name="name" [(ngModel)]="deliveryInfo.name" required />
+    </div>
+    <div class="form-group">
+      <label for="address">Adresse</label>
+      <input type="text" id="address" class="form-control" name="address" [(ngModel)]="deliveryInfo.address" required />
+    </div>
+    <div class="form-group">
+      <label for="phone">Téléphone</label>
+      <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfo.phone" required />
+    </div>
     
-      <button type="submit" class="btn btn-success" [disabled]="!deliveryForm.valid">Confirmer la livraison</button>
-      
-    </form>
-  </div>
-  
+    <h2>Informations de paiement</h2>
+    <div class="form-group">
+      <label for="card-number">Numéro de carte</label>
+      <input type="text" id="card-number" class="form-control" [(ngModel)]="cardDetails.number" required />
+    </div>
+    <div class="form-group">
+      <label for="expiry">Date d'expiration</label>
+      <input type="text" id="expiry" class="form-control" [(ngModel)]="cardDetails.expiry" required />
+    </div>
+    <div class="form-group">
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" class="form-control" [(ngModel)]="cardDetails.cvv" required />
+    </div>
+
+    <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirmer le paiement</button>
+  </form>
+</div>

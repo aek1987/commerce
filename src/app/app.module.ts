@@ -18,7 +18,8 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
+import { ProductManagerComponent } from './prodct-manager/prodct-manager.component';
+import { CommonModule } from '@angular/common'; 
 
 
 
@@ -34,6 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     NavbarComponent,
     RegisterComponent,
     DeliveryFormComponent,
+    ProductManagerComponent,  
+    //ProductDetailComponent,
    
   ],
   imports: [
@@ -41,11 +44,12 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,FontAwesomeModule,
-    BrowserAnimationsModule, // Obligatoire pour ngx-toastr
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right', // Position des messages toast
       timeOut: 3000, // Temps d'affichage en millisecondes
-    })
+    }),
+    CommonModule,
   ], 
   providers: [],
   bootstrap: [AppComponent]

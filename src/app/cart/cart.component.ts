@@ -3,6 +3,7 @@ import { CartService } from '../service/cart.service';
 import { Product } from '../modeles/product.model'; // Importer l'interface Product
 import { Router } from '@angular/router'; // Importer Router
 import { ToastrService } from 'ngx-toastr';
+import { Panier } from '../modeles/Panier.model';
 
 @Component({
   selector: 'app-cart',
@@ -10,8 +11,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  items = this.cartService.getItems(); // Obtenir les produits du panier
-  total = this.cartService.getTotal(); // Calculer le total
+  items:Panier []=[];  // Obtenir les produits du panier
+  total :number=0; // Calculer le total
    
  
   constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
@@ -19,7 +20,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
      // S'abonner aux changements des items
      this.cartService.items$.subscribe(items => {
-      this.items = items;
+     this.items = items;
     });
 
     // S'abonner aux changements du total
@@ -33,7 +34,7 @@ export class CartComponent implements OnInit {
   }
 
   clearCart() {
-    this.items = this.cartService.clearCart();
+   this.items = this.cartService.clearCart();
     this.calculateTotal();
   }
 

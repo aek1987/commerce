@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { PaymentService } from '../service/payment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-form',
@@ -7,21 +9,27 @@ import { Component } from '@angular/core';
 })
 export class DeliveryFormComponent {
 
-  // Informations de livraison liées au formulaire
-  deliveryInfo = {
-    name: '',
-    address: '',
-    phone: ''
-  };
+  deliveryInfo = { name: 'aa', address: 'aa', phone: 'aa' };
+  cardDetails = { number: 'aa', expiry: 'aa', cvv: 'aa' };
+  total: number = 0; // Exemple de montant total à payer
 
-  // Méthode appelée lors de la soumission du formulaire
+  constructor(private paymentService: PaymentService,private router: Router ) {}
+
   onSubmit() {
-    if (this.deliveryInfo.name && this.deliveryInfo.address && this.deliveryInfo.phone) {
-      // Afficher les informations de livraison pour la confirmation
-      console.log('Informations de livraison:', this.deliveryInfo);
+    // Soumettre les informations de livraison
+    console.log('Informations de livraison:', this.deliveryInfo);
+  }
 
-      // Simuler l'enregistrement ou l'envoi des informations de livraison
-      alert('Les informations de livraison ont été confirmées avec succès!');
-    }
+  // Méthode pour confirmer le paiement
+  confirmPayment() {
+    this.paymentService.processPayment(this.total, this.cardDetails).subscribe(success => {
+      if (success) {
+        console.log('Paiement réussi');
+        //Rediriger vers la page de confirmation ou autre action
+        this.router.navigate(['/orders']);
+      } else {
+        console.error('Paiement échoué');
+      }
+    });
   }
 }

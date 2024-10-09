@@ -7,10 +7,14 @@ import { ProductComponent } from './product/product.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
+import { ProductManagerComponent } from './prodct-manager/prodct-manager.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 
 const routes: Routes = [
+  { path: 'manager', component:  ProductManagerComponent  }, 
   { path: 'products', component:  ProductComponent  }, 
+  { path: 'product/:id', component: ProductDetailComponent }, // Détails du produit
   { path: 'login', component:  LoginComponent }, 
   { path: 'register', component:  RegisterComponent },
    { path: 'delivery', component:  DeliveryFormComponent },  

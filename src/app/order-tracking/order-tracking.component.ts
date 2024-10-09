@@ -22,4 +22,7 @@ export class OrderTrackingComponent implements OnInit {
   cancelOrder(orderId: number) {
     this.orderService.cancelOrder(orderId);
   }
+  showOrderDetails(orderId: number) {
+    this.orderService.cancelOrder(orderId);
+  }
 }

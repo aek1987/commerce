@@ -22,7 +22,7 @@
 
   <div class="row">
     <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
-      <div class="card product-card">
+      <div class="card product-card" (click)="goToProductDetail(product)">
         <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
