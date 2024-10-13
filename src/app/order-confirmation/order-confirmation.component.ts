@@ -6,6 +6,7 @@ import { CartService } from '../service/cart.service';
 import { OrderService } from '../service/order.service';
 import { AlertService } from '../service/alerte-service.service';
 import { Panier } from '../modeles/Panier.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -37,8 +38,20 @@ export class OrderConfirmationComponent implements OnInit {
 
   confirmOrder() {
  // Vérifier si le panier est vide
- if (this.items.length === 0) {
-  this.alertService.warning('Votre panier est vide. Ajoutez des produits avant de passer commande.', 'Alerte');
+// Vérifier si le panier est vide
+if (this.items.length === 0) {
+  Swal.fire({
+    icon: 'warning',
+    title: 'Alerte',
+    text: 'Pour procéder à la commande, veuillez ajouter des produits à votre panier. Merci de votre compréhension.',
+    showCancelButton: true,
+    confirmButtonText: 'Ajouter des produits',
+    cancelButtonText: 'Annuler',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.router.navigate(['/product']); // Redirige vers la page des produits
+    }
+  });
   return; // Arrêter l'exécution si le panier est vide
 }
 

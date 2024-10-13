@@ -1,0 +1,46 @@
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Largeur complète */
+    height: 80px; /* Hauteur fixe pour le carousel */
+  }
+  
+  .carousel-inner {
+    display: flex; /* Pour aligner les images horizontalement */
+    height: 100%; /* Pour s'assurer que les éléments internes remplissent la hauteur du carousel */
+  }
+  
+  .carousel-item {
+    min-width: 100%; /* Chaque image occupera toute la largeur */
+    transition: opacity 0.5s;
+    height: 100%; /* Remplir la hauteur du carousel */
+    display: flex; /* Permet d'utiliser flexbox pour centrer les images */
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
+  
+  .carousel-item img {
+    width: auto; /* Permettre à l'image de conserver ses proportions */
+    height: 100%; /* S'assurer que l'image occupe toute la hauteur */
+    max-width: 100%; /* L'image ne dépasse pas la largeur du carousel */
+  }
+  
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1; /* S'assurer que les contrôles sont au-dessus des images */
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  

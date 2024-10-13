@@ -2,7 +2,7 @@
 <div class="container mt-5">
   <h2 class="text-center mb-4">Confirmation de Commande</h2>
   
-  <div class="card">
+  <div class="card shadow-sm rounded">
     <div class="card-header">
       <h4>Détails de votre commande</h4>
     </div>
@@ -20,17 +20,19 @@
   </div>
   
   <div class="text-center mt-4">
-    
-    <button class="btn btn-success me-2" (click)="confirmOrder()">Confirmer la commande</button>
-    
-    <button class="btn btn-danger" (click)="cancelOrder()">Annuler</button>
-    <div *ngIf="alertService.alertMessage" class="alert alert-warning">
+    <button class="btn btn-success me-2 rounded-pill" (click)="confirmOrder()">
+      <i class="fas fa-check me-1"></i> Confirmer la commande
+    </button>
+    <button class="btn btn-danger rounded-pill" (click)="cancelOrder()">
+      <i class="fas fa-times me-1"></i> Annuler
+    </button>
+
+    <div *ngIf="alertService.alertMessage" class="alert alert-warning mt-3 fade-in">
       {{ alertService.alertMessage }}
     </div>
-    <!-- Affichage du message d'alerte sous le bouton de confirmation -->
-    <div *ngIf="alertMessage" class="alert alert-warning mt-3">
+    
+    <div *ngIf="alertMessage" class="alert alert-warning mt-3 fade-in">
       {{ alertMessage }}
     </div>
-    
   </div>
 </div>

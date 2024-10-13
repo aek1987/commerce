@@ -12,7 +12,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product!: Product;
+  product: Product = {
+    id: 3,
+    name: 'Produit par défaut', // Valeur par défaut pour le nom
+    price: 0,                  // Valeur par défaut pour le prix
+    description: 'Description par défaut', // Valeur par défaut pour la description
+    image: 'assets/phone2.jpg',   // URL par défaut pour l'image
+    category: 'Catégorie par défaut' // Valeur par défaut pour la catégorie
+  };
+ // Utiliser null par défaut
 
   constructor(
     private route: ActivatedRoute,
@@ -22,28 +30,41 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadProduct();
+   
+       this.loadProduct();
   }
 
   loadProduct(): void {
-    const idParam = this.route.snapshot.paramMap.get('id'); // Récupère l'ID en tant que chaîne
-  const id = idParam ? Number(idParam) : null; //
-    console.log('ID du produit à charger:', id); // Ajoutez cette ligne
-    
-    this.productService.getProducts().subscribe(products => {
-      console.log('ID du produit à charger:', products);
-      this.product = products.find(p => p.id === id)!;
-       // Ajoutez cette ligne
-      if (!this.product) {
-        console.error(`Aucun produit trouvé avec l'ID ${id}`);
-      } else {
-        console.log('Produit trouvé :', this.product);
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const id =Number(idParam);;
+  
+    console.log('ID du produit à charger:', id); // Log de l'ID
+  
+    if (id === null) {
+      console.error('ID invalide.');
+      return; // Sortir si l'ID est nul
+    }
+  
+    this.productService.getProducts().subscribe(
+      products => {
+        console.log('Produits récupérés:', products); // Vérifiez la liste des produits
+  
+        // Trouver le produit correspondant à l'ID
+        const foundProduct = products.find(p =>Number(p.id) === id);
+  
+        if (foundProduct) {
+          this.product = foundProduct;
+          console.log('Produit trouvé :', this.product);
+        } else {
+          console.error(`Aucun produit trouvé avec l'ID ${id}, affichage du produit par défaut.`);
+        }
+      },
+      error => {
+        console.error('Erreur lors de la récupération des produits :', error);
       }
-    }, error => {
-      console.error('Erreur lors de la récupération des produits :', error);
-    });
+    );
   }
-
+  
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product, event: MouseEvent) {
     console.log('Produit cliqué:', product);

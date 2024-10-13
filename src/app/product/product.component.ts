@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ProductComponent {
   // Liste des produits avec nom, prix et description
   products :Product[]=[]; 
-  
+  progressBarWidth: number = 0;
   filteredProducts: Product[] = [];
   searchQuery: string = '';  showAll: boolean = false;   
 
@@ -24,6 +24,14 @@ export class ProductComponent {
   faCartPlus = faCartPlus; // Déclarer l'icône dans la classe du composant
   notificationMessage: string | null = null;  // Message de notification
   notifiedProductId: number | null = null;  // ID du produit notifié
+
+ 
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+  lastAvailableDate: string | null = null;  
+  selectedColor: string | null = null;
+
+
   ngOnInit() {
     
     this.productService.getProducts().subscribe((data: Product[]) => {
@@ -41,7 +49,7 @@ export class ProductComponent {
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product,event: MouseEvent) {
     console.log('Produit clique:', product);
-    
+    event.stopPropagation(); // Empêche le clic du bouton de déclencher le clic de la carte
     this.cartService.addProduct(product);
 
    // Position du toast basée sur la position du bouton
@@ -110,4 +118,18 @@ setTimeout(() => {
   goToProductDetail(product :Product ){
     this.router.navigate(['/product', product.id]);
   }
+
+  // Dans votre composant TypeScript
+colors = ['Rouge', 'Vert', 'Bleu', 'Jaune', 'Noir', 'Blanc']; // Exemple de couleurs
+
+filterByColor(event: Event) {
+  const selectedColor = (event.target as HTMLSelectElement).value;
+  // Implémentez votre logique de filtrage ici
+}
+
+//Méthode pour filtrer par évaluation
+filterByEvaluation(rating: number): void {
+ // this.filteredProducts = this.products.filter(product => product.evaluation === rating);
+}
+
 }

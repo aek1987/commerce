@@ -19,7 +19,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ProductManagerComponent } from './prodct-manager/prodct-manager.component';
-import { CommonModule } from '@angular/common'; 
+import { CarouselComponent } from './carousel/carousel.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CommonModule } from '@angular/common';
+
+ 
 
 
 
@@ -35,11 +39,12 @@ import { CommonModule } from '@angular/common';
     NavbarComponent,
     RegisterComponent,
     DeliveryFormComponent,
-    ProductManagerComponent,  
-    //ProductDetailComponent,
+    ProductManagerComponent,
+    CarouselComponent,  
+    ProductDetailComponent,
    
   ],
-  imports: [
+  imports: [CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -49,7 +54,7 @@ import { CommonModule } from '@angular/common';
       positionClass: 'toast-top-right', // Position des messages toast
       timeOut: 3000, // Temps d'affichage en millisecondes
     }),
-    CommonModule,
+  
   ], 
   providers: [],
   bootstrap: [AppComponent]

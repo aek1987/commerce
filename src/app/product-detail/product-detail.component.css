@@ -1,0 +1,23 @@
+/* components/product-detail/product-detail.component.css */
+.product-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .product-price {
+    font-size: 20px;
+    color: #28a745; /* Vert pour le prix */
+    margin-bottom: 15px;
+  }
+  
+  .product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
