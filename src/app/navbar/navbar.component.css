@@ -70,3 +70,7 @@
     transform: scaleX(1); /* Ligne se déployant au survol */
     transform-origin: bottom left;
 }
+
+.navbar-nav .dropdown-menu {
+    min-width: 120px; /* Ajustez la largeur du menu déroulant si nécessaire */
+}

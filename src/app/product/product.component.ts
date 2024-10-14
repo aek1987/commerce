@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
 export class ProductComponent {
   // Liste des produits avec nom, prix et description
   products :Product[]=[]; 
-  progressBarWidth: number = 0;
+  
   filteredProducts: Product[] = [];
   searchQuery: string = '';  showAll: boolean = false;   
 
-  categories: string[] = ['All', 'Phones', 'Laptops', 'Accessories']; // Liste des catégories
+  categories: string[] = ['All', 'Oppo', 'Redmi', 'realme','Apple', 'Samsung', 'Xiami']; // Liste des catégories
   selectedCategory: string = 'All'; // Catégorie sélectionnée
 
   faCartPlus = faCartPlus; // Déclarer l'icône dans la classe du composant
@@ -26,12 +26,16 @@ export class ProductComponent {
   notifiedProductId: number | null = null;  // ID du produit notifié
 
  
-  minPrice: number | null = null;
-  maxPrice: number | null = null;
+  minPrice: number = 0;  // Prix min par défaut
+  maxPrice: number = 70000;  // Prix max par défaut
+  progressBarWidth: number = 0; // Largeur de la barre de progression
+
+
   lastAvailableDate: string | null = null;  
   selectedColor: string | null = null;
-
-
+  selectedCategories: string[] = [];
+  isHoveredProduct: string | null = null; // ID du produit actuellement survolé
+  isHovered: boolean = false; // Ajoute une variable pour gérer l'état du curseur
   ngOnInit() {
     
     this.productService.getProducts().subscribe((data: Product[]) => {
@@ -130,6 +134,66 @@ filterByColor(event: Event) {
 //Méthode pour filtrer par évaluation
 filterByEvaluation(rating: number): void {
  // this.filteredProducts = this.products.filter(product => product.evaluation === rating);
+}
+onMouseEnter(productId: Number) {
+ this.isHoveredProduct = productId.toString(); // Met à jour l'ID du produit survolé/ Met à jour l'état quand le curseur est sur le produit
+}
+
+onMouseLeave() {
+  this.isHoveredProduct = null; // Réinitialise l'ID lorsque la souris quitte le produit // Rétablit l'état quand le curseur quitte le produit
+}
+
+
+onCategoryChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const value = checkbox.value;
+
+  if (checkbox.checked) {
+    // Ajouter la catégorie sélectionnée
+    this.selectedCategories.push(value);
+  } else {
+    // Retirer la catégorie désélectionnée
+    this.selectedCategories = this.selectedCategories.filter(cat => cat !== value);
+  }
+
+  console.log('Catégories sélectionnées :', this.selectedCategories);
+  // Applique le filtre avec les catégories sélectionnées
+  this.applyCategoryFilter();
+}
+dropdownOpen: boolean = false;
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+applyCategoryFilter() {
+  
+  if (this.selectedCategories.length === 0 || this.selectedCategories.includes('All')) {
+    // Si aucune catégorie n'est sélectionnée, afficher tous les produits
+    this.filteredProducts = this.products;
+  } else {
+    // Filtrer les produits pour qu'ils appartiennent à l'une des catégories sélectionnées
+    this.filteredProducts = this.products.filter(product =>
+      this.selectedCategories.includes(product.category)
+    );
+  }
+}
+
+updateProgressBar() {
+  // Met à jour la largeur de la barre de progression
+  const totalRange = 1000; // Plage de prix totale (à adapter)
+  this.progressBarWidth = ((this.minPrice + this.maxPrice) / totalRange) * 100;
+}
+
+onMinPriceChange(event: Event) {
+  const input = event.target as HTMLInputElement;
+  this.minPrice = Number(input.value);
+  this.updateProgressBar();
+}
+
+onMaxPriceChange(event: Event) {
+  const input = event.target as HTMLInputElement;
+  this.maxPrice = Number(input.value);
+  this.updateProgressBar();
 }
 
 }

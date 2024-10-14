@@ -1,72 +1,79 @@
 <div class="container mt-4">
   <h2 class="mb-4">Produits disponibles</h2>
-  <div class="search-filter-container row mb-4 align-items-end">
-    <!-- Barre de recherche -->
-    <div class="col-md-3 mb-3">
-      <div class="search-bar">
-        <input type="text" [(ngModel)]="searchQuery" placeholder="Rechercher des produits..." class="search-input form-control" />
-        <button (click)="searchProducts()" class="search-btn btn btn-primary mt-2">Rechercher</button>
+
+  <div class="search-filter-container">
+    <div class="input-group col-md-4 mb-3">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        placeholder="Rechercher des produits..." 
+        class="form-control search-input" 
+      />
+      <button 
+        (click)="searchProducts()" 
+        class="btn btn-primary search-btn">Rechercher
+      </button>
+    </div>
+
+    <div class="dropdown-container col-md-4 mb-3">
+      <div class="dropdown-header" (click)="toggleDropdown()">
+        <span>Marques</span>
+        <i class="arrow" [class.open]="dropdownOpen"></i>
       </div>
-    </div>
-
-    <!-- Dropdown de sélection des catégories -->
-    <div class="col-md-3 mb-3">
-      <div class="category-filter">
-        <label for="categorySelect">Marque</label>
-        <select id="categorySelect" (change)="filterByCategory($event)" class="category-select form-control">
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
-      </div>
-    </div>
-
-   <!-- Filtre par prix -->
-<div class="col-md-3 mb-3">
-  <div class="price-filter">
-    <label for="priceRange">Prix :</label>
-    <div class="input-group mb-2">
-      <input type="number" [(ngModel)]="minPrice" placeholder="Prix min" class="price-input form-control" />
-      <input type="number" [(ngModel)]="maxPrice" placeholder="Prix max" class="price-input form-control" />
-    </div>
-    
-    <!-- Barre de progression -->
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" [style.width]="progressBarWidth + '%'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-        {{ minPrice }} - {{ maxPrice }} DZ
-      </div>
-    </div>
-  </div>
-</div>
-
-
-    <!-- Filtre par évaluation -->
-    <div class="col-md-3 mb-3">
-      <div class="evaluation-filter">
-        <label>Évaluation :</label>
-        <div class="star-rating">
-          <input type="radio" id="star5" name="evaluation" value="5" (change)="filterByEvaluation(5)" />
-          <label for="star5" class="fa fa-star"></label>
-          <input type="radio" id="star4" name="evaluation" value="4" (change)="filterByEvaluation(4)" />
-          <label for="star4" class="fa fa-star"></label>
-          <input type="radio" id="star3" name="evaluation" value="3" (change)="filterByEvaluation(3)" />
-          <label for="star3" class="fa fa-star"></label>
-          <input type="radio" id="star2" name="evaluation" value="2" (change)="filterByEvaluation(2)" />
-          <label for="star2" class="fa fa-star"></label>
-          <input type="radio" id="star1" name="evaluation" value="1" (change)="filterByEvaluation(1)" />
-          <label for="star1" class="fa fa-star"></label>
+      <div *ngIf="dropdownOpen" class="dropdown-list">
+        <div *ngFor="let category of categories" class="form-check">
+          <input 
+            type="checkbox" 
+            [value]="category" 
+            (change)="onCategoryChange($event)" 
+            [checked]="selectedCategories.includes(category)" 
+            class="form-check-input"
+            id="{{category}}"
+          />
+          <label class="form-check-label" for="{{category}}">{{ category }}</label>
         </div>
       </div>
+    </div>
+
+    <div class="price-filter col-md-4 mb-3">
+      <label for="priceRange">Prix :</label>
+      <div class="input-group mb-2">
+        <input 
+          type="number" 
+          [(ngModel)]="minPrice" 
+          (ngModelChange)="updateProgressBar()" 
+          placeholder="Prix min" 
+          class="form-control" 
+        />
+        <input 
+          type="number" 
+          [(ngModel)]="maxPrice" 
+          (ngModelChange)="updateProgressBar()" 
+          placeholder="Prix max" 
+          class="form-control" 
+        />
+      </div>
+
+      <div class="progress mb-2">
+        <div class="progress-bar" role="progressbar" [style.width]="progressBarWidth + '%'" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          {{ minPrice }} - {{ maxPrice }} DZ
+        </div>
+      </div>
+
+      <input type="range" min="0" max="1000" [value]="minPrice" (input)="onMinPriceChange($event)" class="form-range" />
+      <input type="range" min="0" max="1000" [value]="maxPrice" (input)="onMaxPriceChange($event)" class="form-range" />
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
-      <div class="card product-card" (click)="goToProductDetail(product)">
+      <div class="card product-card" (click)="goToProductDetail(product)" (mouseenter)="onMouseEnter(product.id)" (mouseleave)="onMouseLeave()">
         <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">Prix : {{ product.price }} DZ</p>
           <p class="card-text">{{ product.description }}</p>
-          <button class="btn btn-primary" (click)="addToCart(product, $event)">
+          <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary" (click)="addToCart(product, $event)">
             <fa-icon [icon]="faCartPlus"></fa-icon>
             Ajouter au panier
           </button>
@@ -74,5 +81,6 @@
       </div>
     </div>
   </div>
+  
   <app-cart></app-cart>
 </div>

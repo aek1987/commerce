@@ -11,7 +11,7 @@ import { OrderTrackingComponent } from './order-tracking/order-tracking.componen
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { NavbarComponent } from './navbar/navbar.component';  // Import FormsModule
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
@@ -22,10 +22,14 @@ import { ProductManagerComponent } from './prodct-manager/prodct-manager.compone
 import { CarouselComponent } from './carousel/carousel.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CommonModule } from '@angular/common';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
- 
 
-
+// Fonction pour le loader
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -53,9 +57,18 @@ import { CommonModule } from '@angular/common';
     ToastrModule.forRoot({
       positionClass: 'toast-top-right', // Position des messages toast
       timeOut: 3000, // Temps d'affichage en millisecondes
+    }), 
+    TranslateModule.forRoot({ // Configurez TranslateModule
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
+
   
-  ], 
+  ],
+ 
   providers: [],
   bootstrap: [AppComponent]
 })

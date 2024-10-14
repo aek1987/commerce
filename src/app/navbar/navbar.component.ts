@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
-import { faShoppingCart, faReceipt ,faUser } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
+import { faShoppingCart, faReceipt ,faUser, faGlobe } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,8 +13,11 @@ import { faShoppingCart, faReceipt ,faUser } from '@fortawesome/free-solid-svg-i
 export class NavbarComponent {
   isAuthenticated: boolean = false;
   faShoppingCart = faShoppingCart;  
-  faReceipt = faReceipt;faUser = faUser;
-  constructor(private authService: AuthService, private router: Router) {}
+  faReceipt = faReceipt;
+  faUser = faUser;
+  faGlobe = faGlobe;
+  
+  constructor(private authService: AuthService, private router: Router,private translate: TranslateService) {}
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated();
@@ -36,4 +41,9 @@ export class NavbarComponent {
     this.isAuthenticated = false;
     this.router.navigate(['/register']);  // Redirige après déconnexion
   }
+ 
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
+
 }

@@ -1,11 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  
     <a class="navbar-brand" routerLink="/products">
         <img src="assets/2.jpg" alt="Logo" style="height: 40px; margin-right: 10px;" class="navbar-logo" >
-        Smartphones
+        {{ 'NAVBAR.BRAND' | translate }}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+ 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto"> <!-- Ajout de ms-auto pour aligner à droite -->
         <li class="nav-item">
@@ -24,6 +27,20 @@
             <li *ngIf="isAuthenticated"><a class="dropdown-item" (click)="logout()">Se déconnecter</a></li>
             <li *ngIf="!isAuthenticated"><a class="dropdown-item" routerLink="/register">S'inscrire</a></li>
             <li *ngIf="!isAuthenticated"><a class="dropdown-item"  (click)="goToManager()">manager</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <fa-icon [icon]="faGlobe"> {{ 'BUTTON.SWITCH_LANG' | translate }}</fa-icon> 
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item" (click)="switchLanguage('fr')">Français</a></li>
+            <li><a class="dropdown-item" (click)="switchLanguage('en')">English</a></li>
+            <li><a class="dropdown-item" (click)="switchLanguage('ar')">العربية</a></li>
           </ul>
         </li>
       </ul>
