@@ -74,3 +74,22 @@
 .navbar-nav .dropdown-menu {
     min-width: 120px; /* Ajustez la largeur du menu déroulant si nécessaire */
 }
+
+
+.input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    border-radius: 0.25rem 0 0 0.25rem; /* Arrondi les coins */
+  }
+  
+  .search-btn {
+    border-radius: 0 0.25rem 0.25rem 0; /* Arrondi les coins */
+  }
+  
+  .search-btn i {
+    margin-right: 5px; /* Espace entre l'icône et le texte */
+  }
+  

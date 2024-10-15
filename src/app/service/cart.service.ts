@@ -10,15 +10,21 @@ import { Panier } from '../modeles/Panier.model'; // Importer l'interface Produc
 export class CartService {
   private items: Panier[] = []; // Utilisation de l'interface Product// Liste des produits dans le panier
   total:number=0;
+   
+  
 
 
   private itemsSubject = new BehaviorSubject<Panier[]>(this.items); // Utilisation de BehaviorSubject
   private totalSubject = new BehaviorSubject<number>(0); // Pour suivre le total
+  private totalItemSubject = new BehaviorSubject<number>(0);
+
 
   // Observable pour les items
   items$ = this.itemsSubject.asObservable();
   // Observable pour le total
   total$ = this.totalSubject.asObservable();
+
+  totalItem$ = this.totalItemSubject.asObservable();
   constructor() {
     // Récupérer le panier à partir du Local Storage lors de l'initialisation
     const savedCart = localStorage.getItem('panier');
@@ -29,7 +35,6 @@ export class CartService {
 // Ajoute un produit au panier
   addProduct(product: Product) {
      
-
     const existingProduct = this.items.find(item => item.product.id === product.id);
     if (existingProduct) {
       // Augmentez la quantité si le produit existe déjà
@@ -41,6 +46,8 @@ export class CartService {
     this.itemsSubject.next(this.items); // Mise à jour de l'observable
     this.updateTotal(); // Met à jour le total après l'ajout
     this.saveCart();
+    
+    this.totalItemSubject.next(this.items.length); // Met
   }
 
   getItems(): Panier[] {
@@ -63,6 +70,10 @@ export class CartService {
   updateTotal() {
     const total = this.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
     this.totalSubject.next(total); // Mise à jour du total observable
+
+     // Mettre à jour le nombre total d'articles dans le panier
+     const totalItems = this.items.reduce((count, item) => count + item.quantity, 0);
+     this.totalItemSubject.next(totalItems);
   }
 
 

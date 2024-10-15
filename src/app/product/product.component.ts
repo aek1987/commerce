@@ -130,7 +130,12 @@ filterByColor(event: Event) {
   const selectedColor = (event.target as HTMLSelectElement).value;
   // Implémentez votre logique de filtrage ici
 }
-
+// Méthode pour filtrer par prix
+filterByPrice() {
+  this.filteredProducts = this.filteredProducts.filter(product => 
+    product.price >= this.minPrice && product.price <= this.maxPrice
+  );
+}
 //Méthode pour filtrer par évaluation
 filterByEvaluation(rating: number): void {
  // this.filteredProducts = this.products.filter(product => product.evaluation === rating);
@@ -177,7 +182,20 @@ applyCategoryFilter() {
     );
   }
 }
+  // Méthode pour gérer les changements de filtre
+  onPriceFilterChange(event: any) {
+    const priceLimit = Number(event.target.id.split('-').pop()); // Obtenir la limite de prix depuis l'ID
+    const isChecked = event.target.checked;
 
+    if (isChecked) {
+      // Filtrer les produits en fonction de la case cochée
+      this.filteredProducts = this.products.filter(product => product.price < priceLimit);
+    } else {
+      // Réinitialiser les produits filtrés si aucune case n'est cochée
+      this.filteredProducts = [...this.products];
+     // this.updateFilteredProducts();
+    }
+  }
 updateProgressBar() {
   // Met à jour la largeur de la barre de progression
   const totalRange = 1000; // Plage de prix totale (à adapter)
@@ -188,12 +206,14 @@ onMinPriceChange(event: Event) {
   const input = event.target as HTMLInputElement;
   this.minPrice = Number(input.value);
   this.updateProgressBar();
+  this.filterByPrice();
 }
 
 onMaxPriceChange(event: Event) {
   const input = event.target as HTMLInputElement;
   this.maxPrice = Number(input.value);
   this.updateProgressBar();
+ this.filterByPrice();
 }
 
 }

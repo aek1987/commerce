@@ -93,3 +93,124 @@
   border-top-left-radius: 8px; /* Coins arrondis pour l'image */
   border-top-right-radius: 8px;
 }
+.price-filter {
+  height: 150px; /* Définissez une hauteur fixe selon vos besoins */
+  overflow: hidden; /* Empêche le débordement si le contenu est trop grand */
+  padding: 10px; /* Réduisez le padding pour un aspect plus compact */
+}
+
+.price-filter input[type="range"] {
+  margin-top: 5px; /* Réduisez l'espace au-dessus des sliders */
+}
+
+.price-filter input[type="number"] {
+  height: 30px; /* Ajustez la hauteur des champs numériques */
+}
+.filter-sidebar {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  height: 100%;
+}
+
+.dropdown-container {
+  cursor: pointer;
+}
+
+.dropdown-list {
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-list .form-check {
+  margin-bottom: 5px;
+}
+/* Conteneur du slider pour le style encadré */
+.slider-container {
+  border: 2px solid #007bff; /* Couleur de la bordure */
+  border-radius: 8px; /* Coins arrondis */
+  padding: 10px; /* Espace intérieur */
+  background-color: #f8f9fa; /* Couleur de fond */
+  margin-top: 10px;
+}
+
+/* Style pour les sliders eux-mêmes */
+.slider {
+  -webkit-appearance: none; /* Enlève le style par défaut du slider */
+  width: 100%; /* Largeur à 100% */
+  height: 8px; /* Hauteur du slider */
+  background: #007bff; /* Couleur de la barre */
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  border-radius: 5px; /* Coins arrondis pour le slider */
+}
+
+/* Lorsque l'utilisateur survole le slider */
+.slider:hover {
+  opacity: 1;
+}
+
+/* Style pour le "thumb" (le bouton) du slider */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Largeur du bouton */
+  height: 20px; /* Hauteur du bouton */
+  background: #007bff; /* Couleur du bouton */
+  cursor: pointer;
+  border-radius: 50%; /* Forme ronde */
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #007bff;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.price-filter {
+  background-color: #f8f9fa; /* Light background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Add some padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.form-label {
+  font-weight: bold; /* Make the label bold */
+  margin-bottom: 10px; /* Space below the label */
+}
+
+.form-range {
+  -webkit-appearance: none; /* Remove default styling */
+  width: 100%; /* Full width */
+  height: 8px; /* Height of the slider */
+  background: #007bff; /* Primary color */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* Remove outline */
+}
+
+.form-range::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none; /* Remove default styling */
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Circular thumb */
+  background: #ffffff; /* White thumb */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Circular thumb */
+  background: #ffffff; /* White thumb */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Shadow for thumb */
+}
+
+.price-values {
+  font-size: 14px; /* Adjust font size */
+  margin-top: 10px; /* Space above the values */
+}

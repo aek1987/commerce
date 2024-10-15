@@ -5,7 +5,7 @@
       "name": "Samsung Galaxy S21",
       "price": 999.99,
       "description": "Samsung Galaxy S21 5G avec 8 Go RAM et 128 Go de stockage.",
-      "image": "assets/samsung_s21.webp",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Samsung"
     },
     {
@@ -21,7 +21,7 @@
       "name": "Apple iPhone 13",
       "price": 1099.99,
       "description": "Apple iPhone 13 avec écran OLED 6,1 pouces et puce A15 Bionic.",
-      "image": "assets/iphone_13.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Apple"
     },
     {
@@ -29,7 +29,7 @@
       "name": "Apple iPhone SE",
       "price": 429.99,
       "description": "Apple iPhone SE, modèle compact avec Touch ID et puce A13 Bionic.",
-      "image": "assets/iphone_se.jpg",
+      "image": "assets//Samsung_Galaxy_S21.jpg",
       "category": "Apple"
     },
     {
@@ -37,7 +37,7 @@
       "name": "Oppo Find X3 Pro",
       "price": 849.99,
       "description": "Oppo Find X3 Pro avec écran 120Hz AMOLED et caméra 50 MP.",
-      "image": "assets/oppo_find_x3_pro.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Oppo"
     },
     {
@@ -45,7 +45,7 @@
       "name": "Oppo A74",
       "price": 259.99,
       "description": "Oppo A74, smartphone milieu de gamme avec 128 Go de stockage et batterie 5000 mAh.",
-      "image": "assets/oppo_a74.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Oppo"
     },
     {
@@ -53,7 +53,7 @@
       "name": "Realme GT 5G",
       "price": 599.99,
       "description": "Realme GT 5G avec écran Super AMOLED, Snapdragon 888, et 12 Go de RAM.",
-      "image": "assets/realme_gt_5g.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Realme"
     },
     {
@@ -61,7 +61,7 @@
       "name": "Realme 8 Pro",
       "price": 299.99,
       "description": "Realme 8 Pro, smartphone avec caméra 108 MP et écran 6,4 pouces Super AMOLED.",
-      "image": "assets/realme_8_pro.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Realme"
     },
     {
@@ -69,7 +69,7 @@
       "name": "Xiaomi Mi 11",
       "price": 799.99,
       "description": "Xiaomi Mi 11 avec Snapdragon 888 et écran 120Hz AMOLED.",
-      "image": "assets/xiaomi_mi_11.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Xiaomi"
     },
     {
@@ -77,7 +77,7 @@
       "name": "Xiaomi Redmi Note 10",
       "price": 199.99,
       "description": "Xiaomi Redmi Note 10, smartphone abordable avec écran AMOLED et caméra 48 MP.",
-      "image": "assets/xiaomi_redmi_note_10.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Xiaomi"
     },
     {
@@ -85,7 +85,7 @@
       "name": "Samsung Galaxy Z Fold 3",
       "price": 1799.99,
       "description": "Samsung Galaxy Z Fold 3, téléphone pliable avec écran 7,6 pouces.",
-      "image": "assets/samsung_z_fold_3.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Samsung"
     },
     {
@@ -93,7 +93,7 @@
       "name": "Apple iPhone 12 Mini",
       "price": 699.99,
       "description": "Apple iPhone 12 Mini, modèle compact avec écran OLED 5,4 pouces.",
-      "image": "assets/phone2.jpg",
+      "image": "assets/iphone-12-mini.jpg",
       "category": "Apple"
     },
     {
@@ -101,7 +101,7 @@
       "name": "Oppo Reno 6",
       "price": 329.99,
       "description": "Oppo Reno 6, smartphone avec caméra selfie 44 MP et batterie 4300 mAh.",
-      "image": "assets/oppo_reno_6.jpg",
+      "image": "assets/oppo.jpg",
       "category": "Oppo"
     },
     {
@@ -109,7 +109,7 @@
       "name": "Realme Narzo 30",
       "price": 179.99,
       "description": "Realme Narzo 30 avec écran 90Hz et batterie 5000 mAh.",
-      "image": "assets/realme_narzo_30.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Realme"
     },
     {
@@ -117,7 +117,7 @@
       "name": "Xiaomi Poco X3 Pro",
       "price": 249.99,
       "description": "Xiaomi Poco X3 Pro avec Snapdragon 860 et écran 120Hz.",
-      "image": "assets/xiaomi_poco_x3_pro.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Xiaomi"
     },
     {
@@ -125,7 +125,7 @@
       "name": "Samsung Galaxy M32",
       "price": 249.99,
       "description": "Samsung Galaxy M32 avec écran 90Hz Super AMOLED et batterie 6000 mAh.",
-      "image": "assets/samsung_m32.jpg",
+      "image": "assets//Samsung_Galaxy_S21.jpg",
       "category": "Samsung"
     },
     {
@@ -133,7 +133,7 @@
       "name": "Apple iPhone 11",
       "price": 599.99,
       "description": "Apple iPhone 11, modèle avec double caméra et écran LCD Liquid Retina.",
-      "image": "assets/iphone_11.jpg",
+      "image": "assets//Samsung_Galaxy_S21.jpg",
       "category": "Apple"
     },
     {
@@ -141,7 +141,7 @@
       "name": "Oppo A15s",
       "price": 159.99,
       "description": "Oppo A15s, smartphone économique avec 4 Go de RAM et 64 Go de stockage.",
-      "image": "assets/oppo_a15s.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Oppo"
     },
     {
@@ -149,7 +149,7 @@
       "name": "Realme C25",
       "price": 179.99,
       "description": "Realme C25 avec batterie 6000 mAh et processeur Helio G70.",
-      "image": "assets/realme_c25.jpg",
+      "image": "assets/Realme-C25.jpg",
       "category": "Realme"
     },
     {
@@ -157,7 +157,23 @@
       "name": "Xiaomi Mi 10T",
       "price": 449.99,
       "description": "Xiaomi Mi 10T avec écran 144Hz et Snapdragon 865.",
-      "image": "assets/xiaomi_mi_10t.jpg",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
+      "category": "Xiaomi"
+    },
+    {
+      "id": "20",
+      "name": "Xiaomi Mi 10T",
+      "price": 449.99,
+      "description": "Xiaomi Mi 10T avec écran 144Hz et Snapdragon 865.",
+      "image": "assets/Samsung_Galaxy_S21.jpg",
+      "category": "Xiaomi"
+    },
+    {
+      "id": "21",
+      "name": "ITEL A70",
+      "price": 20.900,
+      "description": "ITEL A70 12GB 256GB.",
+      "image": "assets/ItelA70.jpg",
       "category": "Xiaomi"
     }
    

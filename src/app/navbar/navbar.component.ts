@@ -1,26 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 import { faShoppingCart, faReceipt ,faUser, faGlobe } from '@fortawesome/free-solid-svg-icons'; // Importer les icônes
 import { TranslateService } from '@ngx-translate/core';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   isAuthenticated: boolean = false;
   faShoppingCart = faShoppingCart;  
   faReceipt = faReceipt;
   faUser = faUser;
   faGlobe = faGlobe;
-  
-  constructor(private authService: AuthService, private router: Router,private translate: TranslateService) {}
+  CountItem :number=0;
+  constructor(private cartService: CartService, private authService: AuthService, private router: Router,private translate: TranslateService) {
+
+
+    translate.addLangs(['en', 'fr', 'ar']);
+    // Définir la langue par défaut
+    translate.setDefaultLang('fr');
+    
+ // Détecter la langue du navigateur ou utiliser 'fr' par défaut si aucune langue supportée n'est trouvée
+ const browserLang = translate.getBrowserLang() || 'fr';
+ translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'fr');
+  }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated();
+
+     // Subscribe to the totalItem$ observable
+     this.cartService.totalItem$.subscribe(count => {
+      this.CountItem = count; // Update CountItem with the latest value
+    });
+  
+
   }
 
   goToLogin() {

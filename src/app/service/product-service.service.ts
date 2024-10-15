@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../modeles/product.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +28,7 @@ export class ProductsService {
     return this.products;
   }
 
- // Supprimer un produit par ID
- deleteProduct(id: number): Observable<void> {
-  const url = `${this.apiUrl}/${id}`;
-  return this.http.delete<void>(url);
-}
-}
+
+
 
 }

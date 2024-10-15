@@ -4,9 +4,12 @@
     "SEARCH_BUTTON": "ابحث",
     "BRANDS": "العلامات التجارية",
     "PRICE": "السعر:",    
+    "USER": "لسعر",
     "NAVBAR": {
     "BRAND": "تجارتي"
-     }
+     },
+     "COMMANDES":"طلبات",
+     "PANIER":"سلة"
   
 
 }
