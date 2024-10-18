@@ -1,0 +1,13 @@
+{
+    "PRODUCTS_AVAILABLE": "Available Products",
+    "SEARCH_PLACEHOLDER": "Search for products...",
+    "SEARCH_BUTTON": "Search",
+    "BRANDS": "Brands",
+    "USER": "utilisateur",
+    "PRICE": "Price:",
+   "NAVBAR": {
+    "BRAND": "Mon Commerce",
+    "COMMANDES":"orders",
+    "PANIER":"panier"
+  }
+}
