@@ -24,6 +24,9 @@ jobs:
     - name: Build the project
       run: npx ng build --configuration=production 
    
+    - name: Copy files to publishing directory
+      run: cp -r /home/runner/work/commerce/commerce/dist/simple_app/* /home/runner/actions_github_pages_1729367653490/
+
     - name: List build directory
       run: ls -la /home/runner/work/commerce/commerce/dist/simple_app
  
