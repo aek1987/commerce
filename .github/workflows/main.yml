@@ -23,7 +23,10 @@ jobs:
 
     - name: Build the project
       run: npx ng build --configuration=production --base-href "/commerce/"
-
+   
+    - name: List build directory
+      run: ls -la /home/runner/work/commerce/commerce/dist/simple_app
+ 
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
