@@ -26,8 +26,8 @@ jobs:
    
     - name: List build directory
       run: ls -la /home/runner/work/commerce/commerce/dist/simple_app
-    - name: List build directory assets
-      run: ls -la /home/runner/work/commerce/commerce/dist/simple_app/assets
+    - name: List build directory assets i 18n
+      run: ls -la /home/runner/work/commerce/commerce/dist/simple_app/assets/i18n
  
 
     - name: Deploy to GitHub Pages
