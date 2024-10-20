@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Build the project
-      run: npx ng build --configuration=production
+      run: npx ng build --configuration=production  --base-href /commerce/
    
     - name: List build directory
       run: ls -la /home/runner/work/commerce/commerce/dist/simple_app
