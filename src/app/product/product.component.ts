@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ProductComponent {
   // Liste des produits avec nom, prix et description
   products :Product[]=[]; 
-  
+  showButton: boolean = false;
   filteredProducts: Product[] = [];
   searchQuery: string = '';  showAll: boolean = false;   
 
