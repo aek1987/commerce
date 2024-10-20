@@ -47,6 +47,10 @@ export class ProductComponent {
       this.productService.getProducts().subscribe((data: Product[]) => {
         this.products = data;  // Assign the fetched products to the component
         this.filteredProducts = this.products;
+        if (this.products === undefined || (Array.isArray(this.products) && this.products.length === 0)) {
+          console.log("aucun produit trouvé sur url");
+        }
+      
       });
        // Initially, show all products
     
