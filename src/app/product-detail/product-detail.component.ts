@@ -1,6 +1,6 @@
 // src/app/components/product-detail/product-detail.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../service/products.service';
 import { Product } from '../modeles/product.model';
 import { CartService } from '../service/cart.service';
@@ -23,7 +23,7 @@ export class ProductDetailComponent implements OnInit {
  // Utiliser null par défaut
 
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute,private router: Router,
     private productService: ProductsService,
     private cartService: CartService,
     private toastr: ToastrService
@@ -64,7 +64,11 @@ export class ProductDetailComponent implements OnInit {
       }
     );
   }
-  
+  goToConfirmationPage() {
+    this.router.navigate(['/confirm-order']);
+
+    
+  }
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product, event: MouseEvent) {
     console.log('Produit cliqué:', product);
@@ -86,6 +90,8 @@ export class ProductDetailComponent implements OnInit {
       timeOut: 2000,
       onActivateTick: true,
       toastClass: `ngx-toastr toast-success`,
-    });
+    });  
+    this.router.navigate(['/delivery']);
   }
+ 
 }

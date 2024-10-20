@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { Product } from '../modeles/product.model';
 import { AlertService } from '../service/alerte-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ProductManagerComponent implements OnInit {
   products: Product[] = [];
   newProduct: Product = { id: 0, name: '', price: 0, description: '', image: '', category: '' };
   imagePreview: string | ArrayBuffer | null = null;
-  constructor(private productService: ProductsService,private toast: AlertService)     
+  constructor(private productService: ProductsService,private toast: AlertService,private router: Router)     
    {}
 
   ngOnInit(){
