@@ -22,8 +22,6 @@ jobs:
       run: npm install
 
     - name: Build the project
-      run:  ng build --configuration=production
- 
       run: npx ng build --configuration=production  --base-href /commerce/
    
     - name: List build directory
