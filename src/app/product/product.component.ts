@@ -36,20 +36,21 @@ export class ProductComponent {
   selectedCategories: string[] = [];
   isHoveredProduct: string | null = null; // ID du produit actuellement survolé
   isHovered: boolean = false; // Ajoute une variable pour gérer l'état du curseur
-  ngOnInit() {
-    
-    this.productService.getProducts().subscribe((data: Product[]) => {
-      this.products = data;  // Assign the fetched products to the component
-      this.filteredProducts = this.products;
-    });
-     // Initially, show all products
-  
-}
+ 
   // Tableau des produits dans le panier
   cart: Product[] = [];
   constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router)
     {}
 
+    ngOnInit() {
+    
+      this.productService.getProducts().subscribe((data: Product[]) => {
+        this.products = data;  // Assign the fetched products to the component
+        this.filteredProducts = this.products;
+      });
+       // Initially, show all products
+    
+  }
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product,event: MouseEvent) {
     console.log('Produit clique:', product);
