@@ -189,17 +189,18 @@ applyCategoryFilter() {
 }
   // Méthode pour gérer les changements de filtre
   onPriceFilterChange(event: any) {
-    const priceLimit = Number(event.target.id.split('-').pop()); // Obtenir la limite de prix depuis l'ID
-    const isChecked = event.target.checked;
-
-    if (isChecked) {
-      // Filtrer les produits en fonction de la case cochée
-      this.filteredProducts = this.products.filter(product => product.price < priceLimit);
-    } else {
-      // Réinitialiser les produits filtrés si aucune case n'est cochée
-      this.filteredProducts = [...this.products];
-     // this.updateFilteredProducts();
-    }
+   
+      const priceLimit = Number(event.target.value); // Obtenir la limite de prix depuis l'attribut value
+      const isChecked = event.target.checked;
+  
+      if (isChecked) {
+        // Filtrer les produits en fonction de la case cochée
+        this.filteredProducts = this.products.filter(product => product.price < priceLimit);
+      } else {
+        // Réinitialiser les produits si aucune case n'est cochée
+        this.filteredProducts = [...this.products];
+      }
+    
   }
 updateProgressBar() {
   // Met à jour la largeur de la barre de progression

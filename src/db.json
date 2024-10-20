@@ -3,15 +3,15 @@
     {
       "id": "1",
       "name": "Samsung Galaxy S21",
-      "price": 999.99,
-      "description": "Samsung Galaxy S21 5G avec 8 Go RAM et 128 Go de stockage.",
+      "price": 100000,
+      "description": "Samsung Galaxy S21 5G avec 8 Go RAM et 128 Go de stockage. ho ",
       "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Samsung"
     },
     {
       "id": "2",
       "name": "Samsung Galaxy A52",
-      "price": 499.99,
+      "price": 50000,
       "description": "Smartphone Samsung Galaxy A52 avec écran Super AMOLED et caméra 64 MP.",
       "image": "assets/phone2.jpg",
       "category": "Samsung"
@@ -43,7 +43,7 @@
     {
       "id": "6",
       "name": "Oppo A74",
-      "price": 259.99,
+      "price":45000,
       "description": "Oppo A74, smartphone milieu de gamme avec 128 Go de stockage et batterie 5000 mAh.",
       "image": "assets/Samsung_Galaxy_S21.jpg",
       "category": "Oppo"
