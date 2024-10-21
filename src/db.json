@@ -52,9 +52,9 @@
       "id": "7",
       "name": "Realme GT 5G",
       "price": 599.99,
-      "description": "Realme GT 5G avec écran Super AMOLED, Snapdragon 888, et 12 Go de RAM.",
+      "description": "Realme GT 5G avec écran Super AMOLED, Snapdragon 888, et 16 Go de RAM.",
       "image": "assets/Samsung_Galaxy_S21.jpg",
-      "category": "Realme"
+      "category": "realme"
     },
     {
       "id": "8",
@@ -62,7 +62,7 @@
       "price": 299.99,
       "description": "Realme 8 Pro, smartphone avec caméra 108 MP et écran 6,4 pouces Super AMOLED.",
       "image": "assets/Samsung_Galaxy_S21.jpg",
-      "category": "Realme"
+      "category": "realme"
     },
     {
       "id": "9",
