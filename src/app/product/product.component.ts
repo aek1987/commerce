@@ -5,7 +5,7 @@ import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; 
 import { ProductsService } from '../service/products.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { ThousandSeparatorPipe } from '../pipe/thousand-separator.pipe';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -26,9 +26,9 @@ export class ProductComponent {
   notifiedProductId: number | null = null;  // ID du produit notifié
 
  
-  minPrice: number = 0;  // Prix min par défaut
-  maxPrice: number = 70000;  // Prix max par défaut
-  progressBarWidth: number = 0; // Largeur de la barre de progression
+  minPrice: number = 5000;  // Prix min par défaut
+  maxPrice: number = 400000;  // Prix max par défaut
+  progressBarWidth: number = 400000; // Largeur de la barre de progression
 
 
   lastAvailableDate: string | null = null;  
@@ -39,6 +39,8 @@ export class ProductComponent {
  
   // Tableau des produits dans le panier
   cart: Product[] = [];
+  // Liste des marques
+ 
   constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router)
     {}
 
@@ -202,24 +204,34 @@ applyCategoryFilter() {
       }
     
   }
-updateProgressBar() {
-  // Met à jour la largeur de la barre de progression
-  const totalRange = 1000; // Plage de prix totale (à adapter)
-  this.progressBarWidth = ((this.minPrice + this.maxPrice) / totalRange) * 100;
+onPriceChange(): void {
+  // Vous pouvez ajouter une logique pour actualiser les produits ici
+  console.log(`Plage de prix: ${this.minPrice} - ${this.maxPrice}`);
+  this.updateProgressBar();
 }
 
-onMinPriceChange(event: Event) {
-  const input = event.target as HTMLInputElement;
-  this.minPrice = Number(input.value);
-  this.updateProgressBar();
-  this.filterByPrice();
+updateProgressBar(): void {
+  const minRange = document.getElementById('minPriceRange') as HTMLInputElement;
+  const maxRange = document.getElementById('maxPriceRange') as HTMLInputElement;
+
+  if (minRange && maxRange) {
+    const activeRange = document.querySelector('.active-range') as HTMLElement;
+
+    const minPercent = (parseInt(minRange.value, 10) / 1000) * 100;
+    const maxPercent = (parseInt(maxRange.value, 10) / 1000) * 100;
+
+    activeRange.style.left = `${minPercent}%`;
+    activeRange.style.width = `${maxPercent - minPercent}%`;
+  }
 }
 
-onMaxPriceChange(event: Event) {
-  const input = event.target as HTMLInputElement;
-  this.maxPrice = Number(input.value);
-  this.updateProgressBar();
- this.filterByPrice();
+
+getBrandImage(brand: string): string {
+  return `assets/brands/${brand}.jpg`; // Remplacez .png par .jpg si nécessaire
+}
+
+filterByBrand(brand: string): void {
+  this.filteredProducts = this.products.filter(product => product.category === brand);
 }
 
 }

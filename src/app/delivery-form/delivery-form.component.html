@@ -2,90 +2,96 @@
   <h2>Informations de livraison</h2>
   <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm">
     <!-- Champs de livraison -->
-    <div class="form-group">
-      <label for="name">Nom</label>
-      <input type="text" id="name" class="form-control" name="name" [(ngModel)]="deliveryInfos.name" required />
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="name">{{ 'NOM' | translate }}</label>
+        <input type="text" id="name" class="form-control" name="name" [(ngModel)]="deliveryInfos.name" required />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="phone">{{ 'TEL' | translate }}</label>
+        <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required />
+      </div>
     </div>
-    <div class="form-group">
-      <label for="phone">Téléphone</label>
-      <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required />
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="wilaya">{{ 'WILAYA' | translate }}</label>
+        <select
+          id="wilaya"
+          class="form-control"
+          name="wilaya"
+          [(ngModel)]="deliveryInfos.wilaya"
+          (change)="onWilayaChange($event)"
+          required
+        >
+          <option value="">Sélectionner une wilaya</option>
+          <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="commune">{{ 'COM' | translate }}</label>
+        <select
+          id="commune"
+          class="form-control"
+          name="commune"
+          [(ngModel)]="deliveryInfos.commune"
+          [disabled]="selectedCommunes.length === 0"
+          (change)="onCommuneChange($event)"
+          required
+        >
+          <option value="">Sélectionner une commune</option>
+          <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
+        </select>
+      </div>
     </div>
 
+    <div class="form-group">
+      <label for="address">{{ 'ADRESS' | translate }}</label>
+      <input
+        type="text"
+        id="address"
+        class="form-control"
+        name="address"
+        [(ngModel)]="deliveryInfos.address"
+        required
+      />
+    </div>
 
-<div class="form-group">
-  <label for="wilaya">Wilaya</label>
-  <select
-    id="wilaya"
-    class="form-control"
-    name="wilaya"
-    [(ngModel)]="deliveryInfos.wilaya"
-    (change)="onWilayaChange($event)"
-    required
-  >
-    <option value="">Sélectionner une wilaya</option>
-    <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
-  </select>
-</div>
+    <h2>Choisissez votre mode de paiement</h2>
+    <div class="form-group">
+      <label>
+        <input type="radio" name="paymentMode" value="card" [(ngModel)]="paymentMode" (change)="onPaymentModeChange('card')" />
+        Paiement par carte
+      </label>
+      <label>
+        <input type="radio" name="paymentMode" value="cash" [(ngModel)]="paymentMode" (change)="onPaymentModeChange('cash')" />
+        Paiement à la livraison
+      </label>
+    </div>
 
-<div class="form-group">
-  <label for="commune">Commune</label>
-  <select
-    id="commune"
-    class="form-control"
-    name="commune"
-    [(ngModel)]="deliveryInfos.commune"
-    [disabled]="selectedCommunes.length === 0"
-    (change)="onCommuneChange($event)"
-    required
-  >
-    <option value="">Sélectionner une commune</option>
-    <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
-  </select>
-</div>
+    <div *ngIf="paymentMode === 'card'">
+      <h2>Informations de paiement</h2>
+      <div class="form-group">
+        <label for="card-number">Numéro de carte</label>
+        <input type="text" id="card-number" class="form-control" [(ngModel)]="cardDetails.number" required />
+      </div>
+      <div class="form-group">
+        <label for="expiry">Date d'expiration</label>
+        <input type="text" id="expiry" class="form-control" [(ngModel)]="cardDetails.expiry" required />
+      </div>
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" class="form-control" [(ngModel)]="cardDetails.cvv" required />
+      </div>
+    </div>
 
-<div class="form-group">
-  <label for="address">Adresse</label>
-  <input
-    type="text"
-    id="address"
-    class="form-control"
-    name="address"
-    [(ngModel)]="deliveryInfos.address"
-    required
-  />
-</div>
+    <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirmer le paiement</button>
+  </form>
 
-    
-<form>
-  <h2>Choisissez votre mode de paiement</h2>
-  <div class="form-group">
-    <label>
-      <input type="radio" name="paymentMode" value="card" [(ngModel)]="paymentMode" (change)="onPaymentModeChange('card')" />
-      Paiement par carte
-    </label>
-    <label>
-      <input type="radio" name="paymentMode" value="cash" [(ngModel)]="paymentMode" (change)="onPaymentModeChange('cash')" />
-      Paiement à la livraison
-    </label>
+  <hr />
+  <h2>Résumé de votre commande</h2>
+  <!--<div *ngFor="let product of orderedProducts">
+    <p>{{ product.name }} - {{ product.price | currency:'symbol':'1.0-0':'DZD' }}</p>
   </div>
-
-  <div *ngIf="paymentMode === 'card'">
-    <h2>Informations de paiement</h2>
-    <div class="form-group">
-      <label for="card-number">Numéro de carte</label>
-      <input type="text" id="card-number" class="form-control" [(ngModel)]="cardDetails.number" required />
-    </div>
-    <div class="form-group">
-      <label for="expiry">Date d'expiration</label>
-      <input type="text" id="expiry" class="form-control" [(ngModel)]="cardDetails.expiry" required />
-    </div>
-    <div class="form-group">
-      <label for="cvv">CVV</label>
-      <input type="text" id="cvv" class="form-control" [(ngModel)]="cardDetails.cvv" required />
-    </div>
-  </div>
-
-  <button type="button" class="btn btn-success" (click)="confirmPayment()">Confirmer le paiement</button>
-</form>
-
-
+ <p><strong>Total : {{ totalPrice | currency:'symbol':'1.0-0':'DZD' }}</strong></p> --->
+</div>

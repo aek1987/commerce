@@ -24,6 +24,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { CommonModule } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ThousandSeparatorPipe } from './pipe/thousand-separator.pipe';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductManagerComponent,
     CarouselComponent,  
     ProductDetailComponent,
+    ThousandSeparatorPipe,
    
   ],
   imports: [CommonModule,

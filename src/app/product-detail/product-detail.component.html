@@ -9,9 +9,9 @@
     
     <div class="col-md-6">
       <h2 class="product-name">{{ product!.name }}</h2>
-      <p class="product-price"><strong>Prix : </strong>{{ product!.price }} DZ</p>
+      <p class="product-price"><strong>Prix : </strong>{{ product!.price | thousandSeparator}} DZ</p>
       <p class="product-description"><strong>Description : </strong>{{ product!.description }}</p>
-      <button class="btn btn-primary" (click)="addToCart(product, $event)" >Acheter</button>
+      <button class="btn btn-primary" (click)="addToCart(product, $event)" >{{'ACHETER'|translate}}</button>
     
      <br> <br> <br>
       <div class="card-body">

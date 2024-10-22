@@ -214,3 +214,81 @@
   font-size: 14px; /* Adjust font size */
   margin-top: 10px; /* Space above the values */
 }
+
+
+ /* les filste de prix */
+
+.price-slider {
+  position: relative;
+  height: 20px; /* Ajuster pour éviter tout débordement */
+  width: 100%; /* La barre occupera tout l'espace disponible */
+}
+
+.progress-bar {
+  position: relative;
+  height: 5px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%; /* Assurez-vous que la barre de progression ne déborde pas */
+}
+
+.active-range {
+  height: 100%;
+  background-color: #007bff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 5px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%; /* Limite la taille du slider à son conteneur */
+  background: transparent;
+  position: relative;
+  z-index: 1; /* Assurez-vous que les sliders sont au-dessus de la barre */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+
+
+
+* components/product-detail/product-detail.component.css */
+.product-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .product-price {
+    font-size: 20px;
+    color: #28a745; /* Vert pour le prix */
+    margin-bottom: 15px;
+  }
+  
+  .product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  

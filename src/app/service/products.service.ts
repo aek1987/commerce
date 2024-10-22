@@ -7,8 +7,8 @@ import { Product } from '../modeles/product.model';
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = 'http://localhost:3000/products';  // Local json-server URL
-
+  //private apiUrl = 'http://localhost:3000/products';  // Local json-server URL 
+  private apiUrl = 'https://server-products-s1kr.onrender.com/api/products';  // remote json-server URL
   constructor(private http: HttpClient) {}
 
   // Fetch products from the API

@@ -9,7 +9,21 @@
     "BRAND": "تجارتي"
      },
      "COMMANDES":"طلبات",
-     "PANIER":"سلة"
+     "PANIER":"سلة",
+     "ACHETER":"شراء",
+     "AJOUTER AU PANIER":"أضف إلى سلة",
+     "MOINS 3":"أقل من 3 ملايين",
+     "MOINS 4":" أقل من 4 ملايين",
+     "MOINS 5":" أقل من 4 ملايين",    
+     "MARQUE":"العلامة",
+     "PRIX":"السعر",
+     "NOM":"الاسم",
+     "TEL":"الهاتف",
+     "WILYAYA":"الولاية",
+     "COM":"البلدية",
+     "ADRESS":"العنوان",    
+     "PAIMENT A LA LIVRAISON":"الدفع عند الاستلام"    
+     
   
 
 }

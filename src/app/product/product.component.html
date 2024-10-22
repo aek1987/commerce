@@ -12,7 +12,7 @@
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-3m">Moins de 3 millions</label>
+          <label class="form-check-label" for="less-than-3m">{{ 'MOINS 3' | translate }} </label>
         </div>
         <div class="form-check mb-3">
           <input 
@@ -22,7 +22,7 @@
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-4m">Moins de 4 millions</label>
+          <label class="form-check-label" for="less-than-4m">{{ 'MOINS 4' | translate }} </label>
         </div>
         <div class="form-check mb-3">
           <input 
@@ -32,13 +32,13 @@
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-5m">Moins de 5 millions</label>
+          <label class="form-check-label" for="less-than-5m">{{ 'MOINS 5' | translate }} </label>
         </div>
 
         <!-- Filtres de marques -->
         <div class="dropdown-container mb-3">
           <div class="dropdown-header" (click)="toggleDropdown()">
-            <span>Marques</span>
+            <span>{{ 'MARQUE' | translate }}</span>
             <i class="arrow" [class.open]="dropdownOpen"></i>
           </div>
           <div *ngIf="dropdownOpen" class="dropdown-list">
@@ -57,47 +57,53 @@
         </div>
 
         <!-- Slider pour la plage de prix -->
-        <div class="price-filter mb-3">
-          <label for="priceRange" class="form-label">Plage de Prix</label>
-          <div class="d-flex align-items-center mb-2">
-            <input 
-              type="range" 
-              min="0" 
-              max="1000" 
-              [value]="minPrice" 
-              (input)="onMinPriceChange($event)" 
-              class="form-range me-2" 
-              style="flex: 1;"
-            />
-            <input 
-              type="range" 
-              min="0" 
-              max="1000" 
-              [value]="maxPrice" 
-              (input)="onMaxPriceChange($event)" 
-              class="form-range" 
-              style="flex: 1;"
-            />
-          </div>
-          <div class="d-flex justify-content-between">
-            <input 
-              type="number" 
-              [(ngModel)]="minPrice" 
-              (ngModelChange)="updateProgressBar()" 
-              placeholder="Min" 
-              class="form-control form-control-sm" 
-              style="width: 48%;" 
-            />
-            <input 
-              type="number" 
-              [(ngModel)]="maxPrice" 
-              (ngModelChange)="updateProgressBar()" 
-              placeholder="Max" 
-              class="form-control form-control-sm" 
-              style="width: 48%;" 
-            />
-          </div>
-        </div>
+     <!-- Slider pour la plage de prix avec deux poignées -->
+
+  <label for="priceRange" class="form-label">{{'PRIX' |translate}}</label>
+  <div class="price-slider mb-2">
+    <input
+      type="range"
+      min="0"
+      max="30"
+      [(ngModel)]="minPrice"
+      (input)="onPriceChange()"
+      class="form-range"
+      id="minPriceRange"
+      style="position: absolute;"
+    />
+    <input
+      type="range"
+      min="0"
+      max="1000"
+      [(ngModel)]="maxPrice"
+      (input)="onPriceChange()"
+      class="form-range"
+      id="maxPriceRange"
+      style="position: absolute;"
+    />
+    <!-- Barre de progression visuelle -->
+    <div class="progress-bar">
+      <div 
+        class="active-range" 
+        [style.left.%]="(minPrice / 10)" 
+        [style.width.%]="(maxPrice - minPrice) / 10">
+      </div>
+    </div>
+  </div>
+  <!-- Affichage des valeurs min et max -->
+  <div class="d-flex justify-content-between">
+    <span>{{ minPrice | thousandSeparator }} DZ</span>
+    <span>{{ maxPrice | thousandSeparator }} DZ</span>
+  </div>
+
+
+        
+      <!-- filstre par des image de marques -->
+      
+    
+      
+
+      <!-- fin des filtre -->
       </div>
     </div>
 
@@ -108,11 +114,11 @@
           <div class="card product-card" (click)="goToProductDetail(product)"
           
           (mouseenter)="isHoveredProduct = product.id.toString()" 
-           (mouseleave)="isHoveredProduct = null">>
+           (mouseleave)="isHoveredProduct = null">
             <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">Prix : {{ product.price }} DZ</p>
+              <p class="card-text">Prix : {{ product.price | thousandSeparator }} DA </p>
               <p class="card-text">{{ product.description }}</p>
               <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary" (click)="addToCart(product, $event)">
                 <fa-icon [icon]="faCartPlus"></fa-icon>
