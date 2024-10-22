@@ -16,11 +16,14 @@ export class AppComponent {
     // Ajouter les langues disponibles
     translate.addLangs(['fr', 'ar']);
     // Définir la langue par défaut
-    translate.setDefaultLang('fr');
-    
+    translate.setDefaultLang('fr');    
  // Détecter la langue du navigateur ou utiliser 'fr' par défaut si aucune langue supportée n'est trouvée
  const browserLang = translate.getBrowserLang() || 'ar';
  translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'ar');
+
+
+
+
   }
 
   // Méthode pour changer la langue
