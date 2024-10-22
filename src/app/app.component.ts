@@ -14,13 +14,13 @@ export class AppComponent {
 
   constructor(private translate: TranslateService) {
     // Ajouter les langues disponibles
-    translate.addLangs(['en', 'fr', 'ar']);
+    translate.addLangs(['fr', 'ar']);
     // Définir la langue par défaut
     translate.setDefaultLang('fr');
     
  // Détecter la langue du navigateur ou utiliser 'fr' par défaut si aucune langue supportée n'est trouvée
- const browserLang = translate.getBrowserLang() || 'fr';
- translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'fr');
+ const browserLang = translate.getBrowserLang() || 'ar';
+ translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'ar');
   }
 
   // Méthode pour changer la langue
