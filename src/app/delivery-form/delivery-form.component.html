@@ -27,7 +27,7 @@
               (change)="onWilayaChange($event)"
               required
             >
-              <option value="">Sélectionner une wilaya</option>
+              <option value="">{{'SELECTIONNER'|translate}}</option>
               <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
             </select>
           </div>
@@ -42,7 +42,8 @@
               (change)="onCommuneChange($event)"
               required
             >
-              <option value="">Sélectionner une commune</option>
+           
+              <option value="">{{'SELECTIONNER COM'|translate}}</option>
               <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
             </select>
           </div>

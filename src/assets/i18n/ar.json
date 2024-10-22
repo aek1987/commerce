@@ -19,10 +19,12 @@
      "PRIX":"السعر",
      "NOM":"الاسم",
      "TEL":"الهاتف",
-     "WILYAYA":"الولاية",
+     "WILAYA":"الولاية",
      "COM":"البلدية",
      "ADRESS":"العنوان",    
-     "PAIMENT A LA LIVRAISON":"الدفع عند الاستلام"    
+     "PAIMENT A LA LIVRAISON":"الدفع عند الاستلام" ,  
+     "SELECTIONNER":" اختر الولاية",
+     "SELECTIONNER COM":" اختر الولاية"
      
   
 
