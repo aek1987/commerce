@@ -26,9 +26,9 @@ export class ProductComponent {
   notifiedProductId: number | null = null;  // ID du produit notifié
 
  
-  minPrice: number = 5000;  // Prix min par défaut
-  maxPrice: number = 400000;  // Prix max par défaut
-  progressBarWidth: number = 400000; // Largeur de la barre de progression
+  minPrice: number = 0;  // Prix min par défaut
+  maxPrice: number = 1000;  // Prix max par défaut
+  progressBarWidth: number = 0; // Largeur de la barre de progression
 
 
   lastAvailableDate: string | null = null;  
@@ -205,25 +205,20 @@ applyCategoryFilter() {
     
   }
 onPriceChange(): void {
+  // Logique pour gérer les changements dans les sliders
+  if (this.minPrice >= this.maxPrice) {
+    this.maxPrice = this.minPrice + 1; // Assure que max est toujours supérieur à min
+  }
+  
+  console.log(`Prix minimum: ${this.minPrice}, Prix maximum: ${this.maxPrice}`);
+  
   // Vous pouvez ajouter une logique pour actualiser les produits ici
   console.log(`Plage de prix: ${this.minPrice} - ${this.maxPrice}`);
-  this.updateProgressBar();
+
+  this.applyFilters(); 
 }
 
-updateProgressBar(): void {
-  const minRange = document.getElementById('minPriceRange') as HTMLInputElement;
-  const maxRange = document.getElementById('maxPriceRange') as HTMLInputElement;
 
-  if (minRange && maxRange) {
-    const activeRange = document.querySelector('.active-range') as HTMLElement;
-
-    const minPercent = (parseInt(minRange.value, 10) / 1000) * 100;
-    const maxPercent = (parseInt(maxRange.value, 10) / 1000) * 100;
-
-    activeRange.style.left = `${minPercent}%`;
-    activeRange.style.width = `${maxPercent - minPercent}%`;
-  }
-}
 
 
 getBrandImage(brand: string): string {
@@ -233,5 +228,26 @@ getBrandImage(brand: string): string {
 filterByBrand(brand: string): void {
   this.filteredProducts = this.products.filter(product => product.category === brand);
 }
+applyFilters() {
+  this.filteredProducts = this.products.filter(product => {
+    const isBrandMatch = this.selectedCategories.length === 0 || this.selectedCategories.includes(product.category);
+    const isPriceMatch = product.price >= this.minPrice && product.price <= this.maxPrice;
+    return isBrandMatch && isPriceMatch;
+  });
+}
+
+// Méthode pour gérer la sélection des marques
+onBrandChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  const brand = checkbox.value;
+
+  if (checkbox.checked) {
+    this.selectedCategories.push(brand);
+  } else {
+    this.selectedCategories = this.selectedCategories.filter(b => b !== brand);
+  }
+  this.applyFilters();  // Appliquez le filtre après chaque modification de marque
+}
+
 
 }

@@ -46,7 +46,8 @@
               <input 
                 type="checkbox" 
                 [value]="category" 
-                (change)="onCategoryChange($event)" 
+                (change)="applyFilters()" 
+               
                 [checked]="selectedCategories.includes(category)" 
                 class="form-check-input"
                 id="{{category}}"
@@ -59,42 +60,44 @@
         <!-- Slider pour la plage de prix -->
      <!-- Slider pour la plage de prix avec deux poignées -->
 
-  <label for="priceRange" class="form-label">{{'PRIX' |translate}}</label>
-  <div class="price-slider mb-2">
-    <input
-      type="range"
-      min="0"
-      max="30"
-      [(ngModel)]="minPrice"
-      (input)="onPriceChange()"
-      class="form-range"
-      id="minPriceRange"
-      style="position: absolute;"
-    />
-    <input
-      type="range"
-      min="0"
-      max="1000"
-      [(ngModel)]="maxPrice"
-      (input)="onPriceChange()"
-      class="form-range"
-      id="maxPriceRange"
-      style="position: absolute;"
-    />
-    <!-- Barre de progression visuelle -->
-    <div class="progress-bar">
-      <div 
-        class="active-range" 
-        [style.left.%]="(minPrice / 10)" 
-        [style.width.%]="(maxPrice - minPrice) / 10">
+     <div class="price-filter">
+      <label for="priceRange" class="form-label">{{ 'PRIX' | translate }}</label>
+      <div class="slider-wrapper">
+        <input 
+          type="range" 
+          min="0" 
+          max="1000" 
+          [(ngModel)]="minPrice" 
+          (input)="onPriceChange()" 
+          class="range-slider" 
+          
+        />
+        <input 
+          type="range" 
+          min="0" 
+          max="1000" 
+          [(ngModel)]="maxPrice" 
+          (input)="onPriceChange()" 
+          class="range-slider" 
+          
+        />    
+        <!-- Barre de progression visuelle -->
+        <div class="slider-progress-container">
+          <div 
+            class="slider-progress" 
+            [style.left.%]="(minPrice / 10)" 
+            [style.width.%]="((maxPrice - minPrice) / 10)">
+          </div>
+        </div>
+      </div>
+    
+      <!-- Affichage des valeurs min et max -->
+      <div class="price-values">
+        <span>{{ minPrice | number }} DA</span>
+        <span>{{ maxPrice | number }} DA</span>
       </div>
     </div>
-  </div>
-  <!-- Affichage des valeurs min et max -->
-  <div class="d-flex justify-content-between">
-    <span>{{ minPrice | thousandSeparator }} DZ</span>
-    <span>{{ maxPrice | thousandSeparator }} DZ</span>
-  </div>
+    
 
 
         
