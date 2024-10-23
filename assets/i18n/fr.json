@@ -1,20 +1,22 @@
 {
-    "PRODUCTS_AVAILABLE": "Available Products",
-    "SEARCH_PLACEHOLDER": "Search for products...",
-    "SEARCH_BUTTON": "Search",
-    "BRANDS": "Brands",
-    "USER": "utilisateur",
-    "PRICE": "Price:",
-   "NAVBAR": {
-    "BRAND": "Mon Commerce",
-    "COMMANDES":"orders",
-    "PANIER":"panier",
-    "ACHETER":"Acheter",
-    "AJOUTER AU PANIER":"أضف إلى سلة",
-    "MOINS de 3 ":"moins de 3 millions",
-    "MOINS de 4 ":"moins de 4 millions",
-    "MOINS de 5 ":"moins de 5 millions",    
-    "MARQUE":"marque",
-    "PRIX":"prix"
-  }
+  "PRODUCTS_AVAILABLE": "Available Products",
+  "SEARCH_PLACEHOLDER": "Search for products...",
+  "SEARCH_BUTTON": "Search",
+  "BRANDS": "Brands",
+  "USER": "utilisateur",
+  "PRICE": "Price:",
+   "BRAND": "Mon Commerce",
+   "COMMANDES": "orders",
+   "PANIER": "panier",
+   "ACHETER": "Acheter",
+    "AJOUTER_AU_PANIER": "ajouter au panier",  
+    "MOINS2": "moins de 3 millions",
+    "MOINS4": "moins de 4 millions",
+    "MOINS6": "moins de 5 millions",
+    "MARQUE": "marque",
+    "PRIX": "prix",
+    "TOTAL": "total",
+    "FRAIS": "frais de livraison",
+    "TOTAL_A_PAYER": "total à payer"  
+  
 }
