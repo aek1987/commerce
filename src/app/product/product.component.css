@@ -232,6 +232,7 @@
   border-radius: 5px;
   overflow: hidden;
   width: 100%; /* Assurez-vous que la barre de progression ne déborde pas */
+  z-index: 3; /* Assurez-vous que les sliders sont au-dessus de la barre */
 }
 
 .active-range {

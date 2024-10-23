@@ -5,7 +5,8 @@ import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons'; 
 import { ProductsService } from '../service/products.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { ThousandSeparatorPipe } from '../pipe/thousand-separator.pipe';
+
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -16,9 +17,9 @@ export class ProductComponent {
   products :Product[]=[]; 
   showButton: boolean = false;
   filteredProducts: Product[] = [];
-  searchQuery: string = '';  showAll: boolean = false;   
+    
 
-  categories: string[] = ['All', 'Oppo', 'Redmi', 'realme','Apple', 'Samsung', 'Xiami']; // Liste des catégories
+  categories: string[] = ['All', 'Oppo', 'Redmi', 'realme','Apple', 'Samsung', 'Xiaomi']; // Liste des catégories
   selectedCategory: string = 'All'; // Catégorie sélectionnée
 
   faCartPlus = faCartPlus; // Déclarer l'icône dans la classe du composant
@@ -26,9 +27,9 @@ export class ProductComponent {
   notifiedProductId: number | null = null;  // ID du produit notifié
 
  
-  minPrice: number = 0;  // Prix min par défaut
-  maxPrice: number = 1000;  // Prix max par défaut
-  progressBarWidth: number = 0; // Largeur de la barre de progression
+  minPrice: number = 4000;  // Prix min par défaut
+  maxPrice: number = 400000;  // Prix max par défaut
+  progressBarWidth: number = 100; // Largeur de la barre de progression
 
 
   lastAvailableDate: string | null = null;  
@@ -39,10 +40,16 @@ export class ProductComponent {
  
   // Tableau des produits dans le panier
   cart: Product[] = [];
+  selectedPriceLimit: number =0;
   // Liste des marques
  
-  constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router)
-    {}
+  constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router,private translate: TranslateService)
+    {
+    
+    }
+    switchLanguage(lang: string) {
+      this.translate.use(lang);
+    }
 
     ngOnInit() {
     
@@ -105,48 +112,12 @@ setTimeout(() => {
     return this.cart.reduce((total, product) => total + product.price, 0);
   }
 
-  searchProducts() {
-    if (this.searchQuery) {
-      this.filteredProducts = this.products.filter(product =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    } else {
-      this.filteredProducts = this.products; // If search query is empty, show all products
-    }
-  }
-  // Méthode pour filtrer les produits en fonction de la catégorie
-  filterByCategory(event: Event) {
-  
-    
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedCategory = selectElement.value;
-    if (selectedCategory === 'All') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(product => product.category === selectedCategory);
-    }
-  }
+
   goToProductDetail(product :Product ){
     this.router.navigate(['/product', product.id]);
   }
 
-  // Dans votre composant TypeScript
-colors = ['Rouge', 'Vert', 'Bleu', 'Jaune', 'Noir', 'Blanc']; // Exemple de couleurs
 
-filterByColor(event: Event) {
-  const selectedColor = (event.target as HTMLSelectElement).value;
-  // Implémentez votre logique de filtrage ici
-}
-// Méthode pour filtrer par prix
-filterByPrice() {
-  this.filteredProducts = this.filteredProducts.filter(product => 
-    product.price >= this.minPrice && product.price <= this.maxPrice
-  );
-}
-//Méthode pour filtrer par évaluation
-filterByEvaluation(rating: number): void {
- // this.filteredProducts = this.products.filter(product => product.evaluation === rating);
-}
 onMouseEnter(productId: Number) {
  this.isHoveredProduct = productId.toString(); // Met à jour l'ID du produit survolé/ Met à jour l'état quand le curseur est sur le produit
 }
@@ -170,70 +141,92 @@ onCategoryChange(event: Event) {
 
   console.log('Catégories sélectionnées :', this.selectedCategories);
   // Applique le filtre avec les catégories sélectionnées
-  this.applyCategoryFilter();
+  this.applyFilters();
 }
 dropdownOpen: boolean = false;
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
-applyCategoryFilter() {
+applyCategoryFilter2() {
   
-  if (this.selectedCategories.length === 0 || this.selectedCategories.includes('All')) {
-    // Si aucune catégorie n'est sélectionnée, afficher tous les produits
-    this.filteredProducts = this.products;
-  } else {
-    // Filtrer les produits pour qu'ils appartiennent à l'une des catégories sélectionnées
-    this.filteredProducts = this.products.filter(product =>
-      this.selectedCategories.includes(product.category)
-    );
-  }
-}
-  // Méthode pour gérer les changements de filtre
-  onPriceFilterChange(event: any) {
-   
-      const priceLimit = Number(event.target.value); // Obtenir la limite de prix depuis l'attribut value
-      const isChecked = event.target.checked;
   
-      if (isChecked) {
-        // Filtrer les produits en fonction de la case cochée
-        this.filteredProducts = this.products.filter(product => product.price < priceLimit);
-      } else {
-        // Réinitialiser les produits si aucune case n'est cochée
-        this.filteredProducts = [...this.products];
-      }
-    
-  }
-onPriceChange(): void {
-  // Logique pour gérer les changements dans les sliders
-  if (this.minPrice >= this.maxPrice) {
-    this.maxPrice = this.minPrice + 1; // Assure que max est toujours supérieur à min
-  }
-  
-  console.log(`Prix minimum: ${this.minPrice}, Prix maximum: ${this.maxPrice}`);
-  
-  // Vous pouvez ajouter une logique pour actualiser les produits ici
-  console.log(`Plage de prix: ${this.minPrice} - ${this.maxPrice}`);
-
-  this.applyFilters(); 
 }
 
 
-
-
-getBrandImage(brand: string): string {
-  return `assets/brands/${brand}.jpg`; // Remplacez .png par .jpg si nécessaire
-}
-
-filterByBrand(brand: string): void {
-  this.filteredProducts = this.products.filter(product => product.category === brand);
-}
 applyFilters() {
-  this.filteredProducts = this.products.filter(product => {
-    const isBrandMatch = this.selectedCategories.length === 0 || this.selectedCategories.includes(product.category);
-    const isPriceMatch = product.price >= this.minPrice && product.price <= this.maxPrice;
-    return isBrandMatch && isPriceMatch;
-  });
+  // Commencer par les produits d'origine
+  let filtered = [...this.products];
+
+  // 1. Appliquer le filtre de prix (via slider ou case à cocher)
+  
+  // Si une case de prix est cochée (prioritaire par rapport au slider)
+  if (this.selectedPriceLimit!=0) {
+    
+    filtered = filtered.filter(product => product.price < this.selectedPriceLimit);
+    console.log("une case de prix est cochée"+this.selectedPriceLimit)
+  } 
+  // Sinon appliquer le filtre de slider (si aucune case à cocher n'est active)
+  else if (!this.selectedPriceLimit && this.minPrice !== undefined && this.maxPrice !== undefined) {
+   //"aucune case coche : filftred par slider
+    filtered = filtered.filter(product => product.price >= this.minPrice && product.price <= this.maxPrice);                                                                                                                                                                                                                                                                                                  
+  }
+
+  // 2. Appliquer le filtre de marques si des marques sont sélectionnées
+  console.log("taill sélectionné)"+this.selectedCategories.length);
+if (this.selectedCategories.length > 0) {
+  if (this.selectedCategories.includes('All')) {
+    // Si 'All' est sélectionné, on ne filtre pas les produits par catégorie
+    filtered = filtered;  // Aucun filtre par catégorie
+    console.log("Tous les produits sont affichés (All sélectionné)");
+  } else {
+    // Sinon, filtrer les produits par catégorie (marque)
+    filtered = filtered.filter(product => this.selectedCategories.includes(product.category));
+    console.log("Filtre appliqué par marque : " + this.selectedCategories.join(", "));
+  }
+}
+
+  // Mettre à jour la liste filtrée
+  this.filteredProducts = filtered;
+}
+
+// Méthode pour gérer la sélection des prix via case à cocher
+onPriceFilterChange(event: any) {
+  const priceLimit = Number(event.target.value);
+  const isChecked = event.target.checked;
+
+  if (isChecked) {
+    // Définir la limite de prix sélectionnée si la case est cochée
+    this.selectedPriceLimit = priceLimit;
+
+    // Décocher les autres cases
+    const checkboxes = document.querySelectorAll('.form-check-input');
+    checkboxes.forEach((checkbox) => {
+      if (checkbox !== event.target) {
+        (checkbox as HTMLInputElement).checked = false;
+      }
+    });
+  } else {
+    // Si la case est décochée, réinitialiser la limite de prix
+    this.selectedPriceLimit = 0;
+  }
+
+  // Appliquer les filtres après le changement
+  this.applyFilters();
+}
+
+// Méthode pour gérer la plage de prix via slider
+onPriceChange(): void {
+  // Vérifier que la valeur minPrice est inférieure à maxPrice
+  if (this.minPrice >= this.maxPrice) {
+    this.maxPrice = this.minPrice + 1;
+  }
+
+  // Réinitialiser la limite de prix sélectionnée (si le slider est utilisé, les cases à cocher ne sont plus actives)
+  this.selectedPriceLimit = 0;
+
+  // Appliquer les filtres après le changement
+  this.applyFilters();
 }
 
 // Méthode pour gérer la sélection des marques
@@ -246,8 +239,9 @@ onBrandChange(event: Event) {
   } else {
     this.selectedCategories = this.selectedCategories.filter(b => b !== brand);
   }
-  this.applyFilters();  // Appliquez le filtre après chaque modification de marque
-}
 
+  // Appliquer les filtres après le changement de marque
+  this.applyFilters();
+}
 
 }

@@ -5,16 +5,16 @@
     "BRANDS": "العلامات التجارية",
     "PRICE": "السعر:",    
     "USER": "لسعر",
-    "NAVBAR": {
-    "BRAND": "تجارتي"
-     },
+    
+    "BRAND": "تجارتي",
+    
      "COMMANDES":"طلبات",
      "PANIER":"سلة",
      "ACHETER":"شراء",
      "AJOUTER AU PANIER":"أضف إلى سلة",
-     "MOINS 3":"أقل من 3 ملايين",
-     "MOINS 4":" أقل من 4 ملايين",
-     "MOINS 5":" أقل من 4 ملايين",    
+     "MOINS2":"أقل من 3 ملايين",
+     "MOINS4":" أقل من 4 ملايين",
+     "MOINS6":" أقل من 4 ملايين",    
      "MARQUE":"العلامة",
      "PRIX":"السعر",
      "NOM":"الاسم",
@@ -24,8 +24,10 @@
      "ADRESS":"العنوان",    
      "PAIMENT A LA LIVRAISON":"الدفع عند الاستلام" ,  
      "SELECTIONNER":" اختر الولاية",
-     "SELECTIONNER COM":" اختر الولاية"
-     
+     "SELECTIONNER COM":" اختر الولاية",
+     "TOTAL":"المجموع",  
+     "FRAIS":"تكاليف الشحن", 
+     "TOTAL A PAYER":" المبلغ االاجمالي  "
   
 
 }

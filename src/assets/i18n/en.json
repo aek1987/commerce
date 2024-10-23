@@ -8,7 +8,8 @@
     "BRAND": "My Brands"
      },
      "COMMANDES":"orders",
-     "PANIER":"basket"
+     "PANIER":"basket",
+     "MOINS 3":"moins de 3 millions"
      
   }
   

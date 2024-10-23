@@ -20,14 +20,6 @@ export class NavbarComponent implements OnInit{
   CountItem :number=0;
   constructor(private cartService: CartService, private authService: AuthService, private router: Router,private translate: TranslateService) {
 
-
-    translate.addLangs(['en', 'fr', 'ar']);
-    // Définir la langue par défaut
-    translate.setDefaultLang('fr');
-    
- // Détecter la langue du navigateur ou utiliser 'fr' par défaut si aucune langue supportée n'est trouvée
- const browserLang = translate.getBrowserLang() || 'fr';
- translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'fr');
   }
 
   ngOnInit() {

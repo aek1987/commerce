@@ -9,31 +9,31 @@
           <input 
             type="checkbox" 
             id="less-than-3m" 
-            value="30000"
+            value="20000"
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-3m">{{ 'MOINS 3' | translate }} </label>
+          <label class="form-check-label" for="less-than-3m">{{'MOINS2'|translate}}</label>
         </div>
         <div class="form-check mb-3">
           <input 
             type="checkbox" 
             id="less-than-4m" 
-            value="30000"
+            value="40000"
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-4m">{{ 'MOINS 4' | translate }} </label>
+          <label class="form-check-label" for="less-than-4m">{{'MOINS4'|translate}} </label>
         </div>
         <div class="form-check mb-3">
           <input 
             type="checkbox" 
             id="less-than-5m" 
-            value="30000"
+            value="60000"
             class="form-check-input" 
             (change)="onPriceFilterChange($event)" 
           />
-          <label class="form-check-label" for="less-than-5m">{{ 'MOINS 5' | translate }} </label>
+          <label class="form-check-label" for="less-than-5m">{{ 'MOINS6'|translate}} </label>
         </div>
 
         <!-- Filtres de marques -->
@@ -47,7 +47,8 @@
               <input 
                 type="checkbox" 
                 [value]="category" 
-                (change)="applyFilters()" 
+                (change)="onCategoryChange($event)" 
+o                          
                
                 [checked]="selectedCategories.includes(category)" 
                 class="form-check-input"
@@ -66,8 +67,8 @@
       <div class="slider-wrapper">
         <input 
           type="range" 
-          min="0" 
-          max="1000" 
+          min="4000" 
+          max="400000" 
           [(ngModel)]="minPrice" 
           (input)="onPriceChange()" 
           class="range-slider" 
@@ -75,8 +76,8 @@
         />
         <input 
           type="range" 
-          min="0" 
-          max="1000" 
+          min="4000" 
+          max="400000" 
           [(ngModel)]="maxPrice" 
           (input)="onPriceChange()" 
           class="range-slider" 
@@ -94,8 +95,8 @@
     
       <!-- Affichage des valeurs min et max -->
       <div class="price-values">
-        <span>{{ minPrice | number }} DA</span>
-        <span>{{ maxPrice | number }} DA</span>
+        <span>{{ minPrice | thousandSeparator }} DA</span>
+        <span>{{ maxPrice | thousandSeparator }} DA</span>
       </div>
     </div>
     
@@ -122,7 +123,7 @@
             <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">Prix : {{ product.price | thousandSeparator }} DA </p>
+              <p class="card-text"><strong>Prix : {{ product.price | thousandSeparator }}</strong></p>
               <p class="card-text">{{ product.description }}</p>
               <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary" (click)="addToCart(product, $event)">
                 <fa-icon [icon]="faCartPlus"></fa-icon>

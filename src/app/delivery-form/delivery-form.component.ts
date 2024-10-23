@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { PaymentService } from '../service/payment.service';
 import { Router } from '@angular/router';
 import { Wilaya } from '../modeles/Wilaya.model';
+import { Panier } from '../modeles/Panier.model';
+import { CartService } from '../service/cart.service';
 
 
 @Component({
@@ -10,9 +12,10 @@ import { Wilaya } from '../modeles/Wilaya.model';
   styleUrls: ['./delivery-form.component.css']
 })
 export class DeliveryFormComponent {
-
- 
-  total: number = 0; // Exemple de montant total à payer
+  deliveryFee: number = 500; // Exemple de frais de livraison fixe
+  items: Panier []=[];  // Obtenir les produits du panier
+  total :number=0; // Calculer le total
+   // Exemple de montant total à payer
   wilayas: Wilaya[] = [
     { name: 'Alger', communes: ['Bab El Oued', 'Hussein Dey', 'El Harrach'] },
     { name: 'Oran', communes: ['Es-Sénia', 'Aïn El Türck', 'Gdyel'] },
@@ -35,7 +38,8 @@ export class DeliveryFormComponent {
     cvv: ''
   };
   selectedCommunes: string[] = [];
-  constructor(private paymentService: PaymentService,private router: Router ) {}
+  paymentMode: string = 'cash'; // Par défaut, paiement par carte
+  constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ) {}
   onWilayaChange(event: Event) {
     const selectedWilaya = (event.target as HTMLSelectElement).value;
     this.deliveryInfos.wilaya = selectedWilaya;
@@ -44,6 +48,19 @@ export class DeliveryFormComponent {
     const wilaya = this.wilayas.find(w => w.name === selectedWilaya);
     this.selectedCommunes = wilaya ? wilaya.communes : [];
     this.deliveryInfos.commune = ''; // Réinitialiser la commune
+
+
+
+    this.cartService.items$.subscribe(items => {
+      this.items = items;
+     });
+ 
+     // S'abonner aux changements du total
+     this.cartService.total$.subscribe(total => {
+       this.total = total;
+     });
+      console.log('Page de confirmation chargée');
+
   }
 
   onCommuneChange(event: Event) {
@@ -56,9 +73,11 @@ export class DeliveryFormComponent {
     console.log('Informations de livraison:', this.deliveryInfos);
   }
 
-   paymentMode: string = 'card'; // Par défaut, paiement par carte
   
-
+  
+   setPaymentMode(mode: string) {
+    this.paymentMode = mode;
+  }
   // Fonction pour gérer le changement de mode de paiement
   onPaymentModeChange(mode: string) {
     this.paymentMode = mode;

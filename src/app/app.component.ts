@@ -13,19 +13,15 @@ export class AppComponent {
   name: string = '';  // This is bound to the input field
 
   constructor(private translate: TranslateService) {
-    // Ajouter les langues disponibles
-    translate.addLangs(['fr', 'ar']);
+    translate.addLangs(['en', 'fr', 'ar']);
     // Définir la langue par défaut
-    translate.setDefaultLang('fr');    
+    translate.setDefaultLang('fr');
+    
  // Détecter la langue du navigateur ou utiliser 'fr' par défaut si aucune langue supportée n'est trouvée
- const browserLang = translate.getBrowserLang() || 'ar';
- translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'ar');
-
-
-
-
+ const browserLang = translate.getBrowserLang() || 'fr';
+ translate.use(browserLang.match(/en|fr|ar/) ? browserLang : 'fr');
   }
-
+ 
   // Méthode pour changer la langue
   switchLanguage(lang: string) {
     this.translate.use(lang);
