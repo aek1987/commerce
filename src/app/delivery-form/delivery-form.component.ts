@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../service/payment.service';
 import { Router } from '@angular/router';
 import { Wilaya } from '../modeles/Wilaya.model';
@@ -11,11 +11,26 @@ import { CartService } from '../service/cart.service';
   templateUrl: './delivery-form.component.html',
   styleUrls: ['./delivery-form.component.css']
 })
-export class DeliveryFormComponent {
+export class DeliveryFormComponent  implements OnInit{
   deliveryFee: number = 500; // Exemple de frais de livraison fixe
   items: Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
    // Exemple de montant total à payer
+   ngOnInit(): void {
+    // S'abonner aux changements des items
+    this.cartService.items$.subscribe(items => {
+     this.items = items;
+    });
+
+    // S'abonner aux changements du total
+    this.cartService.total$.subscribe(total => {
+      this.total = total;
+    });
+     console.log('Page de confirmation chargée');
+   
+ 
+ }
+
   wilayas: Wilaya[] = [
     { name: 'Alger', communes: ['Bab El Oued', 'Hussein Dey', 'El Harrach'] },
     { name: 'Oran', communes: ['Es-Sénia', 'Aïn El Türck', 'Gdyel'] },
