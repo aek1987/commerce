@@ -324,6 +324,7 @@ input[type="range"]:focus {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    z-index: 3;/* Assurez-vous que le thumb est toujours visible */
   }
   
   .range-slider::-moz-range-thumb {
@@ -341,7 +342,7 @@ input[type="range"]:focus {
     height: 8px;
     background-color: #ddd;
     border-radius: 4px;
-     z-index: 1; /*S'assure que la barre de progression est derrière les sliders */
+    z-index: 1; /*S'assure que la barre de progression est derrière les sliders */
   }
   
   .slider-progress {

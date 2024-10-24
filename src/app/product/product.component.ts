@@ -27,9 +27,9 @@ export class ProductComponent {
   notifiedProductId: number | null = null;  // ID du produit notifié
 
  
-  minPrice: number = 4000;  // Prix min par défaut
-  maxPrice: number = 400000;  // Prix max par défaut
-  progressBarWidth: number = 100; // Largeur de la barre de progression
+  //minPrice: number = 0;  // Prix min par défaut
+  //maxPrice: number = 100;  // Prix max par défaut
+  //progressBarWidth: number = 100; // Largeur de la barre de progression
 
 
   lastAvailableDate: string | null = null;  
@@ -218,10 +218,10 @@ onPriceFilterChange(event: any) {
 // Méthode pour gérer la plage de prix via slider
 onPriceChange(): void {
   // Vérifier que la valeur minPrice est inférieure à maxPrice
-  if (this.minPrice >= this.maxPrice) {
-    this.maxPrice = this.minPrice + 1;
+ 
+  if (this.minPrice > this.maxPrice) {
+    this.minPrice = this.maxPrice;
   }
-
   // Réinitialiser la limite de prix sélectionnée (si le slider est utilisé, les cases à cocher ne sont plus actives)
   this.selectedPriceLimit = 0;
 
@@ -242,6 +242,21 @@ onBrandChange(event: Event) {
 
   // Appliquer les filtres après le changement de marque
   this.applyFilters();
+} 
+
+minPrice: number = 4000;  // Prix min par défaut
+maxPrice: number = 400000;  // Prix max par défaut
+maxLimit: number = 400000;  // Limite maximale pour le slider
+
+// Méthode appelée lorsqu'on change les sliders
+
+// Calcul de la position du début de la barre de progression
+getProgressLeft(): number {
+  return (this.minPrice - 4000) / (this.maxLimit - 4000) * 100;
 }
 
+// Calcul de la largeur de la barre de progression
+getProgressWidth(): number {
+  return (this.maxPrice - this.minPrice) / (this.maxLimit - 4000) * 100;
+}
 }

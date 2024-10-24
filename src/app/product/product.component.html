@@ -87,8 +87,8 @@ o
         <div class="slider-progress-container">
           <div 
             class="slider-progress" 
-            [style.left.%]="(minPrice / 10)" 
-            [style.width.%]="((maxPrice - minPrice) / 10)">
+            [style.left.%]="getProgressLeft()" 
+            [style.width.%]="getProgressWidth()">
           </div>
         </div>
       </div>
