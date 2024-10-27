@@ -18,13 +18,14 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ProductManagerComponent } from './prodct-manager/prodct-manager.component';
+import { StcoktManagerComponent } from './prodct-manager/stock-manager.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CommonModule } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ThousandSeparatorPipe } from './pipe/thousand-separator.pipe';
+import { OrderManagementComponent } from './order-management/order-management.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,10 +44,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     RegisterComponent,
     DeliveryFormComponent,
-    ProductManagerComponent,
+    StcoktManagerComponent,
     CarouselComponent,  
     ProductDetailComponent,
     ThousandSeparatorPipe,
+    OrderManagementComponent
    
   ],
   imports: [CommonModule,

@@ -2,46 +2,68 @@
   <div class="row">
     <!-- Colonne gauche : Formulaire d'informations de livraison -->
     <div class="col-md-6">
-      <div class="card shadow-sm p-4 mb-4">
+     
         <h4 class="mb-4 text-primary">Informations de Livraison</h4>
         <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm">
-          <!-- Nom et Téléphone sur une ligne -->
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="name" class="font-weight-bold">Nom</label>
-              <input type="text" id="name" class="form-control" name="name" [(ngModel)]="deliveryInfos.name" required placeholder="Votre nom complet" />
+            <!-- Nom et Téléphone sur une ligne -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name" class="font-weight-bold">Nom</label>
+                  <input type="text" id="name" class="form-control" name="name" [(ngModel)]="deliveryInfos.name" required #name="ngModel" placeholder="Votre nom complet" />
+                  <!-- Afficher le message d'erreur si le champ est invalid -->
+                  <div *ngIf="name.invalid && name.touched" class="text-danger">
+                    Veuillez entrer un nom valide.
+                  </div>
+                </div>
+                 <!-- Afficher le message d'erreur si le champ est invalid -->
+                
+                <div class="form-group col-md-6">
+                  <label for="phone" class="font-weight-bold">Téléphone</label>
+                  <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required #phone="ngModel" placeholder="Numéro de téléphone" pattern="^[0-9]{10}$"/>
+                  <!-- Afficher le message d'erreur si le champ est invalid -->
+                  <div *ngIf="phone.invalid && phone.touched" class="text-danger">
+                    Veuillez entrer un numéro de téléphone valide (10 chiffres).
+                  </div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-              <label for="phone" class="font-weight-bold">Téléphone</label>
-              <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required placeholder="Numéro de téléphone" />
+    
+            <!-- Wilaya et Commune sur une ligne -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="wilaya" class="font-weight-bold">Wilaya</label>
+                  <select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required #wilaya="ngModel">
+                    <option value="">Sélectionner une wilaya</option>
+                    <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
+                  </select>
+                  <div *ngIf="wilaya.invalid && wilaya.touched" class="text-danger">
+                    Veuillez sélectionner une wilaya.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="commune" class="font-weight-bold">Commune</label>
+                  <select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="selectedCommunes.length === 0" required #commune="ngModel">
+                    <option value="">Sélectionner une commune</option>
+                    <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
+                  </select>
+                  <div *ngIf="commune.invalid && commune.touched" class="text-danger">
+                    Veuillez sélectionner une commune.
+                  </div>
+                </div>
             </div>
-          </div>
-
-          <!-- Wilaya et Commune sur une ligne -->
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="wilaya" class="font-weight-bold">Wilaya</label>
-              <select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required>
-                <option value="">Sélectionner une wilaya</option>
-                <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
-              </select>
+    
+            <!-- Adresse -->
+            <div class="form-group">
+              <label for="address" class="font-weight-bold">Adresse</label>
+              <input type="text" id="address" class="form-control" name="address" [(ngModel)]="deliveryInfos.address" required #address="ngModel" placeholder="Adresse complète" />
+              <div *ngIf="address.invalid && address.touched" class="text-danger">
+                Veuillez entrer une adresse complète.
+              </div>
             </div>
-            <div class="form-group col-md-6">
-              <label for="commune" class="font-weight-bold">Commune</label>
-              <select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="selectedCommunes.length === 0" required>
-                <option value="">Sélectionner une commune</option>
-                <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Adresse -->
-          <div class="form-group">
-            <label for="address" class="font-weight-bold">Adresse</label>
-            <input type="text" id="address" class="form-control" name="address" [(ngModel)]="deliveryInfos.address" required placeholder="Adresse complète" />
-          </div>
+    
+            
         </form>
-      </div>
+    
+    
     </div>
 
     <!-- Colonne droite : Résumé d'Achat -->
@@ -58,24 +80,29 @@
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span class="font-weight-bold">Total (DZD)</span>
-            <strong>{{ total | currency:'DZD':'symbol':'1.0-0' }}</strong>
+            <strong>{{ total |  thousandSeparator }}</strong>
+          </li>
+         
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <span class="font-weight-bold">Total à payer (DZD)</span>
+            <strong>{{ (total + deliveryFee) |  thousandSeparator }}</strong>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Frais de livraison (DZD)</span>
             <strong>{{ deliveryFee |  thousandSeparator }}</strong>
           </li>
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <span class="font-weight-bold">Total à payer (DZD)</span>
-            <strong>{{ (total + deliveryFee) |  thousandSeparator }}</strong>
-          </li>
         </ul>
       </div>
     </div>
   </div>
-
+  <div class="card-footer text-end">
+    <h5>Frais de livraison : <span class="text-danger">{{deliveryFee }} DZ</span></h5>
+    <h5>Total : <span class="text-danger">{{ total+deliveryFee }} DZ</span></h5>
+  </div>
+  
   <!-- Section de choix du mode de paiement -->
   <div class="card shadow-sm p-4 mt-4">
-    <h4 class="mb-4 text-primary">Choisissez votre mode de paiement</h4>
+    <h4 class="mb-4 text-primary">mode de paiement</h4>
     <div class="form-group">
       <div class="custom-control custom-radio mb-3">
         <input type="radio" id="paymentCash" name="paymentMode" class="custom-control-input" [(ngModel)]="paymentMode" value="cash" (change)="setPaymentMode('cash')" />
@@ -95,7 +122,7 @@
     </div>
     
     <div *ngIf="paymentMode === 'card'" class="text-right">
-      <button type="button" class="btn btn-success btn-lg" (click)="confirmPayment()">
+      <button type="submit" class="btn btn-success btn-lg" [disabled]="!deliveryForm.valid" (click)="confirmPayment()">
         <i class="fas fa-credit-card"></i> Paiement en ligne Dahabia
       </button>
     </div>

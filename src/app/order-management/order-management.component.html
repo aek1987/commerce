@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <h3 class="text-center mb-4 text-primary">Gestion des Commandes Clients</h3>
+  
+    <div class="card shadow-sm p-4 mb-4">
+      <h4 class="mb-4 text-secondary">Liste des Commandes</h4>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Client</th>
+            <th scope="col">Date de Commande</th>
+            <th scope="col">Montant Total (DZD)</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Détails</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Utilisation d'un ngFor pour itérer sur les commandes -->
+          <tr *ngFor="let commande of commandes; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ commande.clientName }}</td>
+            <td>{{ commande.date | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ commande.total | thousandSeparator }}</td>
+            <td>
+              <span [ngClass]="{
+                'badge badge-success': commande.status === 'Livré',
+                'badge badge-warning': commande.status === 'En cours',
+                'badge badge-danger': commande.status === 'Annulé'
+              }">
+                {{ commande.status }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-outline-info btn-sm" (click)="viewDetails(commande)">Voir</button>
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm" (click)="editCommande(commande)">Modifier</button>
+              <button class="btn btn-outline-danger btn-sm" (click)="cancelCommande(commande)">Annuler</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
+    <div *ngIf="selectedCommande" class="card shadow-sm p-4 mt-4">
+      <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.id }}</h4>
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          <strong>Client : </strong>{{ selectedCommande.clientName }}
+        </li>
+        <li class="list-group-item">
+          <strong>Date de Commande : </strong>{{ selectedCommande.date | date: 'dd/MM/yyyy' }}
+        </li>
+        <li class="list-group-item">
+          <strong>Adresse de Livraison : </strong>{{ selectedCommande.address }}
+        </li>
+        <li class="list-group-item">
+          <strong>Total : </strong>{{ selectedCommande.total | thousandSeparator }} DZD
+        </li>
+        <li class="list-group-item">
+          <strong>Statut : </strong>
+          <span [ngClass]="{
+            'badge badge-success': selectedCommande.status === 'Livré',
+            'badge badge-warning': selectedCommande.status === 'En cours',
+            'badge badge-danger': selectedCommande.status === 'Annulé'
+          }">
+            {{ selectedCommande.status }}
+          </span>
+        </li>
+        <li class="list-group-item">
+          <h5>Produits Commandés</h5>
+          <ul class="list-unstyled">
+            <li *ngFor="let produit of selectedCommande.produits">
+              {{ produit.name }} - Quantité : {{ produit.quantity }} - Prix : {{ produit.price | thousandSeparator }} DZD
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="text-right">
+        <button class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
+      </div>
+    </div>
+  </div>
+  

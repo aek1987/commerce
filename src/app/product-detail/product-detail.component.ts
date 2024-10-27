@@ -65,6 +65,7 @@ export class ProductDetailComponent implements OnInit {
     );
   }
   goToConfirmationPage() {
+   
     this.router.navigate(['/confirm-order']);
 
     

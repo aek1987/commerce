@@ -7,12 +7,14 @@ import { ProductComponent } from './product/product.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
-import { ProductManagerComponent } from './prodct-manager/prodct-manager.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { StcoktManagerComponent } from './prodct-manager/stock-manager.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
 
 
 const routes: Routes = [
-  { path: 'manager', component:  ProductManagerComponent  }, 
+  { path: 'ordersAllClient', component:  OrderManagementComponent  }, 
+  { path: 'stock', component:  StcoktManagerComponent  }, 
   { path: 'products', component:  ProductComponent  }, 
   { path: 'product/:id', component: ProductDetailComponent }, // Détails du produit
   { path: 'login', component:  LoginComponent }, 

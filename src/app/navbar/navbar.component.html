@@ -1,20 +1,52 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/products">
-      <img src="assets/2.jpg" alt="Logo" style="height: 40px; margin-right: 10px;" class="navbar-logo">
-      {{ 'BRAND' | translate }}
-  </a>
-   <!-- Barre de recherche -->
-   <form class="col-md-6 mb-3">
-    <div class="input-group">
-      <input 
+    <a class="navbar-brand" routerLink="/products">
+        <img src="assets/2.jpg" alt="Logo" style="height: 40px; margin-right: 10px;" class="navbar-logo">
+        <div>
+          <span class="brand-title">     {{ 'BRAND' | translate }}</span>
+          <div class="company-info d-flex align-items-center mt-4">
+          <p class="mb-0 me-4 d-flex align-items-center small-text">
+            <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+            Route National 11, Mohammadia, Alger
+            <a href="https://www.google.com/maps?q=Route+National+11+Mohammadia+Alger" target="_blank"></a>
+          </p>
+          
+          <!-- Téléphone avec une icône -->
+          <p class="mb-0 d-flex align-items-center small-text">
+            <fa-icon [icon]="faPhone"></fa-icon>
+            0698616281
+          </p>
+        </div>
+    </div>
+    </a>
+  
+      
+    
+   
+  <!-- Barre de recherche -->
+<!-- Barre de recherche alignée à droite --
+<form class="d-flex mb-3 ms-3">
+    <span class="input-group-text search-icon" (click)="toggleSearch()">
+        <fa-icon [icon]="faSearch"></fa-icon>
+    </span>
+    <input 
+        *ngIf="isSearchVisible" 
         type="text" 
         placeholder="Rechercher des produits..." 
         class="form-control search-input" 
-      />
-     
-    </div>
-  </form>
+        [(ngModel)]="searchQuery"
+        (keyup)="onSearch()"
+    />
+</form>
+- Fin Barre de recherche -->
+  
+   <!--fin  Barre de recherche -->
+   <!-- Informations sur la société -->
 
+<!-- Informations sur la société en une seule ligne avec du texte plus petit -->
+
+  
+  
+  
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
@@ -22,13 +54,13 @@
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto"> <!-- Utilisation de ms-auto pour aligner tous à droite -->
         <a class="nav-link" routerLink="/confirm-order">
-            <fa-icon [icon]="faShoppingCart"></fa-icon>{{ 'PANIER' | translate }} 
+            <fa-icon [icon]="faShoppingCart" ></fa-icon>{{ 'PANIER' | translate }} 
             <span *ngIf="CountItem > 0" class="badge bg-danger text-white">
                 {{ CountItem }} <!-- Display CountItem -->
             </span>
         </a>
           <li class="nav-item">
-              <a class="nav-link" routerLink="/orders"><fa-icon [icon]="faReceipt"></fa-icon> {{ 'MOINS'|translate }}</a>
+              <a class="nav-link" routerLink="/orders"><fa-icon [icon]="faReceipt"></fa-icon> {{ 'COMMANDES'|translate }}</a>
               
           </li>
           <li class="nav-item dropdown">
@@ -39,6 +71,7 @@
                   <li *ngIf="!isAuthenticated"><a class="dropdown-item" routerLink="/login">Se connecter</a></li>
                   <li *ngIf="isAuthenticated"><a class="dropdown-item" (click)="logout()">Se déconnecter</a></li>
                   <li *ngIf="!isAuthenticated"><a class="dropdown-item" routerLink="/register">S'inscrire</a></li>
+                  <li *ngIf="!isAuthenticated"><a class="dropdown-item" (click)="goToStock()">Stock</a></li>
                   <li *ngIf="!isAuthenticated"><a class="dropdown-item" (click)="goToManager()">Manager</a></li>
               </ul>
           </li>

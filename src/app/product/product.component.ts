@@ -41,8 +41,7 @@ export class ProductComponent {
   // Tableau des produits dans le panier
   cart: Product[] = [];
   selectedPriceLimit: number =0;
-  // Liste des marques
- 
+  isLoading: boolean = true;
   constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router,private translate: TranslateService)
     {
     
@@ -53,14 +52,21 @@ export class ProductComponent {
 
     ngOnInit() {
     
-      this.productService.getProducts().subscribe((data: Product[]) => {
-        this.products = data;  // Assign the fetched products to the component
-        this.filteredProducts = this.products;
-        if (this.products === undefined || (Array.isArray(this.products) && this.products.length === 0)) {
-          console.log("aucun produit trouvé sur url");
-        }
-      
-      });
+      this.isLoading = true;
+      this.productService.getProducts().subscribe(
+      (data: Product[]) => {
+      this.products = data;
+      this.filteredProducts = this.products;
+      this.isLoading = false; // Désactiver le spinner une fois les produits chargés
+      if (!this.products || this.products.length === 0) {
+        console.log("aucun produit trouvé sur url");
+      }
+    },
+    (error) => {
+      console.error("Erreur lors du chargement des produits", error);
+      this.isLoading = false; // Désactiver le spinner en cas d'erreur
+    }
+  );
        // Initially, show all products
     
   }

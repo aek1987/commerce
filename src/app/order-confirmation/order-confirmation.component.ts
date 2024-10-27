@@ -30,14 +30,32 @@ export class OrderConfirmationComponent implements OnInit {
      // S'abonner aux changements du total
      this.cartService.total$.subscribe(total => {
        this.total = total;
+     
      });
       console.log('Page de confirmation chargée');
-    
+      localStorage.setItem('panier', JSON.stringify(this.items));
+      this.loadCart();
   
   }
-
+  loadCart() {
+  // Récupérer le panier stocké dans localStorage
+  const storedCart = localStorage.getItem('panier');
+  
+  // Si un panier est trouvé dans localStorage, parsez-le
+  if (storedCart) {
+    this.items = JSON.parse(storedCart);
+  } else {
+    // Si aucun panier n'est trouvé, initialisez items à un tableau vide
+    this.items = [];
+  } 
+  console.log('loadCart:', this.items);
+  
+  }
+  calculateTotal() {
+   // this.total = this.cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+  }
   confirmOrder() {
- // Vérifier si le panier est vide
+ 
 // Vérifier si le panier est vide
 if (this.items.length === 0) {
   Swal.fire({
@@ -55,7 +73,7 @@ if (this.items.length === 0) {
   return; // Arrêter l'exécution si le panier est vide
 }
 
-  const order = {
+const order = {
     id: 0,
     userId: 1, // ID utilisateur (obtenu dynamiquement dans un vrai contexte)
  //   products: this.items.map(item => ({ productId: item.product.id, quantity: item.quantity })), // Utiliser la quantité réelle
@@ -69,7 +87,7 @@ if (this.items.length === 0) {
   };
  
   this.orderService.placeOrder(order); // Envoyer la commande
-  this.cartService.clearCart(); // Vider le panier après commande
+  // Vider le panier après commande
   this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
 
 
@@ -78,6 +96,7 @@ if (this.items.length === 0) {
 }
 
   cancelOrder() {
+    this.cartService.clearCart(); 
     this.router.navigate(['/product']); // Rediriger vers le panier si annulation
   }
 }

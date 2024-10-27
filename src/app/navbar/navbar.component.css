@@ -1,50 +1,131 @@
 /* Styles pour la barre de navigation */
 .navbar {
-    background-color: #003366 !important; /* Bleu foncé */
+    background-color: #1e7ddb !important; /* Couleur de fond bleu foncé */
     padding: 10px 20px; /* Espacement autour de la navbar */
 }
 
 .navbar-brand {
-    color: #ffffff; /* Texte blanc */
-    font-weight: bold; /* Texte en gras */
+    color: #ffffff; /* Couleur blanche pour le texte de la marque */
     display: flex; /* Utiliser Flexbox pour aligner le contenu */
-    align-items: center; /* Aligner le logo et le texte verticalement */
+    align-items: center; /* Alignement vertical du logo et du texte */
 }
 
 .navbar-logo {
-    width: 40px; /* Taille du logo */
-    height: auto;
+    height: 40px; /* Taille du logo */
     margin-right: 10px; /* Espacement entre le logo et le texte */
-    display: inline-block; /* S'assurer que le logo reste inline */
+}
+/* Styles pour le lien Panier */
+.nav-link {
+    color: #ffffff; /* Couleur blanche pour le texte du lien */
+    font-weight: bold; /* Texte en gras */
+    transition: color 0.3s; /* Transition douce pour le changement de couleur */
 }
 
-.navbar-nav .nav-link {
-    color: #ffffff; /* Texte blanc */
-    padding: 15px; /* Plus d'espace autour des liens */
+/* Changement de couleur au survol */
+.nav-link:hover {
+    color: #ffcc00; /* Couleur jaune au survol */
+}
+.nav-link fa-icon {
+    margin-right: 6px; /* Un peu d'espace entre l'icône et le texte */
+    color: #ffcc00; /* Couleur des icônes */
+}
+/* Styles pour le badge du panier */
+.badge {
+    margin-left: 5px; /* Espacement pour le badge */
+    background-color: #ffcc00; /* Couleur de fond jaune pour le badge */
+    color: #003366; /* Couleur du texte dans le badge */
+    border-radius: 50%; /* Badge arrondi */
+    padding: 0.3em 0.6em; /* Espacement interne pour le badge */
+    font-size: 0.8em; /* Taille de police réduite pour le badge */
+    font-weight: bold; /* Texte en gras dans le badge */
 }
 
-.navbar-nav .nav-link:hover {
-    color: #ffcc00; /* Couleur d'accent au survol */
-    background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent au survol */
-    border-radius: 5px; /* Coins arrondis */
+/* Ajout d'un effet de box-shadow pour le badge */
+.badge {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour le badge */
 }
 
-.dropdown-menu {
-    background-color: #003366; /* Même couleur de fond que la navbar */
+/* Styles pour le titre de la marque */
+.brand-title {
+    font-weight: bold; /* Texte en gras */
+    font-size: 24px; /* Taille de la police */
 }
 
-.dropdown-item {
-    color: #ffffff; /* Texte blanc */
+/* Styles pour le sous-titre de la marque */
+.brand-subtitle {
+    display: block; /* Afficher le sous-titre sur une nouvelle ligne */
+    font-size: 14px; /* Taille de la police plus petite */
+    color: #ffcc00; /* Couleur du sous-titre */
 }
 
-.dropdown-item:hover {
-    background-color: #ffcc00; /* Fond jaune au survol */
-    color: #003366; /* Texte bleu au survol */
+/* Styles pour les informations de l'entreprise */
+.company-info {
+    color: #ffffff; /* Couleur blanche pour le texte */
+    font-size: 0.875rem; /* Taille du texte réduite */
+    margin-left: 20px; /* Espace à gauche pour l'alignement */
 }
 
+.company-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Supprime l'espace vertical */
+}
 
+.company-info fa-icon {
+    margin-right: 6px; /* Un peu d'espace entre l'icône et le texte */
+    color: #ffcc00; /* Couleur des icônes */
+}
 
-/* Style pour le texte de la marque */
+.company-info a {
+    color: #ffcc00; /* Couleur des liens */
+    text-decoration: none; /* Pas de soulignement */
+}
+
+.company-info a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}
+
+/* Styles pour la barre de recherche */
+.search-form {
+    flex-grow: 1; /* Permet au formulaire de prendre l'espace restant */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    border-radius: 0; /* Coins carrés */
+    width: 100%; /* Prend toute la largeur disponible */
+}
+
+.search-icon {
+    cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
+    background-color: #007bff; /* Couleur de fond pour le bouton de recherche */
+    color: #ffffff; /* Couleur de l'icône */
+    border-right: none; /* Supprime la bordure droite pour un look plus propre */
+}
+
+.search-btn {
+    border-radius: 0 0.25rem 0.25rem 0; /* Arrondi les coins */
+}
+
+/* Styles pour le badge du panier */
+.badge {
+    margin-left: 5px; /* Espacement pour le badge */
+}
+
+/* Styles pour les boutons */
+.navbar-toggler {
+    border: none; /* Pas de bordure pour le bouton de bascule */
+}
+
+.navbar-toggler:focus {
+    outline: none; /* Pas d'outline au focus */
+}
+
+/* Style pour le texte de la marque avec effet de survol */
 .brand-text {
     color: #ffffff; /* Couleur blanche */
     font-weight: bold; /* Texte en gras */
@@ -70,26 +151,3 @@
     transform: scaleX(1); /* Ligne se déployant au survol */
     transform-origin: bottom left;
 }
-
-.navbar-nav .dropdown-menu {
-    min-width: 120px; /* Ajustez la largeur du menu déroulant si nécessaire */
-}
-
-
-.input-group {
-    display: flex;
-    align-items: center;
-  }
-  
-  .search-input {
-    border-radius: 0.25rem 0 0 0.25rem; /* Arrondi les coins */
-  }
-  
-  .search-btn {
-    border-radius: 0 0.25rem 0.25rem 0; /* Arrondi les coins */
-  }
-  
-  .search-btn i {
-    margin-right: 5px; /* Espace entre l'icône et le texte */
-  }
-  

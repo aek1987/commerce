@@ -7,10 +7,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-manager',
-  templateUrl: './product-manager.component.html',
-  styleUrls: ['./product-manager.component.css']
+  templateUrl: './stock-manager.component.html',
+  styleUrls: ['./stock-manager.component.css']
 })
-export class ProductManagerComponent implements OnInit {
+export class StcoktManagerComponent implements OnInit {
   products: Product[] = [];
   newProduct: Product = { id: 0, name: '', price: 0, description: '', image: '', category: '' };
   imagePreview: string | ArrayBuffer | null = null;

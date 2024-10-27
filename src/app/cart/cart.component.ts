@@ -4,6 +4,8 @@ import { Product } from '../modeles/product.model'; // Importer l'interface Prod
 import { Router } from '@angular/router'; // Importer Router
 import { ToastrService } from 'ngx-toastr';
 import { Panier } from '../modeles/Panier.model';
+import Swal from 'sweetalert2';
+import { OrderService } from 'commerce/src/app/service/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,9 +15,10 @@ import { Panier } from '../modeles/Panier.model';
 export class CartComponent implements OnInit {
   items:Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
+ ;
    
  
-  constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
+  constructor(private cartService: CartService, private router: Router,private toastr: ToastrService,  private orderService: OrderService) { }
 
   ngOnInit() {
      // S'abonner aux changements des items
@@ -35,21 +38,51 @@ export class CartComponent implements OnInit {
 
   clearCart() {
    this.items = this.cartService.clearCart();
-    this.calculateTotal();
+   this.calculateTotal();
+   this.router.navigate(['/product']);
   }
 
   // Rediriger vers la page de confirmation de commande
-  goToConfirmationPage() {
-    this.router.navigate(['/confirm-order']);
-
-    this.router.navigate(['/confirm-order']).then(success => {
-      if (success) {
-        console.log('Redirection réussie');
-      } else {
-        console.log('Redirection échouée');
-      }
-    });
-  }
+  confirmOrder() {
+ 
+    // Vérifier si le panier est vide
+    if (this.items.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Alerte',
+        text: 'Pour procéder à la commande, veuillez ajouter des produits à votre panier. Merci de votre compréhension.',
+        showCancelButton: true,
+        confirmButtonText: 'Ajouter des produits',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/product']); // Redirige vers la page des produits
+        }
+      });
+      return; // Arrêter l'exécution si le panier est vide
+    }
+    
+    const order = {
+        id: 0,
+        userId: 1, // ID utilisateur (obtenu dynamiquement dans un vrai contexte)
+     //   products: this.items.map(item => ({ productId: item.product.id, quantity: item.quantity })), // Utiliser la quantité réelle
+     products: [], // Utiliser la quantité réelle
+        totalPrice: this.total,
+        status: 'En cours',
+        orderDate: new Date(),
+        customerName: "nekaa",
+        customerEmail: "aek",
+        address: "alger"
+      };
+     
+      this.orderService.placeOrder(order); // Envoyer la commande
+      // Vider le panier après commande
+      this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
+    
+    
+    
+      
+    }
 
   // Méthode pour retirer un produit du panier
 removeFromCart(itemToRemove: any) {

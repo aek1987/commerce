@@ -12,7 +12,7 @@ import { CartService } from '../service/cart.service';
   styleUrls: ['./delivery-form.component.css']
 })
 export class DeliveryFormComponent  implements OnInit{
-  deliveryFee: number = 500; // Exemple de frais de livraison fixe
+  deliveryFee: number = 0; // Exemple de frais de livraison fixe
   items: Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
    // Exemple de montant total à payer
@@ -56,25 +56,34 @@ export class DeliveryFormComponent  implements OnInit{
   paymentMode: string = 'cash'; // Par défaut, paiement par carte
   constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ) {}
   onWilayaChange(event: Event) {
-    const selectedWilaya = (event.target as HTMLSelectElement).value;
-    this.deliveryInfos.wilaya = selectedWilaya;
-    
-    // Trouver les communes de la wilaya sélectionnée
-    const wilaya = this.wilayas.find(w => w.name === selectedWilaya);
-    this.selectedCommunes = wilaya ? wilaya.communes : [];
-    this.deliveryInfos.commune = ''; // Réinitialiser la commune
+ // Lorsque la wilaya est changée
+const selectedWilaya = (event.target as HTMLSelectElement).value;
+this.deliveryInfos.wilaya = selectedWilaya;
 
+// Trouver les communes de la wilaya sélectionnée
+const wilaya = this.wilayas.find(w => w.name === selectedWilaya);
+this.selectedCommunes = wilaya ? wilaya.communes : [];
+this.deliveryInfos.commune = ''; // Réinitialiser la commune
 
+// Ajouter les frais de livraison en fonction de la wilaya sélectionnée
+if (selectedWilaya === 'Alger') {
+  this.deliveryFee = 300; // Frais de livraison pour Alger
+} else {
+  this.deliveryFee = 500; // Pas de frais ou définir des frais pour d'autres wilayas
+}
 
-    this.cartService.items$.subscribe(items => {
-      this.items = items;
-     });
- 
-     // S'abonner aux changements du total
-     this.cartService.total$.subscribe(total => {
-       this.total = total;
-     });
-      console.log('Page de confirmation chargée');
+// S'abonner aux articles du panier
+this.cartService.items$.subscribe(items => {
+  this.items = items;
+});
+
+// S'abonner aux changements du total du panier
+this.cartService.total$.subscribe(total => {
+  // Ajouter les frais de livraison au total
+  this.total = total + this.deliveryFee;
+});
+
+console.log('Page de confirmation chargée');
 
   }
 
