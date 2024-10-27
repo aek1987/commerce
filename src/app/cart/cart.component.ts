@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
  ;
    
  
-  constructor(private cartService: CartService, private router: Router,private toastr: ToastrService,  private orderService: OrderService) { }
+  constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {
      // S'abonner aux changements des items
@@ -75,7 +75,7 @@ export class CartComponent implements OnInit {
         address: "alger"
       };
      
-      this.orderService.placeOrder(order); // Envoyer la commande
+    //  this.orderService.placeOrder(order); // Envoyer la commande
       // Vider le panier après commande
       this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
     
