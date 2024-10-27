@@ -1,11 +1,10 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { CartService } from '../service/cart.service';
-import { Product } from '../modeles/product.model'; // Importer l'interface Product
 import { Router } from '@angular/router'; // Importer Router
 import { ToastrService } from 'ngx-toastr';
 import { Panier } from '../modeles/Panier.model';
 import Swal from 'sweetalert2';
-import { OrderService } from 'commerce/src/app/service/order.service';
+
 
 @Component({
   selector: 'app-cart',
