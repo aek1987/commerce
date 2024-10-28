@@ -16,7 +16,6 @@ export class CartComponent implements OnInit {
   total :number=0; // Calculer le total
  ;
    
- 
   constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { FormsModule } from '@angular/forms';
 import { ProductComponent } from './product/product.component';
-import { CartComponent } from './cart/cart.component';
 import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { NavbarComponent } from './navbar/navbar.component';  // Import FormsModule
@@ -26,6 +25,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ThousandSeparatorPipe } from './pipe/thousand-separator.pipe';
 import { OrderManagementComponent } from './order-management/order-management.component';
+import { CartComponent } from './cart/cart.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
