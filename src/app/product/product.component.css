@@ -271,7 +271,7 @@ input[type="range"]:focus {
 
 
 
-* components/product-detail/product-detail.component.css */
+/** components/product-detail/product-detail.component.css */
 .product-name {
     font-size: 24px;
     font-weight: bold;
