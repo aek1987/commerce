@@ -17,7 +17,7 @@ export class OrderService {
   // Observable des commandes
   orders$ = this.ordersSubject.asObservable();
 
-  private apiUrl = 'http://localhost:3000/api/orders';  // remote json-server URL
+  private apiUrl = 'https://server-products-s1kr.onrender.com/api/orders';  // remote json-server URL
   constructor(private http: HttpClient) {}
 
   // Fetch products from the API
