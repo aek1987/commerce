@@ -18,7 +18,6 @@ export class StcoktManagerComponent implements OnInit {
    {}
 
   ngOnInit(){
-
     this.productService.getProducts().subscribe((data: Product[]) => {
     this.products = data;  // Assign the fetched products to the component
    

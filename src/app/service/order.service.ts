@@ -17,7 +17,8 @@ export class OrderService {
   // Observable des commandes
   orders$ = this.ordersSubject.asObservable();
 
-  private apiUrl = 'https://server-products-s1kr.onrender.com/api/orders';  // remote json-server URL
+  private apiUrl = 'https://server-products-s1kr.onrender.com/api/orders';
+  private apiUrlall = 'https://server-products-s1kr.onrender.com/api/allorders';  // remote json-server URL
   constructor(private http: HttpClient) {}
 
   // Fetch products from the API
@@ -42,11 +43,16 @@ export class OrderService {
     return this.http.post<Commande>(this.apiUrl, commande);
 
   }
+// liste de commande client
+getUserOrder() : Observable<Order[]>{
+    
+  return this.http.get<Order[]>(this.apiUrlall);
 
+}
   // Obtenir toutes les commandes d'un utilisateurgit 
-  getUserOrders(userId: number): Order[] {
-    return this.orders.filter(order => order.userId === userId);
-  }
+ // getUserOrders(userId: number): Order[] {
+   // return this.orders.filter(order => order.userId === userId);
+ // }
 
   // Annuler une commande
   cancelOrder(orderId: number) {

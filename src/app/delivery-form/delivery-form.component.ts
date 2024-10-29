@@ -17,6 +17,7 @@ export class DeliveryFormComponent  implements OnInit{
   deliveryFee: number = 0; // Exemple de frais de livraison fixe
   items: Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
+  total_a_payer :number=0; // Calculer le total
    // Exemple de montant total à payer
    ngOnInit(): void {
     // S'abonner aux changements des items
@@ -61,7 +62,6 @@ export class DeliveryFormComponent  implements OnInit{
  // Lorsque la wilaya est changée
 const selectedWilaya = (event.target as HTMLSelectElement).value;
 this.deliveryInfos.wilaya = selectedWilaya;
-
 // Trouver les communes de la wilaya sélectionnée
 const wilaya = this.wilayas.find(w => w.name === selectedWilaya);
 this.selectedCommunes = wilaya ? wilaya.communes : [];
@@ -82,10 +82,10 @@ this.cartService.items$.subscribe(items => {
 // S'abonner aux changements du total du panier
 this.cartService.total$.subscribe(total => {
   // Ajouter les frais de livraison au total
-  this.total = total + this.deliveryFee;
+  this.total_a_payer = total + this.deliveryFee;
 });
 
-console.log('Page de confirmation chargée');
+console.log('total a payer: '+ this.total);
 
   }
 

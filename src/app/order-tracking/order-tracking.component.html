@@ -47,4 +47,47 @@
             </li>
         </ul>
     </div>
+
+
+
+     <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
+    <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
+    <div *ngIf="selectedCommande" class="card shadow-sm p-4 mt-4">
+        <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.status }}</h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">
+            <strong>Client : </strong>{{ selectedCommande.name }}
+          </li>
+          <li class="list-group-item">
+            <strong>Date de Commande : </strong>{{ selectedCommande.orderDate| date: 'dd/MM/yyyy' }}
+          </li>
+          <li class="list-group-item">
+            <strong>Adresse de Livraison : </strong>{{ selectedCommande.address }}
+          </li>
+          <li class="list-group-item">
+            <strong>Total : </strong>{{ selectedCommande.totalPrice| thousandSeparator }} DZD
+          </li>
+          <li class="list-group-item">
+            <strong>Statut : </strong>
+            <span [ngClass]="{
+              'badge badge-success': selectedCommande.status === 'Livré',
+              'badge badge-warning': selectedCommande.status === 'En cours',
+              'badge badge-danger': selectedCommande.status === 'Annulé'
+            }">
+              {{ selectedCommande.status }}
+            </span>
+          </li>
+          <li class="list-group-item">
+            <h5>Produits Commandés</h5>
+            <ul class="list-unstyled">
+              <li *ngFor="let panier of selectedCommande.panier">
+                {{ panier.product.name }} - Quantité : {{ panier.quantity }} - Prix : {{ panier.product.price| thousandSeparator }} DZD
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="text-right">
+          <button class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
+        </div>
+      </div>
 </div>

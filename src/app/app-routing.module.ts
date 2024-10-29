@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { StcoktManagerComponent } from './prodct-manager/stock-manager.component';
+import { StcoktManagerComponent } from './stock-manager/stock-manager.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
 
 

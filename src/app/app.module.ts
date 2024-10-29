@@ -17,7 +17,7 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { StcoktManagerComponent } from './prodct-manager/stock-manager.component';
+import { StcoktManagerComponent } from './stock-manager/stock-manager.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CommonModule } from '@angular/common';
