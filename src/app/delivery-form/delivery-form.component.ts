@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Wilaya } from '../modeles/Wilaya.model';
 import { Panier } from '../modeles/Panier.model';
 import { CartService } from '../service/cart.service';
+import { Commande } from '../modeles/commande';
+import { OrderService } from '../service/order.service';
 
 
 @Component({
@@ -54,7 +56,7 @@ export class DeliveryFormComponent  implements OnInit{
   };
   selectedCommunes: string[] = [];
   paymentMode: string = 'cash'; // Par défaut, paiement par carte
-  constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ) {}
+  constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ,private orderservice:OrderService ) {}
   onWilayaChange(event: Event) {
  // Lorsque la wilaya est changée
 const selectedWilaya = (event.target as HTMLSelectElement).value;
@@ -107,11 +109,46 @@ console.log('Page de confirmation chargée');
     this.paymentMode = mode;
   }
 
-  confirmPayment() {
+  PassersCommande() {
     if (this.paymentMode === 'card') {
       console.log('Paiement par carte confirmé', this.cardDetails);
     } else {
       console.log('Paiement à la livraison sélectionné');
     }
+
+
+// Créer un objet commande
+const commande: Commande = {
+  name: this.deliveryInfos.name,
+  phone: this.deliveryInfos.phone, // Si c'est le téléphone, ajustez en fonction
+  wilaya: this.deliveryInfos.wilaya,
+  commune: this.deliveryInfos.commune,
+  address: this.deliveryInfos.address, // Assurez-vous que cette propriété est correctement définie
+
+  totalPrice: this.total + this.deliveryFee, // Ajouter les frais de livraison
+  status: 'En cours',
+  orderDate: new Date().toISOString(),   // Format ISO
+ 
+ // Créez un tableau d'articles pour le panier
+ panier: this.items
+
+};
+console.log("la commde envoyer est :"+JSON.stringify(commande))
+// Soumettre la commande via le service
+
+this.orderservice.PasserCommande(commande).subscribe(
+  response => {
+      if (response) {
+          console.log('Commande soumise avec succès', response);
+          this.router.navigate(['/confirmation']);
+      } else {
+          console.error('Erreur lors de la soumission de la commande');
+      }
+  },
+  error => {
+      console.error('Erreur lors de la soumission de la commande', error);
+      // Afficher un message à l'utilisateur ici
+  }
+);
   }
 }

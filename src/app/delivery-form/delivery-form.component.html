@@ -82,15 +82,16 @@
             <span class="font-weight-bold">Total (DZD)</span>
             <strong>{{ total |  thousandSeparator }}</strong>
           </li>
-         
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <span class="font-weight-bold">Total à payer (DZD)</span>
-            <strong>{{ (total + deliveryFee) |  thousandSeparator }}</strong>
-          </li>
+
           <li class="list-group-item d-flex justify-content-between">
             <span>Frais de livraison (DZD)</span>
             <strong>{{ deliveryFee |  thousandSeparator }}</strong>
           </li>
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <span class="font-weight-bold">Total à payer (DZD)</span>
+            <strong>{{ (total + deliveryFee) |  thousandSeparator }}</strong>
+          </li>
+      
         </ul>
       </div>
     </div>
@@ -115,14 +116,13 @@
     </div>
 
     <!-- Boutons de confirmation -->
-    <div *ngIf="paymentMode === 'cash'" class="text-right">
-      <button type="button" class="btn btn-primary btn-lg" (click)="confirmPayment()">
-        <i class="fas fa-money-bill-wave"></i> Confirmer et Valider
-      </button>
-    </div>
+    <button type="button" class="btn btn-primary btn-lg" [disabled]="!deliveryForm.valid" (click)="PassersCommande()">
+      <i class="fas fa-money-bill-wave"></i> Confirmer et Valider
+    </button>
+    
     
     <div *ngIf="paymentMode === 'card'" class="text-right">
-      <button type="submit" class="btn btn-success btn-lg" [disabled]="!deliveryForm.valid" (click)="confirmPayment()">
+      <button type="submit" class="btn btn-success btn-lg" [disabled]="!deliveryForm.valid" (click)="PassersCommande()">
         <i class="fas fa-credit-card"></i> Paiement en ligne Dahabia
       </button>
     </div>

@@ -86,7 +86,7 @@ const order = {
     address: "alger"
   };
  
-  this.orderService.placeOrder(order); // Envoyer la commande
+  //this.orderService.placeOrder(order); // Envoyer la commande
   // Vider le panier après commande
   this.router.navigate(['/delivery']); // Rediriger vers la page de suivi des commandes
 

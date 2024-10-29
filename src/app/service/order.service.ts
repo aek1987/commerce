@@ -1,8 +1,11 @@
 // services/order.service.ts
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from '../modeles/order.model';
+import { Commande } from '../modeles/commande';
+import { HttpClient } from '@angular/common/http';
+import { Product } from '../modeles/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +17,30 @@ export class OrderService {
   // Observable des commandes
   orders$ = this.ordersSubject.asObservable();
 
-  constructor() { }
+  private apiUrl = 'http://localhost:3000/api/orders';  // remote json-server URL
+  constructor(private http: HttpClient) {}
+
+  // Fetch products from the API
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl);
+  }
+
+  // Ajouter un produit
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product);
+  }
+   // Supprimer un produit par ID
+   deleteProduct(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(url);
+  }
+
 
   // Ajouter une nouvelle commande
-  placeOrder(order: Order) {
-    order.id = this.orders.length + 1;
-    this.orders.push(order);
-    this.ordersSubject.next(this.orders); // Mise à jour des commandes
+  PasserCommande(commande: Commande) : Observable<Commande>{
+    
+    return this.http.post<Commande>(this.apiUrl, commande);
+
   }
 
   // Obtenir toutes les commandes d'un utilisateur
