@@ -139,8 +139,14 @@ console.log("la commde envoyer est :"+JSON.stringify(commande))
 this.orderservice.PasserCommande(commande).subscribe(
   response => {
       if (response) {
-          console.log('Commande soumise avec succès', response);
+          console.log('Commande soumise avec succès', response);   
+         
+   // stocker les information de client 
+localStorage.setItem('clientPhone', this.deliveryInfos.phone);
+localStorage.setItem('clientName', this.deliveryInfos.name);
+localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);       
           this.router.navigate(['/confirmation']);
+
       } else {
           console.error('Erreur lors de la soumission de la commande');
       }
@@ -150,5 +156,13 @@ this.orderservice.PasserCommande(commande).subscribe(
       // Afficher un message à l'utilisateur ici
   }
 );
+
+
+// stocker les information de client 
+localStorage.setItem('clientPhone', this.deliveryInfos.name);
+localStorage.setItem('clientName', this.deliveryInfos.phone);
+localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);
+
+
   }
 }

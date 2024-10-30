@@ -14,21 +14,51 @@ export class OrderTrackingComponent implements OnInit {
   orders: Order[] = [];
   commandes: Commande[] = [];
   selectedCommande: Commande | null = null; 
-
+  userId = -1;
+  phone ="";
   constructor(private orderService: OrderService) { }
-
   ngOnInit(): void {
-    const userId = 1; // Id utilisateur (à obtenir dynamiquement)
-    this.orderService.getUserOrder().subscribe(
-      (orders: Order[]) => {
-        this.orders = orders;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des commandes:', error);
-      }
-    );
+    // Récupérer le numéro de téléphone du localStorage
+    this.phone = localStorage.getItem('clientPhone') || '';
+    const name = localStorage.getItem('clientName') || '';
+    const wilaya = localStorage.getItem('clientWilaya') || '';
+  
+    console.log('Numéro de téléphone du client :', this.phone);
+  
+    if (this.phone) {
+      this.orderService.getClientIDByPhone(this.phone).subscribe(
+        response => {
+          this.userId = response.id;
+          console.log('ID client récupéré :', this.userId);
+  
+          // Récupérer les commandes une fois que userId est disponible
+          this.orderService.getUserOrdersById(this.userId).subscribe(
+            (orders: Order) => {
+              this.orders = [orders]; 
+           /*   if (Array.isArray(orders)) {
+                this.orders = orders;
+              
+               
+              } else {
+                console.error('La réponse n\'est pas un tableau.', orders);
+              }*/
+            },
+          );
+        },
+        error => {
+          console.error('Erreur lors de la récupération de l\'ID client par téléphone :', this.phone, error);
+          this.userId = -1;
+          // Optionnel : Afficher un message d'erreur à l'utilisateur
+        }
+      );
+    } else {
+      console.error('Aucun numéro de téléphone trouvé dans le localStorage.');
+      // Optionnel : Afficher un message à l'utilisateur si le téléphone est manquant
+    }
+    console.log('Commandes récupérées :', this.orders);
+    console.log('Nombre de commandes trouvées :', this.orders.length);
   }
-
+  
   cancelOrder(orderId: number) {
     this.orderService.cancelOrder(orderId);
   }
