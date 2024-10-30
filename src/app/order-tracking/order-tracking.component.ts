@@ -15,7 +15,7 @@ export class OrderTrackingComponent implements OnInit {
   commandes: Commande[] = [];
   selectedCommande: Commande | null = null; 
   userId = -1;
-  phone ="";
+  phone ="0";
   constructor(private orderService: OrderService) { }
   ngOnInit(): void {
     // Récupérer le numéro de téléphone du localStorage
@@ -52,7 +52,7 @@ export class OrderTrackingComponent implements OnInit {
         }
       );
     } else {
-      console.error('Aucun numéro de téléphone trouvé dans le localStorage.');
+      console.log('Aucun numéro de téléphone trouvé dans le localStorage.');
       // Optionnel : Afficher un message à l'utilisateur si le téléphone est manquant
     }
     console.log('Commandes récupérées :', this.orders);

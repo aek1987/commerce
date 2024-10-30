@@ -32,25 +32,24 @@ export class OrderConfirmationComponent implements OnInit {
        this.total = total;
      
      });
-      console.log('Page de confirmation chargée');
+      
       localStorage.setItem('panier', JSON.stringify(this.items));
       this.loadCart();
-  
+      console.log('panier  in delevery='+this.items);
   }
   loadCart() {
-  // Récupérer le panier stocké dans localStorage
-  const storedCart = localStorage.getItem('panier');
+    const storedCart = localStorage.getItem('panier');
+    
+    try {
+      this.items = storedCart ? JSON.parse(storedCart) : [];
+    } catch (error) {
+      console.error('Erreur lors de l\'analyse du panier', error);
+      this.items = [];
+    }
   
-  // Si un panier est trouvé dans localStorage, parsez-le
-  if (storedCart) {
-    this.items = JSON.parse(storedCart);
-  } else {
-    // Si aucun panier n'est trouvé, initialisez items à un tableau vide
-    this.items = [];
-  } 
-  console.log('loadCart:', this.items);
-  
+    console.log('panier:', this.items);
   }
+  
   calculateTotal() {
    // this.total = this.cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
   }

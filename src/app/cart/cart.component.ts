@@ -19,6 +19,8 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.items = this.cartService.clearCart();
+     this.calculateTotal();
      // S'abonner aux changements des items
      this.cartService.items$.subscribe(items => {
      this.items = items;

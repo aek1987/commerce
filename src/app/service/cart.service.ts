@@ -64,8 +64,7 @@ export class CartService {
   }
 
   clearCart(): Panier[] {
-    this.panier = []; 
-    
+    this.panier = [];     
     this.totalSubject.next(0); // Réinitialise le total
     this.saveCart(); 
     return this.panier;
@@ -90,7 +89,7 @@ export class CartService {
 // Sauvegarder le panier dans le Local Storage
 saveCart() {
  
-   localStorage.setItem('panier', JSON.stringify(this.panier));
+  localStorage.setItem('panier', JSON.stringify(this.panier));
   console.log(`panier: ${ JSON.stringify(this.panier)} `);
 }
 
