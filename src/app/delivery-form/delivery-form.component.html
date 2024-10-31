@@ -19,7 +19,7 @@
                 
                 <div class="form-group col-md-6">
                   <label for="phone" class="font-weight-bold">Téléphone</label>
-                  <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required #phone="ngModel" placeholder="Numéro de téléphone" pattern="^[0-9]{10}$"/>
+                  <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="deliveryInfos.phone" required #phone="ngModel" placeholder="Numéro de téléphone" pattern="^0[0-9]{9}$" >
                   <!-- Afficher le message d'erreur si le champ est invalid -->
                   <div *ngIf="phone.invalid && phone.touched" class="text-danger">
                     Veuillez entrer un numéro de téléphone valide (10 chiffres).

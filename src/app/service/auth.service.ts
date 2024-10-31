@@ -8,8 +8,11 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'https://reqres.in/api/login';  // Assurez-vous que cette URL est correcte
+  private userRole: string | null = null;
+  constructor(private http: HttpClient) {
 
-  constructor(private http: HttpClient) {}
+    this.userRole = localStorage.getItem('userRole');
+  }
 
   login(userData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, userData).pipe(
@@ -38,5 +41,7 @@ register(user: any): boolean {
   return true;
 }
 
-
+  isAdmin(): boolean {
+    return localStorage.getItem('userRole')=== 'admin';/// renvoi true if amdin
+  }
 }

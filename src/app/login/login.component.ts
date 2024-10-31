@@ -18,7 +18,8 @@ export class LoginComponent {
     this.authService.login(this.loginData)
       .subscribe(
         (response: any) => {
-          localStorage.setItem('token', response.token);  // Stocker le token
+         // localStorage.setItem('token', response.token);  // Stocker le token
+          localStorage.setItem('userRole', 'admin');
           this.router.navigate(['/product']);  // Rediriger après connexion
           alert('Login succées');
         },

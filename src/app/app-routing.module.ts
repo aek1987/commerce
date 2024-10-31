@@ -10,10 +10,11 @@ import { DeliveryFormComponent } from './delivery-form/delivery-form.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { StcoktManagerComponent } from './stock-manager/stock-manager.component';
 import { OrderManagementComponent } from './order-management/order-management.component';
+import { AdminGuard } from './admin.guard';
 
 
 const routes: Routes = [
-  { path: 'ordersAllClient', component:  OrderManagementComponent  }, 
+  { path: 'ordersAllClient', component: OrderManagementComponent, canActivate: [AdminGuard] },
   { path: 'stock', component:  StcoktManagerComponent  }, 
   { path: 'products', component:  ProductComponent  }, 
   { path: 'product/:id', component: ProductDetailComponent }, // Détails du produit
