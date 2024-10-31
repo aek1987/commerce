@@ -32,10 +32,8 @@ export class OrderConfirmationComponent implements OnInit {
        this.total = total;
      
      });
-      
-      localStorage.setItem('panier', JSON.stringify(this.items));
-      this.loadCart();
-      console.log('panier  in delevery='+this.items);
+     
+     
   }
   loadCart() {
     const storedCart = localStorage.getItem('panier');

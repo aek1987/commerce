@@ -1,5 +1,8 @@
 
 import { Component } from '@angular/core';
+import { OrderService } from '../service/order.service';
+import { OrderDatabase } from '../modeles/order.model';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 interface Produit {
   name: string;
@@ -20,71 +23,69 @@ interface Commande {
 @Component({
   selector: 'app-commande',
   templateUrl: './order-management.component.html',
-  styleUrls: ['./order-management.component.css']
+  styleUrls: ['./order-management.component.css'],
+  animations: [
+    trigger('detailsAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' }))
+      ])
+    ])
+  ]
 })
 export class OrderManagementComponent {
-  commandes: Commande[] = [];
-  selectedCommande: Commande | null = null; // Pour afficher les détails d'une commande
-  // D'autres variables si nécessaire
-
-  constructor() {
-    // Simuler des commandes pour l'exemple
-    this.commandes = [
-      {
-        id: 1,
-        clientName: 'Ahmed Djebar',
-        date: new Date('2024-10-20'),
-        total: 4500,
-        status: 'En cours',
-        address: 'Alger, Alger',
-        produits: [
-          { name: 'Produit 1', quantity: 2, price: 2000 },
-          { name: 'Produit 2', quantity: 1, price: 500 }
-        ]
+  selectedCommande: OrderDatabase|null = null;
+  selectedCommandeIndex: number | null = null;
+  OrdersALL: OrderDatabase[] = [];
+  
+  selectedClient: Commande | null = null;
+     
+  constructor(private orderService: OrderService) {}
+    
+  ngOnInit(): void {
+    this.orderService.getALLOrders().subscribe(
+      (orders: any[]) => {
+        this.OrdersALL = orders;
+        this.OrdersALL.forEach(order => this.loadCustomerName(order)); // Charger le nom pour chaque commande
       },
-      {
-        id: 2,
-        clientName: 'Kamel Saadi',
-        date: new Date('2024-10-22'),
-        total: 6000,
-        status: 'Livré',
-        address: 'Oran, Oran',
-        produits: [
-          { name: 'Produit 3', quantity: 1, price: 6000 }
-        ]
-      },
-      {
-        id: 3,
-        clientName: 'Fatima Zohra',
-        date: new Date('2024-10-23'),
-        total: 3000,
-        status: 'Annulé',
-        address: 'Constantine, Constantine',
-        produits: [
-          { name: 'Produit 4', quantity: 3, price: 1000 }
-        ]
-      }
-    ];
+      error => console.error('Erreur lors de la récupération des commandes', error)
+    );
   }
 
+  loadCustomerName(order: any) {
+    this.orderService.getInfoCustomer(order.customerId).subscribe(
+      (response) => {
+       order.customerName = response.name; // Remplace customerId par customerName
+       console.log('informations du client', order.customerName)
+      },
+      error => console.error('Erreur lors de la récupération des informations du client', error)
+    );
+  }
+
+
   // Fonction pour afficher les détails d'une commande
-  viewDetails(commande: Commande) {
+  viewDetails(commande: OrderDatabase) {
     this.selectedCommande = commande;
+   // this.selectedCommandeIndex = index;
   }
 
   // Fonction pour fermer les détails de la commande
   closeDetails() {
     this.selectedCommande = null;
+    this.selectedCommandeIndex = null;
   }
 
   // Fonction pour modifier une commande (à implémenter selon ton besoin)
-  editCommande(commande: Commande) {
-    alert(`Modifier la commande #${commande.id} de ${commande.clientName}`);
+  editCommande(commande: OrderDatabase) {
+   // alert(`Modifier la commande #${commande.id} de ${commande.clientName}`);
     // Implémenter la logique de modification ici
   }
 
   // Fonction pour annuler une commande (à implémenter selon ton besoin)
-  cancelCommande(commande: Commande) {
+  cancelCommande(commande: OrderDatabase) {
     if (confirm(`Êtes-vous sûr de vouloir annuler la commande #${commande.id} ?`)) {
       commande.status = 'Annulé';
     }

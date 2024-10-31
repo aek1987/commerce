@@ -1,93 +1,51 @@
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Suivi des Commandes</h2>
+  <h2 class="text-center mb-4">Suivi des Commandes</h2>
 
-    <div *ngIf="orders.length === 0" class="alert alert-info text-center">
-        Vous n'avez aucune commande en cours.
-    </div>
+  <div *ngIf="orders.length === 0" class="alert alert-info text-center">
+      Vous n'avez aucune commande en cours.
+  </div>
 
-    <div *ngIf="orders.length > 0" class="card">
-        <ul class="list-group list-group-flush">
-            <li *ngFor="let order of orders" class="list-group-item border-bottom">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="mb-0">Commande #{{ order.id }}</h5>
-                    <span class="badge" [ngClass]="{
-                        'bg-warning': order.status === 'En cours',
-                        'bg-success': order.status === 'Livrée',
-                        'bg-danger': order.status === 'Annulée'
-                    }">{{ order.status }}</span>
-                </div>
+  <div *ngIf="orders.length > 0" class="card">
+      <ul class="list-group list-group-flush">
+          <li *ngFor="let order of orders" class="list-group-item border-bottom">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">Commande numero# {{ order.id }}</h5>
+                  <span class="badge" [ngClass]="{
+                      'bg-warning': order.status === 'En cours',
+                      'bg-success': order.status === 'Livrée',
+                      'bg-danger': order.status === 'Annulée'
+                  }">{{ order.status }}</span>
+              </div>
 
-                <div class="row mb-2">
-                    <div class="col-md-6">
-                        <p><strong>Total :</strong> {{ order.totalPrice | thousandSeparator}} </p>
-                        <p><strong>Date :</strong> {{ order.orderDate | date:'dd/MM/yyyy' }}</p>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <button class="btn btn-info btn-sm" (click)="showOrderDetails(order.id)">
-                            <i class="bi bi-eye"></i> Détails
-                        </button>
+              <div class="row mb-2">
+                  <div class="col-md-6">
+                      <p><strong>Total :</strong> {{ order.totalPrice |thousandSeparator }} </p>
+                      <p><strong>Date :</strong> {{ order.orderDate | date:'dd/MM/yyyy' }}</p>
+                  </div>
+                  <div class="col-md-6 text-end">
+                      <button class="btn btn-info btn-sm" (click)="showOrderDetails(order.id)">
+                          <i class="bi bi-eye"></i> Détails
+                      </button>
 
-                        <button class="btn btn-danger btn-sm me-2" *ngIf="order.status === 'En cours'" 
-                                (click)="cancelOrder(order.id)">
-                            <i class="bi bi-x-circle"></i> Annuler la commande
-                        </button>
-                    </div>
-                </div>
+                      <button class="btn btn-danger btn-sm me-2" *ngIf="order.status === 'En cours'" 
+                              (click)="cancelOrder(order.id)">
+                          <i class="bi bi-x-circle"></i> Annuler la commande
+                      </button>
+                  </div>
+              </div>
 
-                <!-- Ajouter un espace pour les détails supplémentaires de la commande -->
-                <div *ngIf="order.showDetails" class="order-details mt-3 p-3 border border-secondary rounded">
-                    <p><strong>Adresse de livraison :</strong> {{ order.address }}</p>
-                    <p><strong>Produits :</strong></p>
-                    <ul class="list-unstyled">
-                        <li *ngFor="let item of order.products">
-                            {{item.quantity }} x {{ item.product.name }} - {{ item.product.price }} €
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-
-
-     <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
-    <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
-    <div *ngIf="selectedCommande" class="card shadow-sm p-4 mt-4">
-        <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.status }}</h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item">
-            <strong>Client : </strong>{{ selectedCommande.name }}
+              <div *ngIf="order.showDetails" class="order-details mt-3 p-3 border border-secondary rounded" [@detailsAnimation]>
+                  <p><strong>Adresse de livraison :</strong> {{ order.address }}</p>
+                  <p><strong>Produits :</strong></p>
+                  <ul class="list-unstyled">
+                      <li *ngFor="let item of order.products">
+                          {{item.quantity }} x {{ item.product.name }} - {{ item.product.price }} €
+                      </li>
+                  </ul>
+              </div>
           </li>
-          <li class="list-group-item">
-            <strong>Date de Commande : </strong>{{ selectedCommande.orderDate| date: 'dd/MM/yyyy' }}
-          </li>
-          <li class="list-group-item">
-            <strong>Adresse de Livraison : </strong>{{ selectedCommande.address }}
-          </li>
-          <li class="list-group-item">
-            <strong>Total : </strong>{{ selectedCommande.totalPrice| thousandSeparator }} DZD
-          </li>
-          <li class="list-group-item">
-            <strong>Statut : </strong>
-            <span [ngClass]="{
-              'badge badge-success': selectedCommande.status === 'Livré',
-              'badge badge-warning': selectedCommande.status === 'En cours',
-              'badge badge-danger': selectedCommande.status === 'Annulé'
-            }">
-              {{ selectedCommande.status }}
-            </span>
-          </li>
-          <li class="list-group-item">
-            <h5>Produits Commandés</h5>
-            <ul class="list-unstyled">
-              <li *ngFor="let panier of selectedCommande.panier">
-                {{ panier.product.name }} - Quantité : {{ panier.quantity }} - Prix : {{ panier.product.price| thousandSeparator }} DZD
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <div class="text-right">
-          <button class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
-        </div>
-      </div>
+      </ul>
+  </div>
+
+ 
 </div>

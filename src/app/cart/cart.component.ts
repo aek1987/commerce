@@ -14,31 +14,34 @@ import Swal from 'sweetalert2';
 export class CartComponent implements OnInit {
   items:Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
- ;
+ 
    
   constructor(private cartService: CartService, private router: Router,private toastr: ToastrService) { }
-
-  ngOnInit() {
-    this.items = this.cartService.clearCart();
-     this.calculateTotal();
-     // S'abonner aux changements des items
-     this.cartService.items$.subscribe(items => {
-     this.items = items;
+  ngOnInit(): void {
+    // S'abonner aux changements des items
+    this.cartService.items$.subscribe(items => {
+      this.items = items;
+      console.log('Panier mis à jour:', this.items);
     });
-
+  
     // S'abonner aux changements du total
     this.cartService.total$.subscribe(total => {
       this.total = total;
+      console.log('Total du panier mis à jour:', this.total);
     });
+  
+    // Charger les items du panier initialement
+    this.items = this.cartService.getPanierItems();
+    console.log('Panier initial après chargement catre composant:', this.items);
   }
+  
   
   calculateTotal() {
     this.total = this.cartService.getTotal();
   }
 
   clearCart() {
-   this.items = this.cartService.clearCart();
-   this.calculateTotal();
+   this.cartService.clearCart();   
    this.router.navigate(['/product']);
   }
 

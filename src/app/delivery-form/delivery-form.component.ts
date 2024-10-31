@@ -6,6 +6,7 @@ import { Panier } from '../modeles/Panier.model';
 import { CartService } from '../service/cart.service';
 import { Commande } from '../modeles/commande';
 import { OrderService } from '../service/order.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,22 +19,6 @@ export class DeliveryFormComponent  implements OnInit{
   items: Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
   total_a_payer :number=0; // Calculer le total
-   // Exemple de montant total à payer
-   ngOnInit(): void {
-    // S'abonner aux changements des items
-    this.cartService.items$.subscribe(items => {
-     this.items = items;
-    });
-
-    // S'abonner aux changements du total
-    this.cartService.total$.subscribe(total => {
-      this.total = total;
-    });
-    
-   
- 
- }
-
   wilayas: Wilaya[] = [
     { name: 'Alger', communes: ['Bab El Oued', 'Hussein Dey', 'El Harrach'] },
     { name: 'Oran', communes: ['Es-Sénia', 'Aïn El Türck', 'Gdyel'] },
@@ -55,6 +40,27 @@ export class DeliveryFormComponent  implements OnInit{
     expiry: '',
     cvv: ''
   };
+  
+  ngOnInit(): void {
+    // S'abonner aux changements des items
+    this.cartService.items$.subscribe(items => {
+      this.items = items;
+      console.log('Panier mis à jour:', this.items);
+    });
+  
+    // S'abonner aux changements du total
+    this.cartService.total$.subscribe(total => {
+      this.total = total;
+      console.log('Total du panier mis à jour:', this.total);
+    });
+  
+    // Charger les items du panier initialement
+    this.items = this.cartService.getPanierItems();
+    console.log('Panier initial après chargement:', this.items);
+  }
+  
+
+  
   selectedCommunes: string[] = [];
   paymentMode: string = 'cash'; // Par défaut, paiement par carte
   constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ,private orderservice:OrderService ) {}
@@ -79,13 +85,8 @@ this.cartService.items$.subscribe(items => {
   this.items = items;
 });
 
-// S'abonner aux changements du total du panier
-this.cartService.total$.subscribe(total => {
-  // Ajouter les frais de livraison au total
-  this.total_a_payer = total + this.deliveryFee;
-});
 
-console.log('total a payer: '+ this.total);
+
 
   }
 
@@ -138,16 +139,21 @@ console.log("la commde envoyer est :"+JSON.stringify(commande))
 
 this.orderservice.PasserCommande(commande).subscribe(
   response => {
-      if (response) {
-          console.log('Commande soumise avec succès', response);   
-         
+      if (response.commandestate==="succes") {
+
+          console.log('Commande soumise avec succès', response);          
          // stocker les information de client 
           localStorage.setItem('clientPhone', this.deliveryInfos.phone);
           localStorage.setItem('clientName', this.deliveryInfos.name);
           localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);       
           
-          this.items = this.cartService.clearCart();
-          this.router.navigate(['/orders']);
+          
+          
+          
+          
+          this.showsuccess();
+          this.clearCart() ;
+         
 
       } else {
           console.error('Erreur lors de la soumission de la commande');
@@ -164,4 +170,34 @@ this.orderservice.PasserCommande(commande).subscribe(
 
 
   }
+  showsuccess(){
+    // Vérifier si le panier est vide
+  
+    Swal.fire({
+      icon: 'success',
+      title: 'Commande prise en charge',
+      text: 'Merci pour votre commande ! Votre commande a été validée avec succès et est en cours de traitement. Vous recevrez bientôt une confirmation par telephone.',
+      confirmButtonText: 'Voir mes commandes',
+  }).then((result) => {
+      if (result.isConfirmed) {
+          this.router.navigate(['/orders']); // Redirige vers la page des commandes
+      }
+  });
+  
+    
+    
+  }
+
+  calculateTotal() {
+    this.total = this.cartService.getTotal();
+  }
+
+  clearCart() {
+   this.cartService.clearCart();
+   this.calculateTotal();
+   console.log('le panier apres vider '+ this.items);
+   this.router.navigate(['/product']);
+  }
+
+
 }

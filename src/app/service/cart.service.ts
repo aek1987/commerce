@@ -16,7 +16,7 @@ export class CartService {
 
   private itemsSubject = new BehaviorSubject<Panier[]>(this.panier); // Utilisation de BehaviorSubject
   private totalSubject = new BehaviorSubject<number>(0); // Pour suivre le total
-  private totalItemSubject = new BehaviorSubject<number>(0);
+  private totalItemSubject = new BehaviorSubject<number>(0);// Pour suivre le nombre de produit sur le panier
 
 
   // Observable pour les items
@@ -50,24 +50,36 @@ export class CartService {
     
   ; // Met
   }
-
-  getItems(): Panier[] {
-    // Récupérer le panier à partir du Local Storage lors de l'initialisation
+  getTotalPanier(): number {
+    // Vérifie que le panier est chargé avant de calculer
+    if (!this.panier) {
+      this.getPanierItems(); // Charge les items du panier s'ils ne sont pas encore disponibles
+    }
+    // Calcule le total en additionnant les prix de tous les items du panier
+    return this.panier.reduce((total, item) => total + item.product.price * item.quantity, 0);
+  }
+  
+  getPanierItems(): Panier[] {
+    // Récupérer le panier à partir du Local Storage
     const savedCart = localStorage.getItem('panier');
     if (savedCart) {
       this.panier = JSON.parse(savedCart);
       this.itemsSubject.next(this.panier); // Émet les items du panier
-      this.updateTotal(); // Met à jour le total après la récupération
+      console.log(`Panier chargé : ${JSON.stringify(this.panier)}`);
+    } else {
+      this.panier = []; // Si aucun panier n'est trouvé, initialise avec un tableau vide
     }
-    console.log(`panier: ${ JSON.stringify(this.panier)} `);
     return this.panier;
   }
+  
 
-  clearCart(): Panier[] {
+  clearCart() {
+   
+    localStorage.removeItem('panier'); // Supprimer uniquement l'élément 'panier' du localStorage
     this.panier = [];     
     this.totalSubject.next(0); // Réinitialise le total
-    this.saveCart(); 
-    return this.panier;
+    this.totalItemSubject.next(0);
+    
   }
   updateTotal() {
     const total = this.panier.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
@@ -82,7 +94,7 @@ export class CartService {
   getTotal(): number {
    
     this.total = this.panier.reduce((total, item) => total + item.product.price, 0);
-    console.log(`Total price of items in the cart: ${this.total} €`);
+    console.log(`Total price of items in the  panier: ${this.total} `);
     return this.total;
   }
 

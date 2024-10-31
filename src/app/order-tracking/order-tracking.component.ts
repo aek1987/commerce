@@ -3,12 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { Order } from '../modeles/order.model';
 import { OrderService } from '../service/order.service';
 import { Commande } from '../modeles/commande';
+import { trigger, transition, style, animate } from '@angular/animations';
+
 
 
 @Component({
   selector: 'app-order-tracking',
   templateUrl: './order-tracking.component.html',
-  styleUrls: ['./order-tracking.component.css']
+  styleUrls: ['./order-tracking.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class OrderTrackingComponent implements OnInit {
   orders: Order[] = [];
@@ -16,6 +26,7 @@ export class OrderTrackingComponent implements OnInit {
   selectedCommande: Commande | null = null; 
   userId = -1;
   phone ="0";
+
   constructor(private orderService: OrderService) { }
   ngOnInit(): void {
     // Récupérer le numéro de téléphone du localStorage
@@ -33,21 +44,25 @@ export class OrderTrackingComponent implements OnInit {
   
           // Récupérer les commandes une fois que userId est disponible
           this.orderService.getUserOrdersById(this.userId).subscribe(
-            (orders: Order) => {
-              this.orders = [orders]; 
-           /*   if (Array.isArray(orders)) {
-                this.orders = orders;
-              
-               
+            (orders: Order[]) => {
+              if (Array.isArray(orders)) {
+                this.orders = orders; 
+                console.log('Commandes récupérées :', this.orders);
+                console.log('Nombre de commandes trouvées :', this.orders.length);
               } else {
                 console.error('La réponse n\'est pas un tableau.', orders);
-              }*/
+              }
             },
+            error => {
+              console.error('Erreur lors de la récupération des commandes :', error);
+
+            }
           );
+          
         },
         error => {
           console.error('Erreur lors de la récupération de l\'ID client par téléphone :', this.phone, error);
-          this.userId = -1;
+          this.userId = -1;this.phone = "";
           // Optionnel : Afficher un message d'erreur à l'utilisateur
         }
       );
@@ -55,24 +70,23 @@ export class OrderTrackingComponent implements OnInit {
       console.log('Aucun numéro de téléphone trouvé dans le localStorage.');
       // Optionnel : Afficher un message à l'utilisateur si le téléphone est manquant
     }
-    console.log('Commandes récupérées :', this.orders);
-    console.log('Nombre de commandes trouvées :', this.orders.length);
+   
   }
   
   cancelOrder(orderId: number) {
     this.orderService.cancelOrder(orderId);
   }
+  
+
+
   showOrderDetails(orderId: number) {
-    this.orderService.cancelOrder(orderId);
+    const order = this.orders.find(o => o.id === orderId);
+    if (order) {
+      order.showDetails = !order.showDetails; // Toggle pour afficher/masquer les détails
+    }
   }
 
-   // Fonction pour afficher les détails d'une commande
-   viewDetails(commande: Commande) {
-    this.selectedCommande = commande;
-  }
-  
-  // Fonction pour fermer les détails de la commande
   closeDetails() {
-    this.selectedCommande = null;
+    this.selectedCommande = null; // Logique pour fermer les détails
   }
 }
