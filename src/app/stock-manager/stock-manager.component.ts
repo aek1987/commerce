@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../service/products.service';
-import { Product } from '../modeles/product.model';
+import { newProduct, Product } from '../modeles/product.model';
 import { AlertService } from '../service/alerte-service.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,22 @@ import { Router } from '@angular/router';
 })
 export class StcoktManagerComponent implements OnInit {
   products: Product[] = [];
-  newProduct: Product = { id: 0, name: '', price: 0, description: '', image: '', category: '' };
+  newProduct : newProduct={
+    id:0,
+    name: '',
+    price: 0,
+    description: '',
+    image: '',
+    category: '',
+    resolution: '',
+    storage: '',
+    ram: '',
+    battery: '',
+    wirelessCharging: '',
+    color: '',
+    dualSim: false
+
+  }
   imagePreview: string | ArrayBuffer | null = null;
   constructor(private productService: ProductsService,private toast: AlertService,private router: Router)     
    {}
@@ -33,8 +48,20 @@ export class StcoktManagerComponent implements OnInit {
           this.products.push(newProduct);
           this.toast.success('Produit ajouté avec succès');
           // Réinitialiser le formulaire après l'ajout
-          this.newProduct = { id: 0, name: '', price: 0, description: '', image: '', category: '' };
-          this.imagePreview = null;
+         this.newProduct = { name: '',
+          id:0,
+          price: 0,
+          description: '',
+          image: '',
+          category: '',
+          resolution: '',
+          storage: '',
+          ram: '',
+          battery: '',
+          wirelessCharging: '',
+          color: '',
+          dualSim: false };
+         // this.imagePreview = null;
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du produit', error);

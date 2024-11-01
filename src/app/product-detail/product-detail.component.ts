@@ -12,14 +12,19 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product = {
-    id: 3,
-    name: 'Produit par défaut', // Valeur par défaut pour le nom
-    price: 0,                  // Valeur par défaut pour le prix
-    description: 'Description par défaut', // Valeur par défaut pour la description
-    image: 'assets/phone2.jpg',   // URL par défaut pour l'image
-    category: 'Catégorie par défaut' // Valeur par défaut pour la catégorie
-  };
+  product = { name: '',
+    id:0,
+    price: 0,
+    description: '',
+    image: '',
+    category: '',
+    resolution: '',
+    storage: '',
+    ram: '',
+    battery: '',
+    wirelessCharging: '',
+    color: '',
+    dualSim: false };
  // Utiliser null par défaut
 
   constructor(
@@ -45,25 +50,22 @@ export class ProductDetailComponent implements OnInit {
       return; // Sortir si l'ID est nul
     }
   
-    this.productService.getProducts().subscribe(
-      products => {
-        console.log('Produits récupérés:', products); // Vérifiez la liste des produits
-  
-        // Trouver le produit correspondant à l'ID
-        const foundProduct = products.find(p =>Number(p.id) === id);
-  
-        if (foundProduct) {
-          this.product = foundProduct;
-          console.log('Produit trouvé :', this.product);
+    this.productService.getProductpropertise(String(id)).subscribe(
+      (response) => {
+        if (response) {
+          console.log('Produit récupéré:', response);
+          this.product = response;
         } else {
           console.error(`Aucun produit trouvé avec l'ID ${id}, affichage du produit par défaut.`);
         }
       },
-      error => {
-        console.error('Erreur lors de la récupération des produits :', error);
+      (error) => {
+        console.error('Erreur lors de la récupération du produit:', error);
       }
     );
+
   }
+    
   goToConfirmationPage() {
    
     this.router.navigate(['/confirm-order']);

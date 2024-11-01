@@ -18,10 +18,12 @@ import { Panier } from "./Panier.model";
   export interface OrderDatabase {
     id: number;            // Identifiant unique de la commande
     customerId: string; 
-    customerName:string,    // Identifiant de l'utilisateur
+    customerName:string, 
+    customerTel:string,    // Identifiant de l'utilisateur
     totalPrice: number;    // Prix total de la commande
     status: string;        // Statut de la commande (e.g. "En cours", "Livrée")
-    orderDate: Date;     // Date de la commande
+    orderDate: Date;
+    isDetailsVisible: false     // Date de la commande
    
     
   }  

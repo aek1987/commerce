@@ -17,6 +17,7 @@ export class OrderService {
   private apiuserdetail = 'https://server-products-s1kr.onrender.com/api/clients';
   private apiuser = 'https://server-products-s1kr.onrender.com/api/clientstel';
   private apiUrl = 'https://server-products-s1kr.onrender.com/api/commande_client';
+  private apiProduitCommande = 'https://server-products-s1kr.onrender.com/api/produit_commandes';
   private apicommande = 'https://server-products-s1kr.onrender.com/api/orders';
  
   constructor(private http: HttpClient) {}
@@ -63,13 +64,14 @@ export class OrderService {
    
     return this.http.get<any>(`${this.apiuserdetail}/${userId}`);
   }
-
-  // Annuler une commande
-  cancelOrder(orderId: number) {
-    const orderIndex = this.orders.findIndex(order => order.id === orderId);
-    if (orderIndex !== -1 && this.orders[orderIndex].status === 'En cours') {
-      this.orders[orderIndex].status = 'Annulée';
-      this.ordersSubject.next(this.orders); // Mise à jour des commandes
-    }
+  
+  loadProductsOrderItems(orderid: String): Observable<any> {
+       return this.http.get<any>(`${this.apiProduitCommande}/${orderid}`);
   }
+  
+
+    // Supprimer un produit par ID
+  cancelOrder(id: number): Observable<void> {
+          return this.http.delete<void>(`${this.apicommande}/${id}`);
+    }
 }

@@ -21,25 +21,23 @@
         </li>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <strong>Résolution:</strong> <span>IPS LCD, 500 nits (peak)</span>
+            <strong>Résolution:</strong> <span>{{ product.resolution }}</span>
           </li>
           <li class="list-group-item">
-            <strong>Espace de stockage:</strong> <span>256 GB</span>
+            <strong>Espace de stockage:</strong> <span>{{ product.storage }}</span>
           </li>
           <li class="list-group-item">
-            <strong>Mémoire vive (RAM):</strong> <span>12GB (4GB + 8GB)</span>
+            <strong>Mémoire vive (RAM):</strong> <span>{{ product.name }}</span>
           </li>
           <li class="list-group-item">
-            <strong>Capacité de la batterie:</strong> <span>5000 mAh</span>
+            <strong>Capacité de la batterie:</strong> <span>{{ product.battery}}</span>
+          </li>
+         
+          <li class="list-group-item">
+            <strong>Couleur:</strong> <span>{{ product.color }}r</span>
           </li>
           <li class="list-group-item">
-            <strong>Chargement sans fil:</strong> <span>10 W</span>
-          </li>
-          <li class="list-group-item">
-            <strong>Couleur:</strong> <span>Noir</span>
-          </li>
-          <li class="list-group-item">
-            <strong>Double puce:</strong> <span>Oui</span>
+            <strong>Double puce:</strong> <span>{{ product.dualSim}}</span>
           </li>
         </ul>
       </div>
