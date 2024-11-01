@@ -54,6 +54,7 @@ export class ProductDetailComponent implements OnInit {
       (response) => {
         if (response) {
           console.log('Produit récupéré:', response);
+          console.log('Produit image :', response.image);
           this.product = response;
         } else {
           console.error(`Aucun produit trouvé avec l'ID ${id}, affichage du produit par défaut.`);

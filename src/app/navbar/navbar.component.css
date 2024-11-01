@@ -1,153 +1,52 @@
-/* Styles pour la barre de navigation */
 .navbar {
-    background-color: #1e7ddb !important; /* Couleur de fond bleu foncé */
-    padding: 10px 20px; /* Espacement autour de la navbar */
+    background-color: #f8f9fa; /* Fond gris très clair */
+    color: #333333; /* Texte sombre pour le contraste */
+    padding: 10px;
+    border-bottom: 2px solid #d4af37; /* Légère bordure dorée pour un effet élégant */
 }
 
-.navbar-brand {
-    color: #ffffff; /* Couleur blanche pour le texte de la marque */
-    display: flex; /* Utiliser Flexbox pour aligner le contenu */
-    align-items: center; /* Alignement vertical du logo et du texte */
+.navbar-brand, .navbar-nav .nav-link {
+    color: #333333; /* Texte sombre pour les liens de navigation */
+    font-weight: 500;
+    font-size: 16px;
 }
 
-.navbar-logo {
-    height: 40px; /* Taille du logo */
-    margin-right: 10px; /* Espacement entre le logo et le texte */
-}
-/* Styles pour le lien Panier */
-.nav-link {
-    color: #ffffff; /* Couleur blanche pour le texte du lien */
-    font-weight: bold; /* Texte en gras */
-    transition: color 0.3s; /* Transition douce pour le changement de couleur */
+.navbar-brand .brand-title {
+    color: #b8860b; /* Doré pâle pour la marque */
+    font-weight: bold;
 }
 
-/* Changement de couleur au survol */
-.nav-link:hover {
-    color: #ffcc00; /* Couleur jaune au survol */
+.company-info p, .company-info a {
+    color: #555555; /* Gris moyen pour les informations de contact */
+    font-size: 13px;
 }
-.nav-link fa-icon {
-    margin-right: 6px; /* Un peu d'espace entre l'icône et le texte */
-    color: #ffcc00; /* Couleur des icônes */
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%2855, 55, 55, 0.9%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
-/* Styles pour le badge du panier */
+
+.navbar-nav .nav-link {
+    margin-right: 15px;
+    color: #333333; /* Texte sombre pour les liens */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #b8860b; /* Doré clair au survol */
+}
+
 .badge {
-    margin-left: 5px; /* Espacement pour le badge */
-    background-color: #ffcc00; /* Couleur de fond jaune pour le badge */
-    color: #003366; /* Couleur du texte dans le badge */
-    border-radius: 50%; /* Badge arrondi */
-    padding: 0.3em 0.6em; /* Espacement interne pour le badge */
-    font-size: 0.8em; /* Taille de police réduite pour le badge */
-    font-weight: bold; /* Texte en gras dans le badge */
+    background-color: #f0ad4e; /* Orange pâle pour le badge du panier */
+    color: #ffffff;
 }
 
-/* Ajout d'un effet de box-shadow pour le badge */
-.badge {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour le badge */
+.dropdown-menu {
+    background-color: #f8f9fa; /* Fond clair pour le menu déroulant */
 }
 
-/* Styles pour le titre de la marque */
-.brand-title {
-    font-weight: bold; /* Texte en gras */
-    font-size: 24px; /* Taille de la police */
+.dropdown-menu .dropdown-item {
+    color: #333333; /* Texte sombre pour les éléments du menu déroulant */
 }
 
-/* Styles pour le sous-titre de la marque */
-.brand-subtitle {
-    display: block; /* Afficher le sous-titre sur une nouvelle ligne */
-    font-size: 14px; /* Taille de la police plus petite */
-    color: #ffcc00; /* Couleur du sous-titre */
-}
-
-/* Styles pour les informations de l'entreprise */
-.company-info {
-    color: #ffffff; /* Couleur blanche pour le texte */
-    font-size: 0.875rem; /* Taille du texte réduite */
-    margin-left: 20px; /* Espace à gauche pour l'alignement */
-}
-
-.company-info p {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0; /* Supprime l'espace vertical */
-}
-
-.company-info fa-icon {
-    margin-right: 6px; /* Un peu d'espace entre l'icône et le texte */
-    color: #ffcc00; /* Couleur des icônes */
-}
-
-.company-info a {
-    color: #ffcc00; /* Couleur des liens */
-    text-decoration: none; /* Pas de soulignement */
-}
-
-.company-info a:hover {
-    text-decoration: underline; /* Soulignement au survol */
-}
-
-/* Styles pour la barre de recherche */
-.search-form {
-    flex-grow: 1; /* Permet au formulaire de prendre l'espace restant */
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-}
-
-.search-input {
-    border-radius: 0; /* Coins carrés */
-    width: 100%; /* Prend toute la largeur disponible */
-}
-
-.search-icon {
-    cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
-    background-color: #007bff; /* Couleur de fond pour le bouton de recherche */
-    color: #ffffff; /* Couleur de l'icône */
-    border-right: none; /* Supprime la bordure droite pour un look plus propre */
-}
-
-.search-btn {
-    border-radius: 0 0.25rem 0.25rem 0; /* Arrondi les coins */
-}
-
-/* Styles pour le badge du panier */
-.badge {
-    margin-left: 5px; /* Espacement pour le badge */
-}
-
-/* Styles pour les boutons */
-.navbar-toggler {
-    border: none; /* Pas de bordure pour le bouton de bascule */
-}
-
-.navbar-toggler:focus {
-    outline: none; /* Pas d'outline au focus */
-}
-
-/* Style pour le texte de la marque avec effet de survol */
-.brand-text {
-    color: #ffffff; /* Couleur blanche */
-    font-weight: bold; /* Texte en gras */
-    font-size: 24px; /* Taille de la police */
-    position: relative;
-    display: inline-block;
-    transition: all 0.3s ease; /* Transition pour les effets */
-}
-
-.brand-text::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px; /* Épaisseur de la ligne */
-    background-color: #ffcc00; /* Couleur de la ligne */
-    transform: scaleX(0); /* Initialement cachée */
-    transition: transform 0.3s ease;
-    transform-origin: bottom right;
-    margin-top: 4px; /* Espace entre le texte et la ligne */
-}
-
-.brand-text:hover::after {
-    transform: scaleX(1); /* Ligne se déployant au survol */
-    transform-origin: bottom left;
+.dropdown-menu .dropdown-item:hover {
+    background-color: #e9ecef; /* Gris clair au survol */
 }

@@ -26,11 +26,6 @@ export class ProductComponent {
   notificationMessage: string | null = null;  // Message de notification
   notifiedProductId: number | null = null;  // ID du produit notifié
 
- 
-  //minPrice: number = 0;  // Prix min par défaut
-  //maxPrice: number = 100;  // Prix max par défaut
-  //progressBarWidth: number = 100; // Largeur de la barre de progression
-
 
   lastAvailableDate: string | null = null;  
   selectedColor: string | null = null;
@@ -42,13 +37,15 @@ export class ProductComponent {
   cart: Product[] = [];
   selectedPriceLimit: number =0;
   isLoading: boolean = true;
+  
+minPrice: number = 4000;  // Prix min par défaut
+maxPrice: number = 400000;  // Prix max par défaut
+maxLimit: number = 400000;  // Limite maximale pour le slider
   constructor(private cartService: CartService,private productService: ProductsService,private toastr: ToastrService, private router: Router,private translate: TranslateService)
     {
     
     }
-    switchLanguage(lang: string) {
-      this.translate.use(lang);
-    }
+   
 
     ngOnInit() {
     
@@ -61,14 +58,14 @@ export class ProductComponent {
       if (!this.products || this.products.length === 0) {
         console.log("aucun produit trouvé sur url");
       }
+      
     },
     (error) => {
       console.error("Erreur lors du chargement des produits", error);
       this.isLoading = false; // Désactiver le spinner en cas d'erreur
     }
   );
-       // Initially, show all products
-    
+   console.log("liste des produit charge: "+this.filteredProducts);     
   }
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product,event: MouseEvent) {
@@ -154,10 +151,7 @@ dropdownOpen: boolean = false;
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
-applyCategoryFilter2() {
-  
-  
-}
+
 
 
 applyFilters() {
@@ -250,9 +244,6 @@ onBrandChange(event: Event) {
   this.applyFilters();
 } 
 
-minPrice: number = 4000;  // Prix min par défaut
-maxPrice: number = 400000;  // Prix max par défaut
-maxLimit: number = 400000;  // Limite maximale pour le slider
 
 // Méthode appelée lorsqu'on change les sliders
 

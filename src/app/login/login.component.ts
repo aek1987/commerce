@@ -14,20 +14,25 @@ export class LoginComponent {
   };
 
   constructor(private authService: AuthService, private router: Router) {}
+
   onSubmit() {
     this.authService.login(this.loginData)
       .subscribe(
         (response: any) => {
-         // localStorage.setItem('token', response.token);  // Stocker le token
-          localStorage.setItem('userRole', 'admin');
+          // Vérification de l'email et du mot de passe
+          if (this.loginData.email === 'nekaaabdelakder1987@gmail.com' && this.loginData.password === 'nekaa') {
+            localStorage.setItem('userRole', 'admin'); // Définir le rôle d'administrateur
+          } else {
+            localStorage.setItem('userRole', 'user'); // Définir un rôle par défaut pour les autres utilisateurs
+          }
+
           this.router.navigate(['/product']);  // Rediriger après connexion
-          alert('Login succées');
+          alert('Login réussi');
         },
         (error) => {
-          console.error('Login failed', error);
+          console.error('Login échoué', error);
           alert('Login échoué. Veuillez vérifier vos informations.');
         }
       );
   }
- 
 }
