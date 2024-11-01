@@ -29,6 +29,22 @@ export class StcoktManagerComponent implements OnInit {
 
   }
   imagePreview: string | ArrayBuffer | null = null;
+  storageOptions: number[] = [64,128,266];
+  ramOptions: number[] = [4, 8, 16];
+  batteryOptions: number[] = [2000, 3000, 4000, 5000, 6000];
+  categories: string[] = ['Oppo', 'Redmi', 'TCL', 'Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Nokia'];
+  resolutions: { value: string; label: string }[] = [
+    { value: '1280 x 720', label: 'HD (1280 x 720)' },
+    { value: '1600 x 900', label: 'HD+ (1600 x 900)' },
+    { value: '1920 x 1080', label: 'Full HD (1920 x 1080)' },
+    { value: '2280 x 1080', label: 'Full HD+ (2280 x 1080)' },
+    { value: '2560 x 1440', label: '2K (2560 x 1440)' },
+    { value: '3200 x 1800', label: 'QHD (3200 x 1800)' },
+    { value: '3840 x 2160', label: '4K UHD (3840 x 2160)' },
+  ];
+  colorOptions: string[] = ['Rouge', 'Vert', 'Bleu', 'Jaune', 'Noir', 'Blanc', 'Gris', 'Rose'];
+  isOtherColor: boolean = false;
+
   constructor(private productService: ProductsService,private toast: AlertService,private router: Router)     
    {}
 
@@ -105,5 +121,7 @@ export class StcoktManagerComponent implements OnInit {
       this.toast.error('Veuillez sélectionner un fichier image valide');
     }
   }
-  
+  onColorChange(event: any) {
+    this.isOtherColor = event.target.value === 'other';
+  }
 }

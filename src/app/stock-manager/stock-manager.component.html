@@ -12,8 +12,9 @@
           <input type="text" id="productName" [(ngModel)]="newProduct.name" name="productName" required class="form-control">
         </div>
         <div class="col-md-6 mb-3">
-          <label for="productPrice" class="form-label">Prix</label>
-          <input type="number" id="productPrice" [(ngModel)]="newProduct.price" name="productPrice" required class="form-control">
+          <label for="productPrice" class="form-label">Prix (DZD)</label>
+          <input type="number" id="productPrice" [(ngModel)]="newProduct.price" name="productPrice" required class="form-control" placeholder="Entrez le prix en DZD" min="0">
+          <small class="form-text text-muted">Veuillez entrer le prix en dinars algériens (DZD).</small>
         </div>
       </div>
       
@@ -32,29 +33,40 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="productCategory" class="form-label">Catégorie</label>
-          <input type="text" id="productCategory" [(ngModel)]="newProduct.category" name="productCategory" class="form-control">
+          <select id="productCategory" [(ngModel)]="newProduct.category" name="productCategory" class="form-control">
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
         </div>
         <div class="col-md-6 mb-3">
           <label for="resolution" class="form-label">Résolution</label>
-          <input type="text" id="resolution" [(ngModel)]="newProduct.resolution" name="resolution" class="form-control">
+          <select id="resolution" [(ngModel)]="newProduct.resolution" name="resolution" class="form-control">
+            <option *ngFor="let res of resolutions" [value]="res.value">{{ res.label }}</option>
+          </select>
         </div>
+        
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="storage" class="form-label">Espace de stockage</label>
-          <input type="text" id="storage" [(ngModel)]="newProduct.storage" name="storage" class="form-control">
+          <select id="storage" [(ngModel)]="newProduct.storage" name="storage" class="form-control">
+            <option *ngFor="let size of storageOptions" [value]="size">{{ size }} GB</option>
+          </select>
         </div>
         <div class="col-md-6 mb-3">
           <label for="ram" class="form-label">Mémoire vive (RAM)</label>
-          <input type="text" id="ram" [(ngModel)]="newProduct.ram" name="ram" class="form-control">
+          <select id="ram" [(ngModel)]="newProduct.ram" name="ram" class="form-control">
+            <option *ngFor="let ramSize of ramOptions" [value]="ramSize">{{ ramSize }} GB</option>
+          </select>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="battery" class="form-label">Capacité de la batterie</label>
-          <input type="text" id="battery" [(ngModel)]="newProduct.battery" name="battery" class="form-control">
+          <select id="battery" [(ngModel)]="newProduct.battery" name="battery" class="form-control">
+            <option *ngFor="let batteryCapacity of batteryOptions" [value]="batteryCapacity">{{ batteryCapacity }} mAh</option>
+          </select>
         </div>
         <div class="col-md-6 mb-3">
           <label for="wirelessCharging" class="form-label">Chargement sans fil</label>
@@ -65,8 +77,14 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="color" class="form-label">Couleur</label>
-          <input type="text" id="color" [(ngModel)]="newProduct.color" name="color" class="form-control">
+          <select id="color" [(ngModel)]="newProduct.color" name="color" class="form-control" (change)="onColorChange($event)">
+            <option value="" disabled selected>Sélectionnez une couleur</option>
+            <option *ngFor="let color of colorOptions" [value]="color">{{ color }}</option>
+            <option value="other">Autre (veuillez spécifier)</option>
+          </select>
+          <input *ngIf="isOtherColor" type="text" [(ngModel)]="newProduct.color" placeholder="Veuillez spécifier la couleur" class="form-control mt-2">
         </div>
+        
         <div class="col-md-6 mb-3 form-check">
           <input type="checkbox" id="dualSim" [(ngModel)]="newProduct.dualSim" name="dualSim" class="form-check-input">
           <label for="dualSim" class="form-check-label">Double puce</label>

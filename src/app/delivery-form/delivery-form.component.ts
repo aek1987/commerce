@@ -110,6 +110,8 @@ this.cartService.items$.subscribe(items => {
     this.paymentMode = mode;
   }
 
+// PassersCommande PassersCommande PassersCommande
+  // PassersCommande PassersCommande PassersCommande
   PassersCommande() {
     if (this.paymentMode === 'card') {
       console.log('Paiement par carte confirmé', this.cardDetails);
@@ -145,10 +147,9 @@ this.orderservice.PasserCommande(commande).subscribe(
          // stocker les information de client 
           localStorage.setItem('clientPhone', this.deliveryInfos.phone);
           localStorage.setItem('clientName', this.deliveryInfos.name);
-          localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);       
+          localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);     
           
-          
-          
+                
           
           
           this.showsuccess();
