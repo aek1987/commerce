@@ -27,7 +27,7 @@ export class OrderService {
 //Fetch client ID from the API using the phone number
   getClientIDByPhone(phone: string): Observable<any> {
    
-    return this.http.get<any>(`${this.apiuser}/${phone}`);
+    return this.http.get<{ id: number }>(`${this.apiuser}/${phone}`);
   }
   // Fetch products from the API
   getProducts(): Observable<Product[]> {
@@ -53,8 +53,8 @@ export class OrderService {
   }
 
   //obtenir toutes les commandes d'un utilisateur
-   getUserOrdersById(userId: number): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.apiUrl}/${userId}`);
+   getUserOrdersById(userId: number): Observable<OrderDatabase[]> {
+    return this.http.get<OrderDatabase[]>(`${this.apiUrl}/${userId}`);
   }
 
   //obtenir toutes les commandes dans la platforme
