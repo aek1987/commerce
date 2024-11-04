@@ -77,6 +77,7 @@ export class StcoktManagerComponent implements OnInit {
           wirelessCharging: '',
           color: '',
           dualSim: false };
+          console.log('ajout unproduit en cours ', this.newProduct );
          // this.imagePreview = null;
         },
         (error) => {

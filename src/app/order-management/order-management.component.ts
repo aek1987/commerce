@@ -6,7 +6,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { ProductsService } from '../service/products.service';
 
 interface Produit {
-  id: string;
+  productId: string;
   quantity: number; 
   name: string;
   prix: number; 
@@ -74,28 +74,43 @@ export class OrderManagementComponent {
     );
   }
   loadProductsOrderItems(order: any): void {
-    order.isDetailsVisible = !order.isDetailsVisible; // Bascule l'affichage des détails
+    order.isDetailsVisible = !order.isDetailsVisible; // Basculer l'affichage des détails
+    
+    if (!order.id) {
+      console.error('L ID de la commande est manquant');
+      return;
+    }
+  
     this.orderService.loadProductsOrderItems(order.id).subscribe(
       (response: Produit[]) => {
+        if (!response || response.length === 0) {
+          console.warn('Aucun produit trouvé pour la commande numéro', order.id);
+          return;
+        }
+  
         this.ItemsOrders = response;
   
         // Charger les détails de chaque produit
         this.ItemsOrders.forEach(item => {
+          
           this.loadProductDetails(item);
         });
   
         console.log('Liste des produits pour la commande numéro', order.id, this.ItemsOrders);
       },
-      (error) => console.error('Erreur lors de la récupération des produits de la commande', error)
+      (error) => {
+        console.error('Erreur lors de la récupération des produits de la commande', error);
+      }
     );
   }
   
+  
   loadProductDetails(produit: Produit) {
-    this.productsService.getProductpropertise(produit.id).subscribe(
+    this.productsService.getProductpropertise(produit.productId).subscribe(
       (response) => {
         produit.name=response.name;
         produit.prix=response.price;
-        console.log('produit info',  produit.name," prid de produit",produit.prix=response.price)
+        console.log('produit info',  produit.name," nom de produit",produit.prix=response.price)
        
       },
       error => console.error('Erreur lors de la récupération des détails du produit', error)
@@ -121,16 +136,23 @@ export class OrderManagementComponent {
     // Implémenter la logique de modification ici
   }
 
-  // Fonction pour annuler une commande (à implémenter selon ton besoin)
-  cancelCommande(commande: OrderDatabase) {
-   
-    this.orderService.cancelOrder(commande.id).subscribe(
-      (response) => {
-             
-      },
-      error => console.error('Erreur de supprission de id de commande, error')
-    );
+ // Fonction pour annuler une commande
+SupprimerCommande(commande: OrderDatabase) {
+  // Annuler la commande
+  this.orderService.cancelOrder(commande.id).subscribe(
+    (response) => {
+      // Si l'annulation est réussie, mettre à jour le statut
       commande.status = 'Annulé';
-    }
-  
+      
+      // Suppression des articles après l'annulation réussie
+      this.orderService.deleteItems(commande.id).subscribe(
+        (response) => {
+          // Traitement après la suppression des articles si nécessaire
+        },
+        error => console.error('Erreur de suppression des articles de la commande, error', error)
+      );
+    },
+    error => console.error('Erreur de suppression de la commande, error', error)
+  );
+}
 }

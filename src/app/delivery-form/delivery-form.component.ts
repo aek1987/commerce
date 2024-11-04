@@ -40,6 +40,7 @@ export class DeliveryFormComponent  implements OnInit{
     expiry: '',
     cvv: ''
   };
+
   
   ngOnInit(): void {
     // S'abonner aux changements des items
@@ -119,46 +120,46 @@ this.cartService.items$.subscribe(items => {
       console.log('Paiement à la livraison sélectionné');
     }
 
-
 // Créer un objet commande
 const commande: Commande = {
   name: this.deliveryInfos.name,
-  phone: this.deliveryInfos.phone, // Si c'est le téléphone, ajustez en fonction
+  phone: this.deliveryInfos.phone, 
   wilaya: this.deliveryInfos.wilaya,
   commune: this.deliveryInfos.commune,
-  address: this.deliveryInfos.address, // Assurez-vous que cette propriété est correctement définie
+  address: this.deliveryInfos.address,
 
-  totalPrice: this.total + this.deliveryFee, // Ajouter les frais de livraison
-  status: 'En cours',
-  orderDate: new Date().toISOString(),   // Format ISO
+  totalPrice: this.total + this.deliveryFee, 
+  status: 'En cours',  
  
- // Créez un tableau d'articles pour le panier
+  orderDate: new Date().toISOString(), 
+ 
+ // Créez  panier
  panier: this.items
 
 };
 console.log("la commde envoyer est :"+JSON.stringify(commande))
+
+
 // Soumettre la commande via le service
 
 this.orderservice.PasserCommande(commande).subscribe(
   response => {
+    
+      console.log('la reponde de passage de Commande  ', response);  
       if (response.commandestate==="succes") {
 
           console.log('Commande soumise avec succès', response);          
          // stocker les information de client 
-          localStorage.setItem('clientPhone', this.deliveryInfos.phone);
-          localStorage.setItem('clientName', this.deliveryInfos.name);
-          localStorage.setItem('clientWilaya', this.deliveryInfos.wilaya);     
-          
-                
-          
-          
+          localStorage.setItem('clientPhone', this.deliveryInfos.phone);    
+         
           this.showsuccess();
           this.clearCart() ;
          
 
       } else {
-          console.error('Erreur lors de la soumission de la commande');
-      }
+          console.error('Erreur lors de la soumission de la commande : reponse= '+response);    
+          console.error(response);
+        }
   },
   error => {
       console.error('Erreur lors de la soumission de la commande', error);

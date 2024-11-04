@@ -22,13 +22,13 @@ export class ProductsService {
     
   }
   // Ajouter un produit
-  addProduct(product: newProduct): Observable<newProduct> {
-    return this.http.post<newProduct>(this.apiUrlProduit, product);
+  addProduct(product: newProduct): Observable<any> {
+    return this.http.post<any>(this.apiUrlProduit, product);
   }
    // Supprimer un produit par ID
    deleteProduct(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+   // const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<void>(`${this.apiUrlProduit}/${id}`);
   }
 
 }

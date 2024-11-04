@@ -31,11 +31,9 @@ export class OrderTrackingComponent implements OnInit {
   ngOnInit(): void {
     // Récupérer le numéro de téléphone du localStorage
     this.phone = localStorage.getItem('clientPhone') || '';
-    const name = localStorage.getItem('clientName') || '';
-    const wilaya = localStorage.getItem('clientWilaya') || '';
-  
-    console.log('Numéro de téléphone du client :', this.phone);
-  
+    //const name = localStorage.getItem('clientName') || '';
+    //const wilaya = localStorage.getItem('clientWilaya') || '';
+    console.log('clientPhonet récupéré :', this.phone);
     if (this.phone) {
       this.orderService.getClientIDByPhone(this.phone).subscribe(
         response => {
@@ -61,8 +59,9 @@ export class OrderTrackingComponent implements OnInit {
           
         },
         error => {
-          console.error('Erreur lors de la récupération de l\'ID client par téléphone :', this.phone, error);
+        // console.error('Erreur lors de la récupération de l ID client par téléphone :', this.phone, error);
           this.userId = -1;this.phone = "";
+          console.log('aucun client récupéré : par telephone');
           // Optionnel : Afficher un message d'erreur à l'utilisateur
         }
       );

@@ -19,13 +19,15 @@ export class OrderService {
   private apiUrl = 'https://server-products-s1kr.onrender.com/api/commande_client';
   private apiProduitCommande = 'https://server-products-s1kr.onrender.com/api/produit_commandes';
   private apicommande = 'https://server-products-s1kr.onrender.com/api/orders';
+  private apiItems = 'https://server-products-s1kr.onrender.com/api/orders';
+ 
  
   constructor(private http: HttpClient) {}
 
 //Fetch client ID from the API using the phone number
-  getClientIDByPhone(phone: string): Observable<{ id: number }> {
+  getClientIDByPhone(phone: string): Observable<any> {
    
-    return this.http.get<{ id: number }>(`${this.apiuser}/${phone}`);
+    return this.http.get<any>(`${this.apiuser}/${phone}`);
   }
   // Fetch products from the API
   getProducts(): Observable<Product[]> {
@@ -72,6 +74,14 @@ export class OrderService {
 
     // Supprimer un produit par ID
   cancelOrder(id: number): Observable<void> {
-          return this.http.delete<void>(`${this.apicommande}/${id}`);
+      
+    //this.http.deleteItems<id>(`${this.apicommande}/${id}`);
+    return this.http.delete<void>(`${this.apicommande}/${id}`);
     }
+     // Supprimer un produit par ID
+  deleteItems(id: number): Observable<void> {
+        
+    return this.http.delete<void>(`${this.apiItems}/${id}`);
+    }
+
 }
