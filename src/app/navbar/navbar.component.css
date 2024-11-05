@@ -50,3 +50,45 @@
 .dropdown-menu .dropdown-item:hover {
     background-color: #e9ecef; /* Gris clair au survol */
 }
+
+/* Animation de pulsation en boucle */
+@keyframes pulse {
+    0%, 100% {
+      transform: scale(1); /* Taille d'origine */
+    }
+    50% {
+      transform: scale(1.1); /* Taille agrandie à mi-parcours */
+    }
+  }
+  
+  /* Appliquer l'animation à la marque et au logo */
+.brand-container {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    animation: pulse 4s infinite ease-in-out; /* Animation de 10 secondes en boucle */
+  }
+  
+  /* Transition pour que l'image et le texte grandissent ensemble */
+  .navbar-logo, .brand-title {
+    transition: transform 0.3s ease;
+  }
+   
+  /* Agrandit l'image et le texte lorsque l'utilisateur passe la souris dessus */
+  .brand-container:hover {
+    transform: scale(1.1); /* Augmentation de la taille globale */
+  }
+  
+
+  /* Optionnel : agrandir légèrement le texte séparément */
+  .brand-title {
+    font-size: 1.2rem; /* Taille de texte normale */
+    transition: transform 1s ease, color s ease;
+  }
+  
+  .brand-container:hover .brand-title {
+    color: #007bff; /* Change la couleur du texte */
+    transform: scale(1.2); /* Agrandit le texte lors du survol */
+  }
+  
+

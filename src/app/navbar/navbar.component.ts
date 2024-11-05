@@ -77,5 +77,9 @@ export class NavbarComponent implements OnInit{
   switchLanguage(language: string) {
     this.translate.use(language);
   }
+  isExpanded = false;
 
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded;
+  }
 }
