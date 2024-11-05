@@ -11,15 +11,15 @@ import { Product } from '../modeles/product.model';
   providedIn: 'root'
 })
 export class OrderService {
-  private orders: Order[] = [];
   private ordersSubject = new BehaviorSubject<Order[]>([]);  
   orders$ = this.ordersSubject.asObservable();
+
   private apiuserdetail = 'https://server-products-s1kr.onrender.com/api/clients';
   private apiuser = 'https://server-products-s1kr.onrender.com/api/clientstel';
   private apiUrl = 'https://server-products-s1kr.onrender.com/api/commande_client';
   private apiProduitCommande = 'https://server-products-s1kr.onrender.com/api/produit_commandes';
   private apicommande = 'https://server-products-s1kr.onrender.com/api/orders';
-  private apiItems = 'https://server-products-s1kr.onrender.com/api/orders';
+  private apiItems = 'https://server-products-s1kr.onrender.com/api/Items';
  
  
   constructor(private http: HttpClient) {}
@@ -72,10 +72,14 @@ export class OrderService {
   }
   
 
-    // Supprimer un produit par ID
+    // oder changeState
+    changeState(id: number): Observable<void> {
+         
+    return this.http.get<void>(`${this.apicommande}/${id}/${id}`);
+    }
+        // Supprimer un produit par ID
   cancelOrder(id: number): Observable<void> {
-      
-    //this.http.deleteItems<id>(`${this.apicommande}/${id}`);
+         
     return this.http.delete<void>(`${this.apicommande}/${id}`);
     }
      // Supprimer un produit par ID

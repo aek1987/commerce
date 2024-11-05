@@ -131,14 +131,21 @@ const commande: Commande = {
   totalPrice: this.total + this.deliveryFee, 
   status: 'En cours',  
  
-  orderDate: new Date().toISOString(), 
+  orderDate:new Date().toLocaleString('en-GB', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // Optional: Use 24-hour format
+  }),
  
  // Créez  panier
  panier: this.items
 
 };
-console.log("la commde envoyer est :"+JSON.stringify(commande))
 
+console.log("la date de la commande "+commande.orderDate);
 
 // Soumettre la commande via le service
 

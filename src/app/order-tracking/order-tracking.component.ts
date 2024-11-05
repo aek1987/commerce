@@ -13,6 +13,12 @@ interface Produit {
   name: string;
   prix: number; 
 }
+
+interface Client {
+  name: string;
+  tel: number; 
+  address: string;
+}
 @Component({
   selector: 'app-order-tracking',
   templateUrl: './order-tracking.component.html',
@@ -33,6 +39,7 @@ export class OrderTrackingComponent implements OnInit {
   orders: OrderDatabase[] = [];
   commandes: Commande[] = [];
   selectedCommande: Commande | null = null; 
+  client: Client = { name: '', tel: 0, address: '' };
   userId = -1;
   phone ="0";
   ItemsOrders:Produit[]| null = null;
@@ -52,6 +59,11 @@ export class OrderTrackingComponent implements OnInit {
     this.orderService.getClientIDByPhone(phone).subscribe(
       response => {
         this.userId = response.id;
+        this.client.name=response.name;
+        this.client.tel=response.phone;
+        this.client.address=response.address;
+        
+        
         console.log('ID client récupéré :', this.userId);    
         
         // Récupérer les commandes de l'utilisateur

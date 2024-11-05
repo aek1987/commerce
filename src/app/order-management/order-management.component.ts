@@ -6,7 +6,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { ProductsService } from '../service/products.service';
 
 interface Produit {
-  productId: string;
+  productID: string;
   quantity: number; 
   name: string;
   prix: number; 
@@ -106,7 +106,7 @@ export class OrderManagementComponent {
   
   
   loadProductDetails(produit: Produit) {
-    this.productsService.getProductpropertise(produit.productId).subscribe(
+    this.productsService.getProductpropertise(produit.productID).subscribe(
       (response) => {
         produit.name=response.name;
         produit.prix=response.price;
@@ -132,9 +132,13 @@ export class OrderManagementComponent {
 
   // Fonction pour modifier une commande (à implémenter selon ton besoin)
   editCommande(commande: OrderDatabase) {
-   // alert(`Modifier la commande #${commande.id} de ${commande.clientName}`);
-    // Implémenter la logique de modification ici
-  }
+    // Annuler la commande
+  this.orderService.changeState(commande.id).subscribe(
+    (response) => {
+      
+    
+  })
+}
 
  // Fonction pour annuler une commande
 SupprimerCommande(commande: OrderDatabase) {
