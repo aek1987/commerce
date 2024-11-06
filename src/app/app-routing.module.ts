@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent  },
  { path: 'orders', component: OrderTrackingComponent },
  { path: '', redirectTo: '/products', pathMatch: 'full' },
- { path: '**', redirectTo: '/products' }  // Redirection par défaut
+ { path: '**', redirectTo: '/' }  // Redirection par défaut
 ];
 
 @NgModule({

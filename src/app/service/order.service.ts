@@ -13,13 +13,14 @@ import { Product } from '../modeles/product.model';
 export class OrderService {
   private ordersSubject = new BehaviorSubject<Order[]>([]);  
   orders$ = this.ordersSubject.asObservable();
-
-  private apiuserdetail = 'https://server-products-s1kr.onrender.com/api/clients';
-  private apiuser = 'https://server-products-s1kr.onrender.com/api/clientstel';
-  private apiUrl = 'https://server-products-s1kr.onrender.com/api/commande_client';
-  private apiProduitCommande = 'https://server-products-s1kr.onrender.com/api/produit_commandes';
-  private apicommande = 'https://server-products-s1kr.onrender.com/api/orders';
-  private apiItems = 'https://server-products-s1kr.onrender.com/api/Items';
+  private URL='https://server-products-s1kr.onrender.com/api';
+  private apiuserdetail = `${this.URL}/clients`;
+  private apiuser = `${this.URL}/clientstel`;
+  private apiUrl = `${this.URL}/commande_client`;
+  private apiProduitCommande = `${this.URL}/produit_commandes`;
+  private apicommande = `${this.URL}/orders`;
+  private apiItems = `${this.URL}/Items`;
+  
  
  
   constructor(private http: HttpClient) {}
