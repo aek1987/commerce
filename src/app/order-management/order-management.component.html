@@ -7,7 +7,7 @@
     <div class="row mb-2">
       <div class="col"><strong>#</strong></div>
       <div class="col"><strong>Client</strong></div>
-       <div class="col"><strong>Date de Commande</strong></div>
+      <div class="col"><strong>Date de Commande</strong></div>
       <div class="col"><strong>Montant Total (DZD)</strong></div>
       <div class="col"><strong>Statut</strong></div>
       <div class="col"><strong>Détails</strong></div>
@@ -16,9 +16,9 @@
 
     <div *ngFor="let Order of OrdersALL; let i = index" class="row border-bottom py-2">
       <div class="col">{{ i + 1 }}</div>
-      <div class="col">{{ Order.customerName || 'Chargement...' }}  {{ Order.customerTel}}</div>
-      <div class="col">{{ Order.orderDate | date: 'dd/MM/yyyy' }}</div>
-      <div class="col">{{ Order.totalPrice | thousandSeparator }}</div>
+      <div class="col">{{ Order.customerName || 'Chargement...' }} {{ Order.customerTel}}</div>
+      <div class="col">{{ Order.orderdate }}</div>
+      <div class="col">{{ Order.totalprice | thousandSeparator }}</div>
       <div class="col">
         <span [ngClass]="{
           'badge badge-success': Order.status === 'Livré',
@@ -28,43 +28,45 @@
           {{ Order.status }}
         </span>
       </div>
-  <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
-<div *ngIf="selectedCommande && selectedCommande.isDetailsVisible" class="card shadow-sm p-4 mt-4" [@detailsAnimation]>
-  <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.id }}</h4>
-  <ul class="list-group mb-3">
-    <li class="list-group-item">
-      <strong>Client : </strong>{{ selectedCommande.customerId }}
-    </li>
-    <li class="list-group-item">
-      <strong>Date de Commande : </strong>{{ selectedCommande.orderDate  }}
-    </li>
-   
-    <li class="list-group-item">
-      <strong>Total : </strong>{{ selectedCommande.totalPrice | thousandSeparator }} DZD
-    </li>
-    <li class="list-group-item">
-      <strong>Statut : </strong>
-      <span [ngClass]="{
+      <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
+      <div *ngIf="selectedCommande && selectedCommande.id === Order.id && selectedCommande.isDetailsVisible" class="card shadow-sm p-4 mt-4"
+        [@detailsAnimation]>
+        <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.id }}</h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">
+            <strong>Client : </strong>{{ selectedCommande.customerId }}
+          </li>
+          <li class="list-group-item">
+            <strong>Date de Commande : </strong>{{ selectedCommande.orderdate }}
+          </li>
+
+          <li class="list-group-item">
+            <strong>Total : </strong>{{ selectedCommande.totalprice | thousandSeparator }} DZD
+          </li>
+          <li class="list-group-item">
+            <strong>Statut : </strong>
+            <span [ngClass]="{
         'badge badge-success': selectedCommande.status === 'Livré',
         'badge badge-warning': selectedCommande.status === 'En cours',
         'badge badge-danger': selectedCommande.status === 'Annulé'
       }">
-        {{ selectedCommande.status }}
-      </span>
-    </li>
-    <li class="list-group-item">
-      <h5>Produits Commandés</h5>
-      <ul class="list-unstyled">
-        <li *ngFor="let produit of ItemsOrders">
-          {{ produit.name }} - Quantité : {{ produit.quantity }} - Prix : {{ produit.prix | thousandSeparator }} DZD
-        </li>
-      </ul>
-    </li>
-  </ul>
-  <div class="text-right">
-    <button class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
-  </div>
-</div>
+              {{ selectedCommande.status }}
+            </span>
+          </li>
+          <li class="list-group-item">
+            <h5>Produits Commandés</h5>
+            <ul class="list-unstyled">
+              <li *ngFor="let produit of ItemsOrders">
+                {{ produit.name }} - Quantité : {{ produit.quantity }} - Prix : {{ produit.prix | thousandSeparator }}
+                DZD
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="text-right">
+          <button class="btn btn-secondary" (click)="closeDetails()">Fermer</button>
+        </div>
+      </div>
 
       <div class="col">
         <button class="btn btn-outline-info btn-sm" (click)="viewDetails(Order)">Voir</button>
@@ -76,5 +78,5 @@
     </div>
   </div>
 
- 
+
 </div>

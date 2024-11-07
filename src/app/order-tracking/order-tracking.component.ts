@@ -8,7 +8,7 @@ import { ProductsService } from '../service/products.service';
 
 
 interface Produit {
-  productId: string;
+  productid: string;
   quantity: number; 
   name: string;
   prix: number; 
@@ -106,7 +106,7 @@ export class OrderTrackingComponent implements OnInit {
   
   
   loadProductsOrderItems(order: any): void {
-    order.isDetailsVisible = !order.isDetailsVisible; // Basculer l'affichage des détails  
+   
     this.orderService.loadProductsOrderItems(order.id).subscribe(
       (response: Produit[]) => {
         if (!response || response.length === 0) {
@@ -129,7 +129,7 @@ export class OrderTrackingComponent implements OnInit {
     );
   }
   loadProductDetails(produit: Produit) {
-    this.productsService.getProductpropertise(produit.productId).subscribe(
+    this.productsService.getProductpropertise(produit.productid).subscribe(
       (response) => {
         produit.name=response.name;
         produit.prix=response.price;
@@ -148,7 +148,7 @@ export class OrderTrackingComponent implements OnInit {
   showOrderDetails(order: any) {
   
     if (order) {
-    // order.isDetailsVisible = !order.isDetailsVisible; // Toggle pour afficher/masquer les détails
+      order.isDetailsVisible = !order.isDetailsVisible; // Basculer l'affichage des détails 
      this.loadProductsOrderItems(order)
     }
   }

@@ -6,7 +6,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { ProductsService } from '../service/products.service';
 
 interface Produit {
-  productID: string;
+  productid: string;
   quantity: number; 
   name: string;
   prix: number; 
@@ -40,7 +40,7 @@ interface Commande {
 })
 export class OrderManagementComponent {
   selectedCommande: OrderDatabase|null = null;
-  selectedCommandeIndex: number | null = null;
+  
   OrdersALL: OrderDatabase[] = [];
   selectedClient: Commande | null = null;
   ItemsOrders:Produit[]| null = null;
@@ -52,10 +52,7 @@ export class OrderManagementComponent {
     this.orderService.getALLOrders().subscribe(
       (orders: any[]) => {
          // Ajoutez isDetailsVisible à chaque commande
-      this.OrdersALL = orders.map(order => ({
-        ...order,
-        isDetailsVisible: false // Initialiser à false pour masquer les détails
-      }));
+      this.OrdersALL = orders
         this.OrdersALL.forEach(order => this.loadCustomerName(order)); // Charger le nom pour chaque commande
       },
       error => console.error('Erreur lors de la récupération des commandes', error)
@@ -63,18 +60,18 @@ export class OrderManagementComponent {
   }
 
   loadCustomerName(order: any) {
-    this.orderService.getInfoCustomer(order.customerId).subscribe(
+    order.isDetailsVisible=false;
+    this.orderService.getInfoCustomer(order.customerid).subscribe(
       (response) => {
        order.customerName = response.name; 
        order.customerTel = response.phone; 
-      
-       console.log('informations du client', order.customerName)
+              console.log('informations du client', order.customerName)
       },
       error => console.error('Erreur lors de la récupération des informations du client', error)
     );
   }
   loadProductsOrderItems(order: any): void {
-    order.isDetailsVisible = !order.isDetailsVisible; // Basculer l'affichage des détails
+    order.isDetailsVisible =false; // Basculer l'affichage des détails
     
     if (!order.id) {
       console.error('L ID de la commande est manquant');
@@ -93,7 +90,7 @@ export class OrderManagementComponent {
         // Charger les détails de chaque produit
         this.ItemsOrders.forEach(item => {
           
-          this.loadProductDetails(item);
+          this.loadProductDetails(item);console.log('produit id a recherche'+ item.productid);
         });
   
         console.log('Liste des produits pour la commande numéro', order.id, this.ItemsOrders);
@@ -106,7 +103,9 @@ export class OrderManagementComponent {
   
   
   loadProductDetails(produit: Produit) {
-    this.productsService.getProductpropertise(produit.productID).subscribe(
+
+    this.productsService.getProductpropertise(produit.productid).subscribe(
+      
       (response) => {
         produit.name=response.name;
         produit.prix=response.price;
@@ -119,15 +118,25 @@ export class OrderManagementComponent {
   
   // Fonction pour afficher les détails d'une commande
   viewDetails(commande: OrderDatabase) {
-    this.selectedCommande = commande;
-    this.loadProductsOrderItems(this.selectedCommande);
-   // this.selectedCommandeIndex = index;
+   
+      if (this.selectedCommande && this.selectedCommande.id === commande.id) {
+        // Si la même commande est cliquée, fermer les détails
+        this.closeDetails();
+      } else {
+        // Ouvrir les détails de la nouvelle commande sélectionnée
+        this.selectedCommande = commande;
+        this.selectedCommande.isDetailsVisible = true;
+        this.loadProductsOrderItems(this.selectedCommande);
+      }
+    
+    
+    
   }
 
   // Fonction pour fermer les détails de la commande
   closeDetails() {
     this.selectedCommande = null;
-    this.selectedCommandeIndex = null;
+  
   }
 
   // Fonction pour modifier une commande (à implémenter selon ton besoin)

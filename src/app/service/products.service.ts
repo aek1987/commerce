@@ -17,7 +17,7 @@ export class ProductsService {
     return this.http.get<Product[]>(this.apiUrl);
   }
   getProductpropertise(id:string): Observable<any> {
-    console.log('nekaa :'+`${this.apiUrlProduit}/${id}      }`)
+    console.log('profoduct url  :'+`${this.apiUrlProduit}/${id}      }`)
     return this.http.get<any>(`${this.apiUrlProduit}/${id}`);
     
   }
