@@ -69,45 +69,9 @@ maxLimit: number = 400000;  // Limite maximale pour le slider
   }
   // Méthode pour ajouter un produit au panier
   addToCart(product: Product,event: MouseEvent) {
-    console.log('Produit clique:', product);
+        console.log('Produit clique:', product);
     event.stopPropagation(); // Empêche le clic du bouton de déclencher le clic de la carte
-    this.cartService.addProduct(product);
-
-   // Position du toast basée sur la position du bouton
-  
-
-   // Obtenir les coordonnées du bouton cliqué
-  const buttonElement = event.target as HTMLElement;
-  const rect = buttonElement.getBoundingClientRect();
-  const position = {
-    top: rect.top + window.scrollY +50+'px',  // Ajuste la position verticale pour être juste au-dessus du bouton
-    left: rect.left + window.scrollX + 'px'      // Position horizontale du bouton
-  };
-  this.toastr.clear();
-  // Définir la position du toast en fonction de l'emplacement du bouton
-  this.toastr.success('Succès Produit ajouté au panier!', '', {
-    positionClass: 'toast-custom-position',
-    enableHtml: true,
-    tapToDismiss: true,
-    timeOut: 2000,  // Durée d'affichage du toast
-  //  toastClass: `ngx-toastr toast-custom-position`,
-    onActivateTick: true,
-    toastClass: `ngx-toastr toast-success`,
-  });
-// Ajouter un style personnalisé au toast
-// Ajouter un style personnalisé au toast après un court délai
-setTimeout(() => {
-  const toastElement = document.querySelector('.toast-custom-position') as HTMLElement;
-  if (toastElement) {
-    toastElement.style.position = 'absolute';
-    toastElement.style.top = position.top;
-    toastElement.style.left = position.left;
-    toastElement.style.textDecorationColor= 'green'; // Appliquez le vert directement
-    toastElement.style.color = 'green'; // Texte en blanc
-  }
-}, 0); // Le délai de 0 ms permet d'attendre que le toast soit rendu
-
- console.log('Message de Toastr devrait apparaître ici');
+    this.cartService.addProduct(product); 
     
   }
    // Méthode pour calculer le total du panier

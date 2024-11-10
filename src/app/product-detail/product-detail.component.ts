@@ -78,23 +78,6 @@ export class ProductDetailComponent implements OnInit {
     console.log('Produit cliqué:', product);
     
     this.cartService.addProduct(product);
-
-    // Position du toast basée sur la position du bouton
-    const buttonElement = event.target as HTMLElement;
-    const rect = buttonElement.getBoundingClientRect();
-    const position = {
-      top: rect.top + window.scrollY + 50 + 'px', // Ajuste la position verticale
-      left: rect.left + window.scrollX + 'px' // Position horizontale
-    };
-    this.toastr.clear();
-    this.toastr.success('Succès ! Produit ajouté au panier!', '', {
-      positionClass: 'toast-custom-position',
-      enableHtml: true,
-      tapToDismiss: true,
-      timeOut: 2000,
-      onActivateTick: true,
-      toastClass: `ngx-toastr toast-success`,
-    });  
     this.router.navigate(['/delivery']);
   }
  

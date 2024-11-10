@@ -10,12 +10,10 @@
   /* margin-bottom: 20px; /* Espacement en bas */
   border-bottom: 2px solid #d4af37
 }
-
 .input-group {
   flex: 1; /* Permet à l'input de prendre toute la largeur disponible */
   display: flex; /* Aligner input et button sur la même ligne */
 }
-
 .search-input {
   border-radius: 4px 0 0 4px; /* Coins arrondis pour l'input */
   border: 1px solid #ced4da; /* Bordure */
@@ -23,7 +21,6 @@
   padding: 0 10px; /* Espacement interne */
   flex-grow: 1; /* Prend toute la largeur disponible */
 }
-
 .search-btn {
   border-radius: 0 4px 4px 0; /* Coins arrondis pour le bouton */
   height: 45px; /* Hauteur uniforme */
@@ -33,12 +30,10 @@
   border: 1px solid #007bff; /* Bordure */
   transition: background-color 0.3s, border-color 0.3s; /* Animation pour l'interaction */
 }
-
 .search-btn:hover {
   background-color: #0056b3; /* Couleur de fond au survol */
   border-color: #0056b3; /* Bordure au survol */
 }
-
 .dropdown-container {
   position: relative;
   flex: 1; /* Prend toute la largeur disponible */
@@ -84,9 +79,20 @@
 .card {
   border: 1px solid #dee2e6; /* Bordure autour de la carte */
   border-radius: 8px; /* Coins arrondis pour la carte */
-  transition: box-shadow 0.2s; /* Animation pour l'ombre */
-}
+  transition: box-shadow 0.2s;
+  height: 100%;
+  
 
+   /* Animation pour l'ombre */
+}
+.card-description {
+  max-height: 80px; /* Ajustez la hauteur en fonction de vos besoins */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limite le nombre de lignes affichées */
+  -webkit-box-orient: vertical;
+}
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre au survol */
 }

@@ -126,7 +126,7 @@ o
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text"><strong>Prix : {{ product.price | thousandSeparator }}</strong></p>
-              <p class="card-text">{{ product.description }}</p>
+              <p class="card-description">{{ product.description }}</p>
               <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary" (click)="addToCart(product, $event)">
                 <fa-icon [icon]="faCartPlus"></fa-icon>
                 Ajouter au panier

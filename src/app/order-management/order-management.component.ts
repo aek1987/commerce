@@ -12,15 +12,7 @@ interface Produit {
   prix: number; 
 }
 
-interface Commande {
-  id: number;
-  clientName: string;
-  date: Date;
-  total: number;
-  status: string;
-  address: string;
-  produits: Produit[];
-}
+
 
 @Component({
   selector: 'app-commande',
@@ -42,7 +34,7 @@ export class OrderManagementComponent {
   selectedCommande: OrderDatabase|null = null;
   
   OrdersALL: OrderDatabase[] = [];
-  selectedClient: Commande | null = null;
+ 
   ItemsOrders:Produit[]| null = null;
      
   constructor(private orderService: OrderService, private productsService :ProductsService) 
@@ -53,7 +45,7 @@ export class OrderManagementComponent {
       (orders: any[]) => {
          // Ajoutez isDetailsVisible à chaque commande
       this.OrdersALL = orders
-        this.OrdersALL.forEach(order => this.loadCustomerName(order)); // Charger le nom pour chaque commande
+        this.OrdersALL.forEach(order => {this.loadCustomerName(order)}); // Charger le nom pour chaque commande
       },
       error => console.error('Erreur lors de la récupération des commandes', error)
     );
@@ -71,12 +63,8 @@ export class OrderManagementComponent {
     );
   }
   loadProductsOrderItems(order: any): void {
-    order.isDetailsVisible =false; // Basculer l'affichage des détails
     
-    if (!order.id) {
-      console.error('L ID de la commande est manquant');
-      return;
-    }
+        
   
     this.orderService.loadProductsOrderItems(order.id).subscribe(
       (response: Produit[]) => {
@@ -118,23 +106,23 @@ export class OrderManagementComponent {
   
   // Fonction pour afficher les détails d'une commande
   viewDetails(commande: OrderDatabase) {
-   
-      if (this.selectedCommande && this.selectedCommande.id === commande.id) {
-        // Si la même commande est cliquée, fermer les détails
-        this.closeDetails();
-      } else {
-        // Ouvrir les détails de la nouvelle commande sélectionnée
-        this.selectedCommande = commande;
-        this.selectedCommande.isDetailsVisible = true;
-        this.loadProductsOrderItems(this.selectedCommande);
-      }
-    
-    
+    console.log("Selected commande après clic:", this.selectedCommande?.orderdate);
+    if (this.selectedCommande && this.selectedCommande.id === commande.id) {
+           this.closeDetails(); // Ferme les détails si la même commande est cliquée
+  } else {
+      this.selectedCommande = commande; // Assignez ici la commande correctement
+      this.selectedCommande.isDetailsVisible = true;
+     
+      this.loadProductsOrderItems(this.selectedCommande);
+  }
     
   }
 
   // Fonction pour fermer les détails de la commande
   closeDetails() {
+    if (this.selectedCommande) {
+      this.selectedCommande.isDetailsVisible = false;
+    }
     this.selectedCommande = null;
   
   }

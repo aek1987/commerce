@@ -29,7 +29,7 @@
         </span>
       </div>
       <!-- Section de détails de commande, affichée lors du clic sur 'Voir' -->
-      <div *ngIf="selectedCommande && selectedCommande.id === Order.id && selectedCommande.isDetailsVisible" class="card shadow-sm p-4 mt-4"
+      <div *ngIf="this.selectedCommande && Order.isDetailsVisible" class="card shadow-sm p-4 mt-4"
         [@detailsAnimation]>
         <h4 class="mb-4 text-primary">Détails de la Commande #{{ selectedCommande.id }}</h4>
         <ul class="list-group mb-3">
