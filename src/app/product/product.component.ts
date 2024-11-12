@@ -19,7 +19,7 @@ export class ProductComponent {
   filteredProducts: Product[] = [];
     
 
-  categories: string[] = ['All', 'Oppo', 'Redmi', 'realme','Apple', 'Samsung', 'Xiaomi']; // Liste des catégories
+  categories: string[] = ['All', 'Oppo', 'Redmi','ITEL', 'realme','Apple', 'Samsung', 'Xiaomi']; // Liste des catégories
   selectedCategory: string = 'All'; // Catégorie sélectionnée
 
   faCartPlus = faCartPlus; // Déclarer l'icône dans la classe du composant
