@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../service/payment.service';
 import { Router } from '@angular/router';
-import { Wilaya } from '../modeles/Wilaya.model';
 import { Panier } from '../modeles/Panier.model';
 import { CartService } from '../service/cart.service';
 import { Commande } from '../modeles/commande';
 import { OrderService } from '../service/order.service';
 import Swal from 'sweetalert2';
+import { WilayaService } from '../service/wilaya.servfice';
 
 
 @Component({
@@ -19,13 +19,11 @@ export class DeliveryFormComponent  implements OnInit{
   items: Panier []=[];  // Obtenir les produits du panier
   total :number=0; // Calculer le total
   total_a_payer :number=0; // Calculer le total
-  wilayas: Wilaya[] = [
-    { name: 'Alger', communes: ['Bab El Oued', 'Hussein Dey', 'El Harrach'] },
-    { name: 'Oran', communes: ['Es-Sénia', 'Aïn El Türck', 'Gdyel'] },
-    { name: 'Constantine', communes: ['El Khroub', 'Aïn Smara', 'Didouche Mourad'] },
-    // Ajoutez d'autres wilayas et communes ici
-  ];
-
+  wilayas: any[] = [];
+  selectedWilayaId: string = '';
+  selectedCommunes: string[] = [];
+  commandes: any[] = [];
+ // Liste des communes filtrées en fonction de la wilaya sélectionnée
   deliveryInfos = {
     address: '',
     wilaya: '',
@@ -33,7 +31,6 @@ export class DeliveryFormComponent  implements OnInit{
     name:"",
     phone:""
   
-
   };
   cardDetails = {
     number: '',
@@ -58,39 +55,48 @@ export class DeliveryFormComponent  implements OnInit{
     // Charger les items du panier initialement
     this.items = this.cartService.getPanierItems();
     console.log('Panier initial après chargement:', this.items);
-  }
-  
 
+    // Charger les wilayas au démarrage du composant
+    this.wilayaService.getWilayas().subscribe(
+      (data) => {
+        this.wilayas = data;
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des wilayas', error);
+      }
+    );
+  } 
+ 
   
-  selectedCommunes: string[] = [];
   paymentMode: string = 'cash'; // Par défaut, paiement par carte
-  constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ,private orderservice:OrderService ) {}
-  onWilayaChange(event: Event) {
- // Lorsque la wilaya est changée
-const selectedWilaya = (event.target as HTMLSelectElement).value;
-this.deliveryInfos.wilaya = selectedWilaya;
-// Trouver les communes de la wilaya sélectionnée
-const wilaya = this.wilayas.find(w => w.name === selectedWilaya);
-this.selectedCommunes = wilaya ? wilaya.communes : [];
-this.deliveryInfos.commune = ''; // Réinitialiser la commune
-
-// Ajouter les frais de livraison en fonction de la wilaya sélectionnée
-if (selectedWilaya === 'Alger') {
-  this.deliveryFee = 300; // Frais de livraison pour Alger
-} else {
-  this.deliveryFee = 500; // Pas de frais ou définir des frais pour d'autres wilayas
-}
-
-// S'abonner aux articles du panier
-this.cartService.items$.subscribe(items => {
-  this.items = items;
-});
-
-
-
-
+  constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ,private orderservice:OrderService ,
+    private wilayaService: WilayaService
+  ) {}
+  
+  
+  onWilayaChange(event: any): void {
+    const selectedWilaya = this.wilayas.find(wilaya => wilaya.nom === this.deliveryInfos.wilaya);
+    
+    if (selectedWilaya && selectedWilaya.communes) {
+      this.selectedCommunes = selectedWilaya.communes; // Met à jour la liste des communes
+    } else {
+      this.selectedCommunes = []; // Si la wilaya n'est pas valide, vide la liste des communes
+    }
+  
+    // Réinitialiser la commune si elle ne fait pas partie des communes disponibles
+    if (!this.selectedCommunes.includes(this.deliveryInfos.commune)) {
+      this.deliveryInfos.commune = ''; // Réinitialise la commune sélectionnée si elle n'est pas dans la nouvelle liste
+    }
+  
+    // Ajouter les frais de livraison en fonction de la wilaya sélectionnée
+    if (selectedWilaya && selectedWilaya.nom === 'Alger') {
+      this.deliveryFee = 300; // Frais de livraison pour Alger
+    } else {
+      this.deliveryFee = 500; // Frais généraux ou différents pour d'autres wilayas
+    }
   }
-
+  
+  
   onCommuneChange(event: Event) {
     this.deliveryInfos.commune = (event.target as HTMLSelectElement).value;
   }
@@ -207,6 +213,19 @@ this.orderservice.PasserCommande(commande).subscribe(
    console.log('le panier apres vider '+ this.items);
    this.router.navigate(['/product']);
   }
+// Lorsque l'utilisateur sélectionne une wilaya
+onWilayaSelect(wilayaId: string): void {
+  this.selectedWilayaId = wilayaId;
 
+  // Charger les commandes pour cette wilaya
+  this.wilayaService.getCommandesForWilaya(wilayaId).subscribe(
+    (data) => {
+      this.commandes = data;
+    },
+    (error) => {
+      console.error('Erreur lors du chargement des commandes', error);
+    }
+  );
+}
 
 }

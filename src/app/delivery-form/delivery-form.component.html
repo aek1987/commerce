@@ -28,28 +28,18 @@
             </div>
     
             <!-- Wilaya et Commune sur une ligne -->
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="wilaya" class="font-weight-bold">Wilaya</label>
-                  <select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required #wilaya="ngModel">
-                    <option value="">Sélectionner une wilaya</option>
-                    <option *ngFor="let wilaya of wilayas" [value]="wilaya.name">{{ wilaya.name }}</option>
-                  </select>
-                  <div *ngIf="wilaya.invalid && wilaya.touched" class="text-danger">
-                    Veuillez sélectionner une wilaya.
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="commune" class="font-weight-bold">Commune</label>
-                  <select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="selectedCommunes.length === 0" required #commune="ngModel">
-                    <option value="">Sélectionner une commune</option>
-                    <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
-                  </select>
-                  <div *ngIf="commune.invalid && commune.touched" class="text-danger">
-                    Veuillez sélectionner une commune.
-                  </div>
-                </div>
-            </div>
+          <!-- Wilaya et Commune sur une ligne -->
+<!-- Wilaya et Commune sur une ligne -->
+<select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required #wilaya="ngModel">
+  <option value="">Sélectionner une wilaya</option>
+  <option *ngFor="let wilaya of wilayas" [value]="wilaya.nom">{{ wilaya.nom }}</option>
+</select>
+
+<select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="selectedCommunes?.length === 0" required #commune="ngModel">
+  <option value="">Sélectionner une commune</option>
+  <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
+</select>
+
     
             <!-- Adresse -->
             <div class="form-group">

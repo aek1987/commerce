@@ -117,8 +117,14 @@
 .filter-sidebar {
   background-color: #f8f9fa;
   padding: 15px;
-  border-radius: 8px;
   height: 100%;
+
+  border-radius: 8px;
+  border: 2px solid #ccc; /* Couleur et épaisseur de la bordure */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
+  background-color: #f9f9f9; /* Couleur de fond légèrement différente pour le contraste */
+
+
 }
 
 .dropdown-container {

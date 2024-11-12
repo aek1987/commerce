@@ -1,38 +1,23 @@
 <div class="container mt-4">
-  
+
   <div class="row">
     <!-- Sidebar pour les filtres -->
     <div class="col-md-3">
       <div class="filter-sidebar">
         <!-- Filtres par prix -->
         <div class="form-check mb-3">
-          <input 
-            type="checkbox" 
-            id="less-than-3m" 
-            value="30000"
-            class="form-check-input" 
-            (change)="onPriceFilterChange($event)" 
-          />
+          <input type="checkbox" id="less-than-3m" value="30000" class="form-check-input"
+            (change)="onPriceFilterChange($event)" />
           <label class="form-check-label" for="less-than-3m">{{'MOINS3'|translate}}</label>
         </div>
         <div class="form-check mb-3">
-          <input 
-            type="checkbox" 
-            id="less-than-4m" 
-            value="40000"
-            class="form-check-input" 
-            (change)="onPriceFilterChange($event)" 
-          />
+          <input type="checkbox" id="less-than-4m" value="40000" class="form-check-input"
+            (change)="onPriceFilterChange($event)" />
           <label class="form-check-label" for="less-than-4m">{{'MOINS4'|translate}} </label>
         </div>
         <div class="form-check mb-3">
-          <input 
-            type="checkbox" 
-            id="less-than-5m" 
-            value="50000"
-            class="form-check-input" 
-            (change)="onPriceFilterChange($event)" 
-          />
+          <input type="checkbox" id="less-than-5m" value="50000" class="form-check-input"
+            (change)="onPriceFilterChange($event)" />
           <label class="form-check-label" for="less-than-5m">{{ 'MOINS5'|translate}} </label>
         </div>
 
@@ -44,92 +29,63 @@
           </div>
           <div *ngIf="dropdownOpen" class="dropdown-list">
             <div *ngFor="let category of categories" class="form-check">
-              <input 
-                type="checkbox" 
-                [value]="category" 
-                (change)="onCategoryChange($event)" 
-o                          
-               
-                [checked]="selectedCategories.includes(category)" 
-                class="form-check-input"
-                id="{{category}}"
-              />
+              <input type="checkbox" [value]="category" (change)="onCategoryChange($event)" o
+                [checked]="selectedCategories.includes(category)" class="form-check-input" id="{{category}}" />
               <label class="form-check-label" for="{{category}}">{{ category }}</label>
             </div>
           </div>
         </div>
 
         <!-- Slider pour la plage de prix -->
-     <!-- Slider pour la plage de prix avec deux poignées -->
+        <!-- Slider pour la plage de prix avec deux poignées -->
 
-     <div class="price-filter">
-      <label for="priceRange" class="form-label">{{ 'PRIX' | translate }}</label>
-      <div class="slider-wrapper">
-        <input 
-          type="range" 
-          min="4000" 
-          max="400000" 
-          [(ngModel)]="minPrice" 
-          (input)="onPriceChange()" 
-          class="range-slider" 
-          
-        />
-        <input 
-          type="range" 
-          min="4000" 
-          max="400000" 
-          [(ngModel)]="maxPrice" 
-          (input)="onPriceChange()" 
-          class="range-slider" 
-          
-        />    
-        <!-- Barre de progression visuelle -->
-        <div class="slider-progress-container">
-          <div 
-            class="slider-progress" 
-            [style.left.%]="getProgressLeft()" 
-            [style.width.%]="getProgressWidth()">
+        <div class="price-filter">
+          <label for="priceRange" class="form-label">{{ 'PRIX' | translate }}</label>
+          <div class="slider-wrapper">
+            <input type="range" min="4000" max="400000" [(ngModel)]="minPrice" (input)="onPriceChange()"
+              class="range-slider" />
+            <input type="range" min="4000" max="400000" [(ngModel)]="maxPrice" (input)="onPriceChange()"
+              class="range-slider" />
+            <!-- Barre de progression visuelle -->
+            <div class="slider-progress-container">
+              <div class="slider-progress" [style.left.%]="getProgressLeft()" [style.width.%]="getProgressWidth()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Affichage des valeurs min et max -->
+          <div class="price-values">
+            <span>{{ minPrice | thousandSeparator }} </span>
+            <span>{{ maxPrice | thousandSeparator }} </span>
           </div>
         </div>
-      </div>
-    
-      <!-- Affichage des valeurs min et max -->
-      <div class="price-values">
-        <span>{{ minPrice | thousandSeparator }} </span>
-        <span>{{ maxPrice | thousandSeparator }} </span>
-      </div>
-    </div>
-    
 
-
-        
-      <!-- filstre par des image de marques -->
-      
-    
-      
-
-      <!-- fin des filtre -->
+       <!-- filstre par des image de marques -->
+        <!-- fin des filtre -->
       </div>
     </div>
     <div *ngIf="isLoading" class="spinner-border" role="status">
       <span class="sr-only">Chargement...</span>
     </div>
+
+
+
+
     <!-- Liste des produits -->
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
           <div class="card product-card" (click)="goToProductDetail(product)"
-          
-           (mouseenter)="isHoveredProduct = product.id.toString()" 
-           (mouseleave)="isHoveredProduct = null">
-           <div class="image-container">
-           <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
-           </div>
+            (mouseenter)="isHoveredProduct = product.id.toString()" (mouseleave)="isHoveredProduct = null">
+            <div class="image-container">
+              <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text"><strong>Prix : {{ product.price | thousandSeparator }}</strong></p>
               <p class="card-description">{{ product.description }}</p>
-              <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary" (click)="addToCart(product, $event)">
+              <button *ngIf="isHoveredProduct === product.id.toString()" class="btn btn-primary"
+                (click)="addToCart(product, $event)">
                 <fa-icon [icon]="faCartPlus"></fa-icon>
                 Ajouter au panier
               </button>
@@ -139,6 +95,6 @@ o
       </div>
     </div>
   </div>
- 
+
   <app-cart></app-cart>
 </div>
