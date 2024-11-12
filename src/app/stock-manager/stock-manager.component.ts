@@ -3,7 +3,7 @@ import { ProductsService } from '../service/products.service';
 import { newProduct, Product } from '../modeles/product.model';
 import { AlertService } from '../service/alerte-service.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-manager',
@@ -19,7 +19,9 @@ export class StcoktManagerComponent implements OnInit {
     description: '',
     image: '',
     category: '',
-    resolution: '',
+    ecran: '',
+    processor: '',
+    os: '',
     storage: '',
     ram: '',
     battery: '',
@@ -32,7 +34,7 @@ export class StcoktManagerComponent implements OnInit {
   storageOptions: number[] = [64,128,266];
   ramOptions: number[] = [4, 8, 16];
   batteryOptions: number[] = [2000, 3000, 4000, 5000, 6000];
-  categories: string[] = ['Oppo', 'Redmi', 'TCL', 'Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Nokia'];
+  categories: string[] = ['Oppo', 'Redmi', 'ITEL', 'Samsung', 'Apple', 'Huawei', 'Xiaomi', 'Infinix'];
   resolutions: { value: string; label: string }[] = [
     { value: '1280 x 720', label: 'HD (1280 x 720)' },
     { value: '1600 x 900', label: 'HD+ (1600 x 900)' },
@@ -44,7 +46,7 @@ export class StcoktManagerComponent implements OnInit {
   ];
   colorOptions: string[] = ['Rouge', 'Vert', 'Bleu', 'Jaune', 'Noir', 'Blanc', 'Gris', 'Rose'];
   isOtherColor: boolean = false;
-
+  isCustomResolution: boolean = false;
   constructor(private productService: ProductsService,private toast: AlertService,private router: Router)     
    {}
 
@@ -62,22 +64,8 @@ export class StcoktManagerComponent implements OnInit {
       this.productService.addProduct(this.newProduct).subscribe(
         (newProduct) => {
           this.products.push(newProduct);
-          this.toast.success('Produit ajouté avec succès');
-          // Réinitialiser le formulaire après l'ajout
-         this.newProduct = { name: '',
-          id:0,
-          price: 0,
-          description: '',
-          image: '',
-          category: '',
-          resolution: '',
-          storage: '',
-          ram: '',
-          battery: '',
-          wirelessCharging: '',
-          color: '',
-          dualSim: false };
-          console.log('ajout unproduit en cours ', this.newProduct );
+          this.showsuccess();
+          console.log('ajout un produit en cours ', this.newProduct );
          // this.imagePreview = null;
         },
         (error) => {
@@ -88,7 +76,14 @@ export class StcoktManagerComponent implements OnInit {
       this.toast.error('Veuillez sélectionner une image pour le produit');
     }
   }
-  
+  showsuccess(){
+      Swal.fire({
+      icon: 'success',
+      title: ' ajouter un produit',
+      text: 'veilleiz consulter la la liste des produits',
+      confirmButtonText: 'Voir la liste des produit',
+  })
+}
 
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe({
@@ -105,7 +100,18 @@ export class StcoktManagerComponent implements OnInit {
   
   
 
+  
 
+  checkCustomResolution(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.isCustomResolution = selectedValue === 'other';
+    if (!this.isCustomResolution) {
+      this.newProduct.ecran = selectedValue; // Set the selected value if not custom
+    } else {
+      this.newProduct.ecran = ''; // Clear if custom input is selected
+    }
+  }
+  
 
   onImageSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];

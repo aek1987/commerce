@@ -18,13 +18,15 @@ export class ProductDetailComponent implements OnInit {
     description: '',
     image: '',
     category: '',
-    resolution: '',
+    ecran: '',
+    processor: '',
+    os: '',
     storage: '',
     ram: '',
     battery: '',
     wirelessCharging: '',
     color: '',
-    dualSim: false };
+    dualsim: '' };
  // Utiliser null par défaut
 
   constructor(

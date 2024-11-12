@@ -95,8 +95,8 @@ o
     
       <!-- Affichage des valeurs min et max -->
       <div class="price-values">
-        <span>{{ minPrice | thousandSeparator }} DA</span>
-        <span>{{ maxPrice | thousandSeparator }} DA</span>
+        <span>{{ minPrice | thousandSeparator }} </span>
+        <span>{{ maxPrice | thousandSeparator }} </span>
       </div>
     </div>
     
@@ -120,9 +120,11 @@ o
         <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
           <div class="card product-card" (click)="goToProductDetail(product)"
           
-          (mouseenter)="isHoveredProduct = product.id.toString()" 
+           (mouseenter)="isHoveredProduct = product.id.toString()" 
            (mouseleave)="isHoveredProduct = null">
-            <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
+           <div class="image-container">
+           <img [src]="product.image" alt="{{ product.name }}" class="card-img-top product-image">
+           </div>
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text"><strong>Prix : {{ product.price | thousandSeparator }}</strong></p>

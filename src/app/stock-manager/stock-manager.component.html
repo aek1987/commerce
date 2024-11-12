@@ -38,14 +38,27 @@
           </select>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="resolution" class="form-label">Résolution</label>
-          <select id="resolution" [(ngModel)]="newProduct.resolution" name="resolution" class="form-control">
+          <label for="ecran" class="form-label">Ecran</label>
+          <select id="ecran" [(ngModel)]="newProduct.ecran" name="ecran" class="form-control" (change)="checkCustomResolution($event)">
+            <option value="" disabled selected>Saisir ecran ....</option>
             <option *ngFor="let res of resolutions" [value]="res.value">{{ res.label }}</option>
+            <option value="other">Autre (veuillez spécifier)</option>
           </select>
+          <input *ngIf="isCustomResolution" type="text" [(ngModel)]="newProduct.ecran" placeholder="Veuillez spécifier la Ecran" class="form-control mt-2">
         </div>
         
-      </div>
+              </div>
 
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="wirelessCharging" class="form-label">processor</label>
+          <input type="text" [(ngModel)]="newProduct.processor" name="os" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="wirelessCharging" class="form-label">System d'exploitation</label>
+          <input type="text"  [(ngModel)]="newProduct.os" name="os" class="form-control">
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="storage" class="form-label">Espace de stockage</label>
@@ -89,6 +102,7 @@
           <input type="checkbox" id="dualSim" [(ngModel)]="newProduct.dualSim" name="dualSim" class="form-check-input">
           <label for="dualSim" class="form-check-label">Double puce</label>
         </div>
+        
       </div>
 
       <div class="text-center">

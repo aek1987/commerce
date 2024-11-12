@@ -18,11 +18,13 @@ export interface newProduct  {
   description: string;   // Description du produit
   image: string;         // URL de l'image du produit
   category: string;   
-  resolution: '',
-  storage: '',
-  ram: '',
-  battery: '',
-  wirelessCharging: '',
-  color: '',
+  ecran: string,
+  processor: string,
+  os: string,
+  storage: string,
+  ram: string,
+  battery: string,
+  wirelessCharging: string,
+  color: string,
   dualSim: false
 };
