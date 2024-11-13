@@ -27,18 +27,26 @@
                 </div>
             </div>
     
-            <!-- Wilaya et Commune sur une ligne -->
+          
           <!-- Wilaya et Commune sur une ligne -->
-<!-- Wilaya et Commune sur une ligne -->
-<select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required #wilaya="ngModel">
-  <option value="">Sélectionner une wilaya</option>
-  <option *ngFor="let wilaya of wilayas" [value]="wilaya.nom">{{ wilaya.nom }}</option>
-</select>
 
-<select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="selectedCommunes?.length === 0" required #commune="ngModel">
-  <option value="">Sélectionner une commune</option>
-  <option *ngFor="let commune of selectedCommunes" [value]="commune">{{ commune }}</option>
-</select>
+<div class="form-group">
+  <label for="wilaya">Wilaya</label>
+  <select id="wilaya" class="form-control" name="wilaya" [(ngModel)]="deliveryInfos.wilaya" (change)="onWilayaChange($event)" required #wilaya="ngModel">
+    <option value="">Sélectionner une wilaya</option>
+    <option *ngFor="let wilaya of wilayas" [value]="wilaya.id">{{ wilaya.id }}-{{ wilaya.nom }}</option>
+  </select>
+</div>
+
+<!-- Sélecteur de Commune -->
+<div class="form-group">
+  <label for="commune">Commune</label>
+  <select id="commune" class="form-control" name="commune" [(ngModel)]="deliveryInfos.commune" [disabled]="!selectedCommunes.length" required #commune="ngModel">
+    <option value="">Sélectionner une commune</option>
+    <option *ngFor="let commune of selectedCommunes" [value]="commune.id">{{ commune.nom }}</option>
+  </select>
+</div>
+
 
     
             <!-- Adresse -->

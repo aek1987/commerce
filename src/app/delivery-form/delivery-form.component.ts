@@ -7,6 +7,11 @@ import { Commande } from '../modeles/commande';
 import { OrderService } from '../service/order.service';
 import Swal from 'sweetalert2';
 import { WilayaService } from '../service/wilaya.servfice';
+interface Commune {
+  id: string;
+  nom: string;
+  wilaya_id: string; // Corrected to match property name conventions
+}
 
 
 @Component({
@@ -21,7 +26,7 @@ export class DeliveryFormComponent  implements OnInit{
   total_a_payer :number=0; // Calculer le total
   wilayas: any[] = [];
   selectedWilayaId: string = '';
-  selectedCommunes: string[] = [];
+  selectedCommunes: Commune[] = [];
   commandes: any[] = [];
  // Liste des communes filtrées en fonction de la wilaya sélectionnée
   deliveryInfos = {
@@ -72,30 +77,33 @@ export class DeliveryFormComponent  implements OnInit{
   constructor(private paymentService: PaymentService,private router: Router,private cartService: CartService ,private orderservice:OrderService ,
     private wilayaService: WilayaService
   ) {}
-  
-  
   onWilayaChange(event: any): void {
-    const selectedWilaya = this.wilayas.find(wilaya => wilaya.nom === this.deliveryInfos.wilaya);
+    const selectedWilayaId = this.deliveryInfos.wilaya;
     
-    if (selectedWilaya && selectedWilaya.communes) {
-      this.selectedCommunes = selectedWilaya.communes; // Met à jour la liste des communes
-    } else {
-      this.selectedCommunes = []; // Si la wilaya n'est pas valide, vide la liste des communes
-    }
+    console.log('selected wilaya: ' + selectedWilayaId);
   
-    // Réinitialiser la commune si elle ne fait pas partie des communes disponibles
-    if (!this.selectedCommunes.includes(this.deliveryInfos.commune)) {
-      this.deliveryInfos.commune = ''; // Réinitialise la commune sélectionnée si elle n'est pas dans la nouvelle liste
-    }
+    if (selectedWilayaId) {
+      // Appelez le service pour récupérer les communes basées sur l'ID de la wilaya
+      this.wilayaService.getCommunesForWilaya(selectedWilayaId).subscribe(
+        (data) => {
+          this.selectedCommunes = data; 
+        
+          // Met à jour la liste des communes
+        },
+        (error) => {
+          console.error('Erreur lors du chargement des communes', error);
+          this.selectedCommunes = []; // Efface la liste en cas d'erreur
+        }
+      );
   
-    // Ajouter les frais de livraison en fonction de la wilaya sélectionnée
-    if (selectedWilaya && selectedWilaya.nom === 'Alger') {
-      this.deliveryFee = 300; // Frais de livraison pour Alger
-    } else {
-      this.deliveryFee = 500; // Frais généraux ou différents pour d'autres wilayas
+      // Définir les frais de livraison en fonction de la wilaya sélectionnée
+      this.deliveryFee = this.deliveryInfos.wilaya === '16' ? 300 : 500;
+    } 
+    // Réinitialiser la commune sélectionnée si elle ne fait pas partie des communes disponibles
+    if (!this.selectedCommunes.some(commune => commune.nom === this.deliveryInfos.commune)) {
+      this.deliveryInfos.commune = ''; // Réinitialise la commune sélectionnée
     }
   }
-  
   
   onCommuneChange(event: Event) {
     this.deliveryInfos.commune = (event.target as HTMLSelectElement).value;
@@ -118,7 +126,7 @@ export class DeliveryFormComponent  implements OnInit{
   }
 
 // PassersCommande PassersCommande PassersCommande
-  // PassersCommande PassersCommande PassersCommande
+ 
   PassersCommande() {
     if (this.paymentMode === 'card') {
       console.log('Paiement par carte confirmé', this.cardDetails);
@@ -213,19 +221,5 @@ this.orderservice.PasserCommande(commande).subscribe(
    console.log('le panier apres vider '+ this.items);
    this.router.navigate(['/product']);
   }
-// Lorsque l'utilisateur sélectionne une wilaya
-onWilayaSelect(wilayaId: string): void {
-  this.selectedWilayaId = wilayaId;
-
-  // Charger les commandes pour cette wilaya
-  this.wilayaService.getCommandesForWilaya(wilayaId).subscribe(
-    (data) => {
-      this.commandes = data;
-    },
-    (error) => {
-      console.error('Erreur lors du chargement des commandes', error);
-    }
-  );
-}
 
 }

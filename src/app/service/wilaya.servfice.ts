@@ -9,26 +9,18 @@ interface Wilaya {
   nom: string;
 }
 
-interface Commande {
+interface Commune {
   id: string;
-  produit: string;
-  quantite: number;
-  prix: number;
-}
-
-interface CommandeWilaya {
-  wilayaId: string;
-  commandes: Commande[];
+  nom: string;
+  wilaya_id: string; // Corrected to match property name conventions
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class WilayaService {
-
-    private wilayasJsonUrl = 'http://localhost:4200/assets/wilaya/wilayas.json';
-
-  private commandesJsonUrl = 'http://localhost:4200/assets/wilaya/communes.json'; // Chemin vers le fichier commandes
+  private wilayasJsonUrl = 'http://localhost:4200/assets/wilaya/wilayas.json';
+  private communesJsonUrl = 'http://localhost:4200/assets/wilaya/communes.json';
 
   constructor(private http: HttpClient) { }
 
@@ -37,14 +29,21 @@ export class WilayaService {
     return this.http.get<Wilaya[]>(this.wilayasJsonUrl);
   }
 
-  // Récupérer les commandes pour une wilaya donnée
-  getCommandesForWilaya(wilayaId: string): Observable<Commande[]> {
-    return this.http.get<CommandeWilaya[]>(this.commandesJsonUrl).pipe(
-      map((data) => {
-        // Spécifier explicitement le type pour `wilaya`
-        const wilayaCommandes = data.find((wilaya: CommandeWilaya) => wilaya.wilayaId === wilayaId);
-        return wilayaCommandes ? wilayaCommandes.commandes : [];
+  getCommunesForWilaya(wilayaId: string): Observable<Commune[]> {
+    return this.http.get<Commune[]>(this.communesJsonUrl).pipe(
+      map((communes) => {
+        // Affiche toutes les communes avant le filtrage
+      //  console.log('Toutes les communes récupérées:', communes);
+  
+        // Filtrage des communes en fonction de l'ID de la wilaya
+        const filteredCommunes = communes.filter(commune => commune.wilaya_id === wilayaId);
+  
+        // Affiche les communes filtrées
+      //  console.log('Communes filtrées pour la wilaya ' + wilayaId + ':', filteredCommunes);
+  
+        return filteredCommunes;
       })
     );
-  } 
+  }
+  
 }
